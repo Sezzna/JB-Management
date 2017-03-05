@@ -1,8 +1,8 @@
-/.vs
-/Library
-/obj
-/Assembly-CSharp
-/Assembly-CSharp-Editor
-/JB Management.CSharp
-/JB Management.CSharp.Editor
-/JB Management
+/.vs/*
+/Library/*
+/obj/*
+/Assembly-CSharp.csproj
+/Assembly-CSharp-Editor.csproj
+/JB Management.CSharp.csproj
+/JB Management.CSharp.Editor.csproj
+/JB Management.sln
