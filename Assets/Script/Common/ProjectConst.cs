@@ -32,11 +32,13 @@ public class ProjectConst {
     public static string GetRange = "http://www.jbmanagement.com.au/app/getRange.php";
     //得到模块数据;
     public static string GetModel = "http://www.jbmanagement.com.au/app/getModel.php";
+    //得到车型详细信息;
+    public static string GetModelDetil = "http://www.jbmanagement.com.au/app/getModelDetil.php";
+
     //获得尺寸数据
     public static string GetSize = "http://www.jbmanagement.com.au/app/getSize.php";
     //添加尺寸数据(添加车型)
     public static string AddSize = "http://www.jbmanagement.com.au/app/addSize.php";
- 
 
 }
 

@@ -31,6 +31,8 @@ public class ModeCodeItemLogic : MonoBehaviour {
 
     public void Init(MsgJson.CarModel model)
     {
+        m_CarModel = model;
+
         m_ModelCodeText.text = model.code;
         m_YearText.text = model.model_year;
         m_StatusText.text = model.status;
@@ -48,18 +50,12 @@ public class ModeCodeItemLogic : MonoBehaviour {
             m_Arrow.gameObject.SetActive(true);
         }
 
-        //WWWForm form = new WWWForm();
-        //form.AddField("token", PlayerPrefs.GetString("token"));
-        //form.AddField("id", m_Range.id);
+        WWWForm form = new WWWForm();
+        form.AddField("token", PlayerPrefs.GetString("token"));
+        form.AddField("id", m_CarModel.id);
 
-        //HttpManager.Instance.SendPostForm(ProjectConst.GetModel, form);
+        HttpManager.Instance.SendPostForm(ProjectConst.GetModelDetil, form);
     }
-
-    void OnCheckUserFunction(string data)
-    {
-
-    }
-
 
     //---------------------------MEMBER------------------------------------
 
@@ -75,8 +71,7 @@ public class ModeCodeItemLogic : MonoBehaviour {
     private Transform m_Arrow;
 
     //ModelsRange数据;
-    private MsgJson.Range m_Range;
-
+    private MsgJson.CarModel m_CarModel;
 
 }
 

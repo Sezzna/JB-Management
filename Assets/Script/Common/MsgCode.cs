@@ -41,6 +41,8 @@ public enum MsgCode
     S2C_GetRange = 1012,
     //得到模块信息;
     S2C_GetModel = 1013,
+    //得到车型详细信息
+    S2C_GetModelDetail = 1014,
     //得到尺寸消息;
     S2C_GetSize = 1015,
 }

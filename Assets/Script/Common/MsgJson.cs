@@ -198,4 +198,30 @@ public class MsgJson {
         public string status;
     }
 
+    //车型详细数据
+    [Serializable]
+    public class ModelsDetail {
+        public ModelDetail[] modelDetail;
+        public Size[] size; 
+    }
+
+    [Serializable]
+    public class ModelDetail {
+        public string id;
+        public string range_id;
+        public string model_year;
+        public string version;
+        public string status;
+        public string code;
+    }
+
+    [Serializable]
+    public class Size
+    {
+        public string size_id;
+        public string size;
+        public string doorPosition;
+        public string type;
+        public string note;
+    }
 }

@@ -97,7 +97,10 @@ public class ControlPlayer {
     public MsgJson.ModelRange m_ModelsRange;
     //车型信息(尺寸信息);
     public MsgJson.CarModels m_CarModels;
-
+    //车型详细信息;
+    public MsgJson.ModelsDetail m_ModelsDetail;
+    //当前选择的Range的Brand
+    public string m_CurrentRangeBrand;
 
     //-------------------------------------------------------- Control Player 使用数据结构 --------------------------------------------------------
     public class UserInfo {
