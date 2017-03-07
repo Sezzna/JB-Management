@@ -201,7 +201,7 @@ public class MsgJson {
     //车型详细数据
     [Serializable]
     public class ModelsDetail {
-        public ModelDetail[] modelDetail;
+        public ModelDetail[] models;
         public Size[] size; 
     }
 

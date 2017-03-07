@@ -6,6 +6,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
     void Awake() {
         m_ModelsList = transform.FindChild("ModelsList/Viewport/Content");
         m_ModelCodeList = transform.FindChild("ModelCodeList/Viewport/Content");
+        m_SizeList = transform.FindChild("SizeList/Viewport/Content");
 
         m_ModelItem = Resources.Load("ModelItem") as GameObject;
         m_ModelCodeItem = Resources.Load("ModelCodeItem") as GameObject;
@@ -21,7 +22,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         m_ModelText = transform.FindChild("Model/Text").GetComponent<Text>();
         m_ModelYearText = transform.FindChild("ModelYear/Text").GetComponent<Text>();
         m_VersionText = transform.FindChild("Version/Text").GetComponent<Text>();
-        m_StatusText = transform.FindChild("Status/Text").GetComponent<Text>();
+        m_StatusText = transform.FindChild("DetailStatus/Text").GetComponent<Text>();
 
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModel, OnGetCarModel);
@@ -86,18 +87,20 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
         foreach (var v in ControlPlayer.Instance.m_ModelsRange.range) {
 
-            if (v.id == jsonData.modelDetail.range_id) {
+            if (v.id == jsonData.models[0].range_id) {
                 m_BrandText.text = v.brand;
+                m_ModelText.text = v.description;
             }
         }
 
-        //m_BrandText = ControlPlayer.Instance.m_ModelsDetail.modelDetail.range_id
-        //m_ModelYearText = ControlPlayer.Instance.m_ModelsDetail.model[0].model_year;
+        m_ModelYearText.text = ControlPlayer.Instance.m_ModelsDetail.models[0].model_year;
+        m_VersionText.text = ControlPlayer.Instance.m_ModelsDetail.models[0].version;
+        m_StatusText.text = ControlPlayer.Instance.m_ModelsDetail.models[0].status;
 
-        //foreach (var v in ControlPlayer.Instance.m_ModelsDetail.size)
-        //{
-        //    FrameUtil.AddChild(m_ModelCodeList.gameObject, m_ModelDetailItem).GetComponent<ModeCodeItemLogic>().Init(v);
-        //}
+        foreach (var v in ControlPlayer.Instance.m_ModelsDetail.size)
+        {
+            FrameUtil.AddChild(m_SizeList.gameObject, m_ModelDetailItem).GetComponent<ModelDetailItem>().Init(v);
+        }
     }
 
     void OnGetSize(string data)
@@ -111,6 +114,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
     //------------------------------------------------MEMBER----------------------------------------
     private Transform m_ModelsList;
     private Transform m_ModelCodeList;
+    private Transform m_SizeList;
 
     private GameObject m_ModelItem;
     private GameObject m_ModelCodeItem;
