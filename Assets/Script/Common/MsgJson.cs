@@ -182,4 +182,20 @@ public class MsgJson {
         public string description;
         public string brand;
     }
+
+    //车型数据(尺寸数据);
+    [Serializable]
+    public class CarModels {
+        public CarModel[] models;
+    }
+
+    [Serializable]
+    public class CarModel
+    {
+        public string id;
+        public string code;
+        public string model_year;
+        public string status;
+    }
+
 }

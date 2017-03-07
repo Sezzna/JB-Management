@@ -9,8 +9,6 @@ public class ModelItemLogic : MonoBehaviour {
         m_Button = GetComponent<Button>();
         m_Title = transform.FindChild("Text").GetComponent<Text>();
         m_Arrow = transform.FindChild("Arrow");
-
-        MsgRegister.Instance.Register((short)MsgCode.S2C_GetModel, OnCheckUserFunction);
     }
 
     void Start()
@@ -28,6 +26,7 @@ public class ModelItemLogic : MonoBehaviour {
 
     void OnClick()
     {
+        //显示点击的箭头,其他都关闭;
         foreach (Transform child in transform.parent)
         {
             child.FindChild("Arrow").gameObject.SetActive(false);
@@ -43,11 +42,6 @@ public class ModelItemLogic : MonoBehaviour {
 
         HttpManager.Instance.SendPostForm(ProjectConst.GetModel, form);
     }
-
-    void OnCheckUserFunction(string data) {
-        
-    }
-
 
     //---------------------------MEMBER------------------------------------
 

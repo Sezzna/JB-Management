@@ -1,8 +1,11 @@
 /.vs/*
 /Library/*
 /obj/*
+/Temp/*
 /Assembly-CSharp.csproj
 /Assembly-CSharp-Editor.csproj
 /JB Management.CSharp.csproj
 /JB Management.CSharp.Editor.csproj
 /JB Management.sln
+/JB Management.csproj
+/JB Management.Editor.csproj

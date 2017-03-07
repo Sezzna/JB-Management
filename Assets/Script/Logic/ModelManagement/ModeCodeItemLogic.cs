@@ -6,24 +6,34 @@ public class ModeCodeItemLogic : MonoBehaviour {
 
     void Awake()
     {
-        m_Button = GetComponent<Button>();
-        m_Title = transform.FindChild("Text").GetComponent<Text>();
         m_Arrow = transform.FindChild("Arrow");
 
-        MsgRegister.Instance.Register((short)MsgCode.S2C_GetModel, OnCheckUserFunction);
+        m_ModelCodeButton = transform.FindChild("ModelCode").GetComponent<Button>();
+        m_ModelCodeButton.onClick.AddListener(OnClick);
+
+        m_YearButton = transform.FindChild("Year").GetComponent<Button>();
+        m_YearButton.onClick.AddListener(OnClick);
+
+        m_StatusButton = transform.FindChild("Status").GetComponent<Button>();
+        m_StatusButton.onClick.AddListener(OnClick);
+    
+        m_ModelCodeText = transform.FindChild("ModelCode/Text").GetComponent<Text>();
+        m_YearText = transform.FindChild("Year/Text").GetComponent<Text>(); ;
+        m_StatusText = transform.FindChild("Status/Text").GetComponent<Text>(); ;
+
+        
     }
 
     void Start()
     {
 
-
     }
 
-    public void Init(MsgJson.Range range)
+    public void Init(MsgJson.CarModel model)
     {
-        m_Range = range;
-        m_Title.text = m_Range.description;
-        m_Button.onClick.AddListener(OnClick);
+        m_ModelCodeText.text = model.code;
+        m_YearText.text = model.model_year;
+        m_StatusText.text = model.status;
     }
 
     void OnClick()
@@ -53,8 +63,15 @@ public class ModeCodeItemLogic : MonoBehaviour {
 
     //---------------------------MEMBER------------------------------------
 
-    private Button m_Button;
-    private Text m_Title;
+    private Button m_ModelCodeButton;
+    private Button m_YearButton;
+    private Button m_StatusButton;
+
+    private Text m_ModelCodeText;
+    private Text m_YearText;
+    private Text m_StatusText;
+
+
     private Transform m_Arrow;
 
     //ModelsRange数据;

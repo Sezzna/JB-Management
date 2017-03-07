@@ -95,8 +95,8 @@ public class ControlPlayer {
 
     //模块信息;
     public MsgJson.ModelRange m_ModelsRange;
-
-
+    //车型信息(尺寸信息);
+    public MsgJson.CarModels m_CarModels;
 
 
     //-------------------------------------------------------- Control Player 使用数据结构 --------------------------------------------------------
