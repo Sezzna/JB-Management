@@ -32,7 +32,7 @@ public class AddModelSecondPanelLogic : MonoBehaviour {
 
         form.AddField("token", PlayerPrefs.GetString("token"));
         form.AddField("size", m_SizeInputField.text);
-        form.AddField("type ", m_TypeDropDown.captionText.text);
+        form.AddField("type", m_TypeDropDown.captionText.text);
         form.AddField("doorPosition",m_DoorPositionDropDown.captionText.text);
         form.AddField("note", m_NoteInputField.text);
 
