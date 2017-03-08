@@ -12,6 +12,10 @@ public class AddModelSecondPanelLogic : MonoBehaviour {
         m_Cancel = transform.FindChild("Cancel").GetComponent<Button>();
         m_Cancel.onClick.AddListener(OnCancelButtonClick);
 
+        m_SizeInputField = transform.FindChild("Size/InputField").GetComponent<InputField>();
+     
+        m_NoteInputField = transform.FindChild("Note/InputField").GetComponent<InputField>();
+
         m_TypeDropDown = transform.FindChild("Type/Dropdown").GetComponent<Dropdown>();
         m_DoorPositionDropDown = transform.FindChild("DoorPosition/Dropdown_1").GetComponent<Dropdown>();
     }
@@ -25,11 +29,12 @@ public class AddModelSecondPanelLogic : MonoBehaviour {
     void OnConfirmButtonClick() {
         //现有的尺寸通过getSize.php获得，
         WWWForm form = new WWWForm();
+
         form.AddField("token", PlayerPrefs.GetString("token"));
-        form.AddField("size", 18);
-        form.AddField("type ", "Test Type");
-        form.AddField("door_position","Test DoorPosition" );
-        form.AddField("note", "Test Note");
+        form.AddField("size", m_SizeInputField.text);
+        form.AddField("type ", m_TypeDropDown.captionText.text);
+        form.AddField("doorPosition",m_DoorPositionDropDown.captionText.text);
+        form.AddField("note", m_NoteInputField.text);
 
         HttpManager.Instance.SendPostForm(ProjectConst.AddSize, form);
     }
@@ -90,11 +95,14 @@ public class AddModelSecondPanelLogic : MonoBehaviour {
     private Button m_Confirm;
     private Button m_Cancel;
 
-    private InputField m_Size;
-
+    private InputField m_SizeInputField;
     private Dropdown m_TypeDropDown;
+    private Dropdown m_DoorPositionDropDown;
+    private InputField m_NoteInputField;
+
+    
     private List<string> m_TypeNameList = new List<string>();
 
-    private Dropdown m_DoorPositionDropDown;
+    
     private List<string> m_DoorPositionNameList = new List<string>();
 }
