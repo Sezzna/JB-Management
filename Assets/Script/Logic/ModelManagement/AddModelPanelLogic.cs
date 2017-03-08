@@ -22,20 +22,22 @@ public class AddModelPanelLogic : MonoBehaviour {
 
     void Start()
     {
+        //刷新多选框元素;
         UpdateChassisDropdownView();
-        //加入所有的Models Item
-        //foreach (var v in ControlPlayer.Instance.m_ModelsRange.range)
-        //{
-        //    FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem).GetComponent<ModelItemLogic>().Init(v);
-        //}
+        //加入所有的SizeItem
+        foreach (var v in ControlPlayer.Instance.m_AddModelSize.size)
+        {
+            FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem).GetComponent<SizeItemLogic>().Init(v);
+        }
 
 
     }
 
 
+    //------------------------------------------ On Button Click ---------------------------------------------- 
     void OnAddSizeButtonClick()
     {
-        //加载添加车型第二面板面板;
+        //加载添加车型第二面板;
         FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("AddModelSecondPanel"));
     }
 
@@ -44,6 +46,8 @@ public class AddModelPanelLogic : MonoBehaviour {
         FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("ModelManagementPanel"));
         Destroy(gameObject);
     }
+
+    //--------------------------------------------------------
 
     //设置DorpDown字段名字;
     private void AddDoorPositionName()

@@ -215,6 +215,14 @@ public class MsgJson {
         public string code;
     }
 
+    //AddModel面板的Size消息用结构体(1015消息)
+    [Serializable]
+    public class AddModelSize
+    {
+        public string state;
+        public Size[] size;
+    }
+
     [Serializable]
     public class Size
     {

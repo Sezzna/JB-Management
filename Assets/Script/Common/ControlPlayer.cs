@@ -99,6 +99,9 @@ public class ControlPlayer {
     public MsgJson.CarModels m_CarModels;
     //车型详细信息;
     public MsgJson.ModelsDetail m_ModelsDetail;
+    //AddModel面板 1015消息结构;
+    public MsgJson.AddModelSize m_AddModelSize;
+
     //当前选择的Range的Brand
     public string m_CurrentRangeBrand;
 

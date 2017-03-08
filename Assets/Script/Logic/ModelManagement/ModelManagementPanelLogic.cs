@@ -26,10 +26,12 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModel, OnGetCarModel);
-  
-        MsgRegister.Instance.Register((short)MsgCode.S2C_GetSize, OnGetSize);
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelDetail, OnGetModelDetail);
+
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetSize, OnGetSize);
+
+        
     }
 
 	void Start () {
@@ -97,14 +99,23 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         m_VersionText.text = ControlPlayer.Instance.m_ModelsDetail.models[0].version;
         m_StatusText.text = ControlPlayer.Instance.m_ModelsDetail.models[0].status;
 
+        //添加新Size之前删除老的;
+        foreach (Transform child in m_SizeList)
+        {
+            Destroy(child.gameObject);
+        }
+
         foreach (var v in ControlPlayer.Instance.m_ModelsDetail.size)
         {
             FrameUtil.AddChild(m_SizeList.gameObject, m_ModelDetailItem).GetComponent<ModelDetailItem>().Init(v);
         }
     }
 
+    //得到AddModel面板的1015 Size消息;
     void OnGetSize(string data)
     {
+        MsgJson.AddModelSize addModelSize = JsonUtility.FromJson<MsgJson.AddModelSize>(data);
+        ControlPlayer.Instance.m_AddModelSize = addModelSize;
         //加载AddModel Panel;
         FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("AddModelPanel"));
         //销毁Login面板;
