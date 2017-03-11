@@ -223,13 +223,27 @@ public class MsgJson {
         public Size[] size;
     }
 
+    //1017 消息结构体;
     [Serializable]
-    public class Size
+    public class AddSize
     {
-        public string size_id;
+        public string state;
+        public string id;
         public string size;
         public string doorPosition;
         public string type;
         public string note;
     }
+
+    [Serializable]
+    public class Size
+    {
+        public string id;
+        public string size;
+        public string doorPosition;
+        public string type;
+        public string note;
+    }
+
+    
 }

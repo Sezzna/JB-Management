@@ -45,4 +45,7 @@ public enum MsgCode
     S2C_GetModelDetail = 1014,
     //得到尺寸消息;
     S2C_GetSize = 1015,
+
+    //添加Size 消息返回
+    S2C_AddSize = 1017,
 }

@@ -18,6 +18,7 @@ public class AddModelPanelLogic : MonoBehaviour {
         m_AddSizeButton.onClick.AddListener(OnAddSizeButtonClick);
 
         m_ChassisDropdown = transform.FindChild("ChassisType/Dropdown").GetComponent<Dropdown>();
+        MsgRegister.Instance.Register((short)MsgCode.S2C_AddSize, OnAddSize);
     }
 
     void Start()
@@ -45,6 +46,24 @@ public class AddModelPanelLogic : MonoBehaviour {
         //加载模块管理面板;
         FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("ModelManagementPanel"));
         Destroy(gameObject);
+    }
+
+    //----------------------------------------------- MEG Handle --------------------------------------------------------------------
+    //处理添加尺寸消息;
+    void OnAddSize(string data)
+    {
+        MsgJson.AddSize addSize = JsonUtility.FromJson<MsgJson.AddSize>(data);
+        if (addSize.state == "success")
+        {
+            FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem).GetComponent<SizeItemLogic>().Init_2(
+                addSize.size, 
+                addSize.type, 
+                addSize.doorPosition, 
+                addSize.note);
+        }
+        else {
+            Debug.LogError("Add Size Error");
+        }
     }
 
     //--------------------------------------------------------

@@ -27,6 +27,13 @@ public class SizeItemLogic : MonoBehaviour {
         m_NoteText.text = size.note;
     }
 
+    public void Init_2(string size, string doorPosition, string type, string note) {
+        m_SizeText.text = size;
+        m_TypeText.text = type;
+        m_DoorPosition.text = doorPosition;
+        m_NoteText.text = note;
+    }
+
 
     private InputField m_BandInputField;
     private InputField m_ModelInputField;

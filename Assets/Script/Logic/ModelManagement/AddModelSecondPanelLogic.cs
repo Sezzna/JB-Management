@@ -51,6 +51,8 @@ public class AddModelSecondPanelLogic : MonoBehaviour {
         form.AddField("note", m_NoteInputField.text);
 
         HttpManager.Instance.SendPostForm(ProjectConst.AddSize, form);
+
+        Destroy(gameObject);
     }
 
     void OnCancelButtonClick()
