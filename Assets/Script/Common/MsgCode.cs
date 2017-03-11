@@ -48,4 +48,10 @@ public enum MsgCode
 
     //添加Size 消息返回
     S2C_AddSize = 1017,
+
+    //获取供货商消息返回;
+    S2C_GetSupplier = 1010,
+
+    //得到供货商Item
+    S2C_GetItem = 1011,
 }

@@ -91,6 +91,7 @@ public class ControlPlayer {
     //当前正在编辑的用户ID;
     public string m_CurrentEditUserID = "1";
 
+
     //-------------------------ModelMangement模块--------------------------
 
     //模块信息;
@@ -101,9 +102,10 @@ public class ControlPlayer {
     public MsgJson.ModelsDetail m_ModelsDetail;
     //AddModel面板 1015消息结构;
     public MsgJson.AddModelSize m_AddModelSize;
-
     //当前选择的Range的Brand
     public string m_CurrentRangeBrand;
+    //1010 供货商信息;
+    public MsgJson.GetSupplier m_GetSupplier;
 
     //-------------------------------------------------------- Control Player 使用数据结构 --------------------------------------------------------
     public class UserInfo {

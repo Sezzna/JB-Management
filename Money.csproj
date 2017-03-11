@@ -117,12 +117,15 @@
     <Compile Include="Assets\Script\Logic\Main\TitlePanelLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\AddModelPanelLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\AddModelSecondPanelLogic.cs" />
+    <Compile Include="Assets\Script\Logic\ModelManagement\CommonPartsSelectionPanelLogic.cs" />
+    <Compile Include="Assets\Script\Logic\ModelManagement\ItemItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ItemSelectPanelLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ModeCodeItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ModelDetailItem.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ModelItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ModelManagementPanelLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\SizeItemLogic.cs" />
+    <Compile Include="Assets\Script\Logic\ModelManagement\SupplierItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\UserAccess\AddNewGroupPanelLogic.cs" />
     <Compile Include="Assets\Script\Logic\UserAccess\AddNewUserPanelLogic.cs" />
     <Compile Include="Assets\Script\Logic\UserAccess\FunctionToggleLogic.cs" />

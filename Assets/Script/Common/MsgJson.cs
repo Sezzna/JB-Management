@@ -245,5 +245,37 @@ public class MsgJson {
         public string note;
     }
 
-    
+    //获得供货商消息结构;
+    [Serializable]
+    public class GetSupplier
+    {
+        public string state;
+        public Supplier[] supplier;
+    }
+
+    [Serializable]
+    public class Supplier {
+        public string id;
+        public string Name;
+    }
+
+    //供货商Items
+    [Serializable]
+    public class Items
+    {
+        public string state;
+        public Item[] item;
+    }
+
+    //供货商Item
+    [Serializable]
+    public class Item {
+        public string id;
+        public string product_code;
+        public string description;
+        public string units;
+        public string unit_price;
+        public string discount;
+        public string category_id;
+    }
 }

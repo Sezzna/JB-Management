@@ -58,8 +58,6 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         form.AddField("token", PlayerPrefs.GetString("token"));
 
         HttpManager.Instance.SendPostForm(ProjectConst.GetSize, form);
-
- 
     }
     //------------------------------------------------MESSAGE RESPONSE------------------------------------------
     //处理1013 获得车型消息;

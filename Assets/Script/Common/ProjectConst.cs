@@ -40,5 +40,9 @@ public class ProjectConst {
     //添加尺寸数据(添加车型)
     public static string AddSize = "http://www.jbmanagement.com.au/app/addSize.php";
 
+    //获取供货商
+    public static string GetSupplier = "http://www.jbmanagement.com.au/app/getSupplier.php";
+    //获取一个供货商的Item 信息;
+    public static string GetItem = "http://www.jbmanagement.com.au/app/getItem.php";
 }
 

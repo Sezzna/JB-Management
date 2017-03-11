@@ -12,13 +12,18 @@ public class AddModelPanelLogic : MonoBehaviour {
         m_ModelsList = transform.FindChild("ModelsList/Viewport/Content");
         m_BackButton = transform.FindChild("Back").GetComponent<Button>();
         m_ModelItem = Resources.Load("SizeItem") as GameObject;
+
         m_BackButton = transform.FindChild("Back").GetComponent<Button>();
         m_BackButton.onClick.AddListener(OnBackButtonClick);
+        m_NextButton = transform.FindChild("Next").GetComponent<Button>();
+        m_NextButton.onClick.AddListener(OnNextButtonClick);
+
         m_AddSizeButton = transform.FindChild("Size/Type/DoorPosition/Selected/Note/AddSize").GetComponent<Button>();
         m_AddSizeButton.onClick.AddListener(OnAddSizeButtonClick);
 
         m_ChassisDropdown = transform.FindChild("ChassisType/Dropdown").GetComponent<Dropdown>();
-        MsgRegister.Instance.Register((short)MsgCode.S2C_AddSize, OnAddSize);
+        MsgRegister.Instance.Register((short)MsgCode.S2C_AddSize, OnAddSize); 
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetSupplier, OnGetSupplier);
     }
 
     void Start()
@@ -30,7 +35,6 @@ public class AddModelPanelLogic : MonoBehaviour {
         {
             FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem).GetComponent<SizeItemLogic>().Init(v);
         }
-
 
     }
 
@@ -46,6 +50,18 @@ public class AddModelPanelLogic : MonoBehaviour {
         //加载模块管理面板;
         FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("ModelManagementPanel"));
         Destroy(gameObject);
+    }
+
+
+
+    void OnNextButtonClick()
+    {
+        //存储信息;
+
+        //发送获取供货商消息
+        WWWForm form = new WWWForm();
+        form.AddField("token", PlayerPrefs.GetString("token"));
+        HttpManager.Instance.SendPostForm(ProjectConst.GetSupplier, form);
     }
 
     //----------------------------------------------- MEG Handle --------------------------------------------------------------------
@@ -64,6 +80,16 @@ public class AddModelPanelLogic : MonoBehaviour {
         else {
             Debug.LogError("Add Size Error");
         }
+    }
+
+    //处理得到供货商消息;
+    void OnGetSupplier(string data) {
+        ControlPlayer.Instance.m_GetSupplier = JsonUtility.FromJson<MsgJson.GetSupplier>(data);
+
+        //Common Parts Selection Panel;
+        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("CommonPartsSelectionPanel"));
+
+        Destroy(gameObject);
     }
 
     //--------------------------------------------------------
@@ -101,6 +127,7 @@ public class AddModelPanelLogic : MonoBehaviour {
     private GameObject m_ModelItem;
 
     private Button m_BackButton;
+    private Button m_NextButton;
 
     private Button m_AddSizeButton;
 
