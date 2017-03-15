@@ -28,7 +28,18 @@ public class AddModelSecondPanelLogic : MonoBehaviour {
 
     void OnConfirmButtonClick() {
         //检查尺寸字符
-       
+        string temp = m_SizeInputField.text;
+        if (temp.Contains("'")) {
+            temp.Replace("'", "\'");
+            m_SizeInputField.text = temp;
+        }
+
+        if (temp.Contains("\""))
+        {
+            temp.Replace("\"", "\\\"");
+            m_SizeInputField.text = temp;
+        }
+
 
         //现有的尺寸通过getSize.php获得，
         WWWForm form = new WWWForm();
