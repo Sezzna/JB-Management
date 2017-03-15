@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,14 +21,11 @@ public class ItemItemLogic : MonoBehaviour {
 
     public void Init(MsgJson.Item item)
     {
-        double discount= Convert.ToDouble(item.discount);
-        double price = Convert.ToDouble(item.unit_price);
-        double displayPrice = Math.Round(price * (100 - discount) / 100, 2);
         m_Id = item.id;
         m_Code.text = item.product_code;
         m_Description.text = item.description;
         m_Units.text = item.units;
-        m_Price.text = "$"+ displayPrice;
+        m_Price.text = "$" + item.unit_price;
         m_Discount = item.discount;
         m_Category_id = item.category_id;
     }
