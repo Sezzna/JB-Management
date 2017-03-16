@@ -10,6 +10,12 @@ public class AddItemSecondPanel : MonoBehaviour {
         m_ViewToggle.onValueChanged.AddListener(OnValueChanged);
         m_DisplayToggle = transform.FindChild("Panel/Display").GetComponent<Toggle>();
 
+        m_Cancel = transform.FindChild("Panel/Cancel").GetComponent<Button>();
+        m_Cancel.onClick.AddListener(OnCancelClick);
+        m_Confirm = transform.FindChild("Panel/Confirm").GetComponent<Button>();
+        m_Confirm.onClick.AddListener(OnConfirmClick);
+
+
         m_CategoryDropdown = transform.FindChild("Panel/Category/Dropdown").GetComponent<Dropdown>();
     }
 
@@ -18,6 +24,7 @@ public class AddItemSecondPanel : MonoBehaviour {
         UpdateTypeDropdownView();
     }
 
+    //------------------------------------------------------ON BUTTON ----------------------------------------------
     void OnValueChanged(bool val) {
         if (val == true)
         {
@@ -26,6 +33,14 @@ public class AddItemSecondPanel : MonoBehaviour {
         else {
             m_DisplayToggle.gameObject.SetActive(false);
         }
+    }
+
+    void OnCancelClick() {
+        Destroy(gameObject);
+    }
+
+    void OnConfirmClick() {
+
     }
 
 
@@ -57,4 +72,8 @@ public class AddItemSecondPanel : MonoBehaviour {
 
     private Dropdown m_CategoryDropdown;
     private List<string> m_CategoryList = new List<string>();
+
+    private Button m_Cancel;
+    private Button m_Confirm;
+        
 }

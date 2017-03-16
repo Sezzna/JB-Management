@@ -37,7 +37,7 @@ public class ItemItemLogic : MonoBehaviour {
 
     void OnAddClick() {
         //加载AddItem面板;
-        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("AddItemSecondPanel"));
+        FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("AddItemSecondPanel"));
     }
 
 
