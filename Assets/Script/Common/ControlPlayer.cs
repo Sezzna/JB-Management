@@ -106,6 +106,8 @@ public class ControlPlayer {
     public string m_CurrentRangeBrand;
     //1010 供货商信息;
     public MsgJson.GetSupplier m_GetSupplier;
+    //1019 ItemCategory
+    public MsgJson.ItemCategory m_ItemCategory;
 
     //-------------------------------------------------------- Control Player 使用数据结构 --------------------------------------------------------
     public class UserInfo {
