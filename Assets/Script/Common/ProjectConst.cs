@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//cyb0301221
-
 public class ProjectConst {
     //登录;
     public static string LoginMsgUrl = "http://jbmanagement.com.au/app/login.php";
@@ -46,7 +44,5 @@ public class ProjectConst {
     public static string GetSupplier = "http://www.jbmanagement.com.au/app/getSupplier.php";
     //获取一个供货商的Item 信息;
     public static string GetItem = "http://www.jbmanagement.com.au/app/getItem.php";
-    //得到AddItem面板的 Item类别消息;
-    public static string GetItemCategory = "http://www.jbmanagement.com.au/app/getItemCategory.php";
 }
 

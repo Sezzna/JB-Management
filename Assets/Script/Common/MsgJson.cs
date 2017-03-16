@@ -278,22 +278,4 @@ public class MsgJson {
         public string discount;
         public string category_id;
     }
-
-
-    //ItemCategory
-    [Serializable]
-    public class ItemCategory
-    {
-        public string state;
-        public Category[] category;
-    }
-
-    //Category
-    [Serializable]
-    public class Category {
-        public string id;
-        public string des;
-        public string rank;
-    }
-
 }

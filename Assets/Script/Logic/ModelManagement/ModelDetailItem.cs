@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModelDetailItemLogic : MonoBehaviour {
+public class ModelDetailItem : MonoBehaviour {
     void Awake()
     {
         m_SizeText = transform.FindChild("Size/Text").GetComponent<Text>();

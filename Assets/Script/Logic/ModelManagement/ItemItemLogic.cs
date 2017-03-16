@@ -11,8 +11,7 @@ public class ItemItemLogic : MonoBehaviour {
         m_Description = transform.FindChild("Description/Text").GetComponent<Text>();
         m_Units = transform.FindChild("Units/Text").GetComponent<Text>();
         m_Price = transform.FindChild("Price/Text").GetComponent<Text>();
-        m_Add = transform.FindChild("Add").GetComponent<Button>();
-        m_Add.onClick.AddListener(OnAddClick);
+        m_Add = transform.FindChild("Add/Text").GetComponent<Button>();
     }
 
 
@@ -33,11 +32,6 @@ public class ItemItemLogic : MonoBehaviour {
         m_Price.text = "$"+ displayPrice;
         m_Discount = item.discount;
         m_Category_id = item.category_id;
-    }
-
-    void OnAddClick() {
-        //加载AddItem面板;
-        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("AddItemSecondPanel"));
     }
 
 

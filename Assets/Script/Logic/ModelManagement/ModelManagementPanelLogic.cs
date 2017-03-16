@@ -105,7 +105,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
         foreach (var v in ControlPlayer.Instance.m_ModelsDetail.size)
         {
-            FrameUtil.AddChild(m_SizeList.gameObject, m_ModelDetailItem).GetComponent<ModelDetailItemLogic>().Init(v);
+            FrameUtil.AddChild(m_SizeList.gameObject, m_ModelDetailItem).GetComponent<ModelDetailItem>().Init(v);
         }
     }
 
