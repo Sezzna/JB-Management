@@ -54,7 +54,4 @@ public enum MsgCode
 
     //得到供货商Item
     S2C_GetItem = 1011,
-
-    //得到供货商ItemCategory消息;
-    S2C_GetItemCategory = 1019,
 }
