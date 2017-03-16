@@ -17,11 +17,19 @@ public class AddItemSecondPanel : MonoBehaviour {
 
 
         m_CategoryDropdown = transform.FindChild("Panel/Category/Dropdown").GetComponent<Dropdown>();
+
+        m_StagesGrounp = transform.FindChild("Panel/StageGroup");
+
+        m_StageToggle = Resources.Load<GameObject>("StageToggle");
     }
 
 	// Use this for initialization
 	void Start () {
         UpdateTypeDropdownView();
+
+        foreach (var v in ControlPlayer.Instance.m_ItemStages.stages){
+            FrameUtil.AddChild(m_StagesGrounp.gameObject, m_StageToggle).GetComponent<ItemStageLogic>().Init(v);
+        }
     }
 
     //------------------------------------------------------ON BUTTON ----------------------------------------------
@@ -40,7 +48,7 @@ public class AddItemSecondPanel : MonoBehaviour {
     }
 
     void OnConfirmClick() {
-
+        Destroy(gameObject);
     }
 
 
@@ -75,5 +83,8 @@ public class AddItemSecondPanel : MonoBehaviour {
 
     private Button m_Cancel;
     private Button m_Confirm;
+
+    private Transform m_StagesGrounp;
+    private GameObject m_StageToggle;
         
 }

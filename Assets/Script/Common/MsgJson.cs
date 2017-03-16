@@ -296,4 +296,18 @@ public class MsgJson {
         public string rank;
     }
 
+    //Item Stages
+    public class ItemStages
+    {
+        public string state;
+        public Stages[] stages;
+    }
+    //Stages
+    [Serializable]
+    public class Stages
+    {
+        public string id;
+        public string des;
+        public string rank;
+    }
 }

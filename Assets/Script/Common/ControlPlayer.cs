@@ -108,6 +108,8 @@ public class ControlPlayer {
     public MsgJson.GetSupplier m_GetSupplier;
     //1019 ItemCategory
     public MsgJson.ItemCategory m_ItemCategory;
+    //1020 ItemStages
+    public MsgJson.ItemStages m_ItemStages;
 
     //-------------------------------------------------------- Control Player 使用数据结构 --------------------------------------------------------
     public class UserInfo {

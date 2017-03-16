@@ -20,7 +20,8 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItem, OnGetItem);
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemCategory, OnGetItemCategory);
-    }
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemStages, OnGetItemStages);
+}
 
 
     // Use this for initialization
@@ -33,7 +34,11 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddField("token", PlayerPrefs.GetString("token"));
         HttpManager.Instance.SendPostForm(ProjectConst.GetItemCategory, form);
-    }
+        //获得Stages信息;
+        WWWForm form1 = new WWWForm();
+        form1.AddField("token", PlayerPrefs.GetString("token"));
+        HttpManager.Instance.SendPostForm(ProjectConst.GetItemStages, form1);
+}
 
     void OnGetItem(string data) {
         foreach (Transform child in m_ItemList)
@@ -51,6 +56,11 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     void OnGetItemCategory(string data) {
         MsgJson.ItemCategory itemCategory = JsonUtility.FromJson<MsgJson.ItemCategory>(data);
         ControlPlayer.Instance.m_ItemCategory = itemCategory;
+    }
+
+    void OnGetItemStages(string data) {
+        MsgJson.ItemStages itemStages = JsonUtility.FromJson<MsgJson.ItemStages>(data);
+        ControlPlayer.Instance.m_ItemStages = itemStages;
     }
 
     //-------------------------------------------- Button Click ----------------------------------------------
