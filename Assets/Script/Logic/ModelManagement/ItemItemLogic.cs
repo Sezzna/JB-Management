@@ -37,6 +37,10 @@ public class ItemItemLogic : MonoBehaviour {
     }
 
     void OnAddClick() {
+        //获得Stagesyutianxiang信息
+        WWWForm form = new WWWForm();
+        form.AddField("token", PlayerPrefs.GetString("token"));
+        HttpManager.Instance.SendPostForm(ProjectConst.GetItemCategory, form);
         //加载AddItem面板;
         FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("AddItemSecondPanel")).GetComponent<AddItemSecondPanel>().Init(m_Item);
     }
