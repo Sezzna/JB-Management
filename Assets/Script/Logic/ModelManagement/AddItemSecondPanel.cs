@@ -21,6 +21,8 @@ public class AddItemSecondPanel : MonoBehaviour {
         m_StagesGrounp = transform.FindChild("Panel/StageGroup");
 
         m_StageToggle = Resources.Load<GameObject>("StageToggle");
+
+        m_Description = transform.FindChild("Panel/Title").GetComponent<Text>();
     }
 
 	// Use this for initialization
@@ -30,6 +32,11 @@ public class AddItemSecondPanel : MonoBehaviour {
         foreach (var v in ControlPlayer.Instance.m_ItemStages.stages){
             FrameUtil.AddChild(m_StagesGrounp.gameObject, m_StageToggle).GetComponent<ItemStageLogic>().Init(v);
         }
+    }
+
+    public void Init(MsgJson.Item item) {
+        m_Item = item;
+        m_Description.text = item.description;
     }
 
     //------------------------------------------------------ON BUTTON ----------------------------------------------
@@ -63,18 +70,36 @@ public class AddItemSecondPanel : MonoBehaviour {
             tempData.text = m_CategoryList[i];
             m_CategoryDropdown.options.Add(tempData);
         }
-        m_CategoryDropdown.captionText.text = m_CategoryList[0];
+
+        if (m_Item.category_id != "0")
+        {
+            Debug.Log("------------------- " + m_Item.category_id);
+            m_CategoryDropdown.captionText.text = m_CategoryIdKeyMap[m_Item.category_id];
+           
+        }
+        else {
+            m_CategoryDropdown.captionText.text = "Please Select";
+        }
+
+        
+  
     }
 
     //设置DorpDown字段名字;
     private void AddDropdownItemName()
     {
         foreach (var v in ControlPlayer.Instance.m_ItemCategory.category) {
-            m_CategoryList.Add(v.rank + " " + v.des);
+            string temp = v.rank + " " + v.des;
+            m_CategoryList.Add(temp);
+            m_CategoryMap[temp] = v.id;
+            m_CategoryIdKeyMap[v.id] = temp;
+            Debug.Log("@ "+v.id);
         }
     }
 
     //---------------------------------- MEMBER ---------------------------------
+    private Text m_Description;
+
     private Toggle m_ViewToggle;
     private Toggle m_DisplayToggle;
 
@@ -86,5 +111,12 @@ public class AddItemSecondPanel : MonoBehaviour {
 
     private Transform m_StagesGrounp;
     private GameObject m_StageToggle;
-        
+
+    //Rank + 描述作为key, id 作为value 这样下拉框选择后才知道选的什么categroy id;
+    private Dictionary<string, string> m_CategoryMap = new Dictionary<string, string>();
+
+    //id 作为key , Rank + 描述作为value,  这样才能通过id 选取默认值;
+    private Dictionary<string, string> m_CategoryIdKeyMap = new Dictionary<string, string>();
+
+    private MsgJson.Item m_Item;
 }

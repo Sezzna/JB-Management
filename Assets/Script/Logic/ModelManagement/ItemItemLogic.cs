@@ -23,6 +23,7 @@ public class ItemItemLogic : MonoBehaviour {
 
     public void Init(MsgJson.Item item)
     {
+        m_Item = item;
         double discount= Convert.ToDouble(item.discount);
         double price = Convert.ToDouble(item.unit_price);
         double displayPrice = Math.Round(price * (100 - discount) / 100, 2);
@@ -37,10 +38,10 @@ public class ItemItemLogic : MonoBehaviour {
 
     void OnAddClick() {
         //加载AddItem面板;
-        FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("AddItemSecondPanel"));
+        FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("AddItemSecondPanel")).GetComponent<AddItemSecondPanel>().Init(m_Item);
     }
 
-
+    private MsgJson.Item m_Item;
     
     private Text m_Code;
     private Text m_Description;
