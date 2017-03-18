@@ -7,6 +7,7 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     void Awake(){
         m_SupplierList = transform.FindChild("SupplierList/Viewport/Content");
         m_ItemList = transform.FindChild("ItemList/Viewport/Content");
+        m_PartList = transform.FindChild("PartList/Viewport/Content");
 
         m_CancelButton = transform.FindChild("Cancel").GetComponent<Button>();
         m_CancelButton.onClick.AddListener(OnCancelClick);
@@ -17,10 +18,15 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         m_TotalMoneyText = transform.FindChild("Money").GetComponent<Text>();
 
         m_ItemItem = Resources.Load("ItemItem") as GameObject;
+        m_LeftItemItem = Resources.Load("LeftItemItem") as GameObject;
+        m_StageTatil = Resources.Load("StageTitle") as GameObject;
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItem, OnGetItem);
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemCategory, OnGetItemCategory);
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemStages, OnGetItemStages);
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemDisplayStage, OnGetItemDisplayStage);
+        MsgRegister.Instance.Register((short)MsgCode.S2C_ItemCategoryStageUpdate, OnItemCategoryStageUpdate);
+
 }
 
 
@@ -38,7 +44,7 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         WWWForm form1 = new WWWForm();
         form1.AddField("token", PlayerPrefs.GetString("token"));
         HttpManager.Instance.SendPostForm(ProjectConst.GetItemStages, form1);
-}
+    }
 
     void OnGetItem(string data) {
         foreach (Transform child in m_ItemList)
@@ -52,6 +58,12 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
             FrameUtil.AddChild(m_ItemList.gameObject, m_ItemItem).GetComponent<ItemItemLogic>().Init(v);
         }
     }
+
+    public void AddPartItem(MsgJson.Item item, string qty) {
+        
+        FrameUtil.AddChild(m_PartList.gameObject, m_LeftItemItem).GetComponent<LeftItemItemLogic>().Init(item, qty);
+    }
+
     //-------------------------------------------- MessageHandle  ----------------------------------------------
     void OnGetItemCategory(string data) {
         MsgJson.ItemCategory itemCategory = JsonUtility.FromJson<MsgJson.ItemCategory>(data);
@@ -63,6 +75,15 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         ControlPlayer.Instance.m_ItemStages = itemStages;
     }
 
+    void OnGetItemDisplayStage(string data) {
+
+    }
+
+    void OnItemCategoryStageUpdate(string data)
+    {
+
+    }
+    
     //-------------------------------------------- Button Click ----------------------------------------------
     void OnCancelClick() {
         //加载模块管理面板;
@@ -76,9 +97,13 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
 
 
     //-------------------------------------------- MEMBER ----------------------------------------------
+    private GameObject m_StageTatil;
+    private GameObject m_LeftItemItem;
+
+    private Transform m_PartList;
     private Transform m_SupplierList;
     private Transform m_ItemList;
-
+   
     private GameObject m_ItemItem;
 
     private Button m_CancelButton;

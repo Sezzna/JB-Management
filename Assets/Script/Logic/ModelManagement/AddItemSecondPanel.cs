@@ -24,6 +24,9 @@ public class AddItemSecondPanel : MonoBehaviour {
 
         m_Description = transform.FindChild("Panel/Title").GetComponent<Text>();
 
+        m_QtyInputField = transform.FindChild("Panel/QTY/InputField").GetComponent<InputField>();
+        m_QtyInputField.onEndEdit.AddListener(OnQtyEndEdit);
+
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemDisplayStage, OnGetItemDisplayStage);
     }
 
@@ -73,6 +76,11 @@ public class AddItemSecondPanel : MonoBehaviour {
         }
     }
 
+
+    void OnQtyEndEdit(string s) {
+        m_QtyEndEdit = s;
+    }
+
     void OnCancelClick() {
         Destroy(gameObject);
     }
@@ -91,7 +99,6 @@ public class AddItemSecondPanel : MonoBehaviour {
         Debug.Log(m_CategoryMap[m_CategoryDropdown.captionText.text]);
    
         List<MsgJson.UpdateItemStageId> stageId = new List<MsgJson.UpdateItemStageId>();
-
 
         foreach (Transform child in m_StagesGrounp) {
             if (child.GetComponent<Toggle>().isOn) {
@@ -116,6 +123,9 @@ public class AddItemSecondPanel : MonoBehaviour {
         HttpManager.Instance.SendPostForm(ProjectConst.GetItem, form1);
 
         //再保留数据;
+
+        //添加到左测面板.调用 CommonPartsSelectionPanel的函数;
+        GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem(m_Item, m_QtyEndEdit);
 
         //最后删除面板;
         Destroy(gameObject);
@@ -179,4 +189,8 @@ public class AddItemSecondPanel : MonoBehaviour {
     private Dictionary<string, string> m_CategoryIdKeyMap = new Dictionary<string, string>();
 
     private MsgJson.Item m_Item;
+
+    private InputField m_QtyInputField;
+    //数量默认1
+    private string m_QtyEndEdit = "1";
 }
