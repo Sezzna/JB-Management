@@ -91,6 +91,9 @@ public class ControlPlayer {
     //当前正在编辑的用户ID;
     public string m_CurrentEditUserID = "1";
 
+    //当先选中的 供货商ID;
+    public string m_CurrentSupplierID = "0";
+
 
     //-------------------------ModelMangement模块--------------------------
 

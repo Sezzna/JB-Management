@@ -29,6 +29,8 @@ public class SupplierItemLogic : MonoBehaviour {
         form.AddField("id", m_id);
 
         HttpManager.Instance.SendPostForm(ProjectConst.GetItem, form);
+
+        ControlPlayer.Instance.m_CurrentSupplierID = m_id;
     }
 
     public void Init(MsgJson.Supplier supplier){

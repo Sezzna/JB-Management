@@ -325,4 +325,19 @@ public class MsgJson {
         public string item_id;
         public string item_stage_id;
     }
+
+    //发送ItemCategoryStageUpdate 消息的 msg json 结构;
+    [Serializable]
+    public class UpdateItemStage
+    {
+        public UpdateItemStageId[] stages;
+
+    }
+
+    //上面的儿;
+    [Serializable]
+    public class UpdateItemStageId {
+        public string id;
+    }
+
 }

@@ -43,7 +43,7 @@ public class AddItemSecondPanel : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddField("token", PlayerPrefs.GetString("token"));
         form.AddField("id", m_Item.id);
-        Debug.Log(m_Item.id);
+        //Debug.Log(m_Item.id);
         HttpManager.Instance.SendPostForm(ProjectConst.GetItemDisplayStage, form);
     }
 
@@ -77,7 +77,47 @@ public class AddItemSecondPanel : MonoBehaviour {
         Destroy(gameObject);
     }
 
+    private class stages {
+        
+    }
+
     void OnConfirmClick() {
+        //发送 ItemCategoryStageUpdate
+        WWWForm form = new WWWForm();
+        form.AddField("token", PlayerPrefs.GetString("token"));
+        form.AddField("item_id", m_Item.id);
+        form.AddField("category_id", m_CategoryMap[m_CategoryDropdown.captionText.text]);
+
+        Debug.Log(m_CategoryMap[m_CategoryDropdown.captionText.text]);
+   
+        List<MsgJson.UpdateItemStageId> stageId = new List<MsgJson.UpdateItemStageId>();
+
+
+        foreach (Transform child in m_StagesGrounp) {
+            if (child.GetComponent<Toggle>().isOn) {
+                MsgJson.UpdateItemStageId id = new MsgJson.UpdateItemStageId();
+                id.id = child.GetComponent<ItemStageLogic>().m_Id;
+                stageId.Add(id);
+            }
+        }
+
+        MsgJson.UpdateItemStage updateItemStage = new MsgJson.UpdateItemStage();
+        updateItemStage.stages = stageId.ToArray();
+
+        form.AddField("msg", JsonUtility.ToJson(updateItemStage));
+      
+        HttpManager.Instance.SendPostForm(ProjectConst.ItemCategoryStageUpdate, form);
+
+        //刷新这个供货商下的所有item;
+        WWWForm form1 = new WWWForm();
+        form1.AddField("token", PlayerPrefs.GetString("token"));
+        form1.AddField("id", ControlPlayer.Instance.m_CurrentSupplierID);
+
+        HttpManager.Instance.SendPostForm(ProjectConst.GetItem, form1);
+
+        //再保留数据;
+
+        //最后删除面板;
         Destroy(gameObject);
     }
 
@@ -96,7 +136,7 @@ public class AddItemSecondPanel : MonoBehaviour {
 
         if (m_Item.category_id != "0")
         {
-            Debug.Log("------------------- " + m_Item.category_id);
+            //Debug.Log("------------------- " + m_Item.category_id);
             m_CategoryDropdown.captionText.text = m_CategoryIdKeyMap[m_Item.category_id];
            
         }

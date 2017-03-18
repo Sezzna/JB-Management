@@ -52,6 +52,8 @@ public class ProjectConst {
     public static string GetItemStages = "http://www.jbmanagement.com.au/app/getstages.php";
     //得到 AddItemSecond 面板的 Stages 预填消息;
     public static string GetItemDisplayStage = "http://www.jbmanagement.com.au/app/getItemDisplayStage.php";
+    //更新 AddItemSecond 面板 categroy 和 stage 信息;
+    public static string ItemCategoryStageUpdate = "http://www.jbmanagement.com.au/app/itemCategoryStageUpdate.php";
 
 }
 
