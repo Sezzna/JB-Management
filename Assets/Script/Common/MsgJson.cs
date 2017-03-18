@@ -310,4 +310,19 @@ public class MsgJson {
         public string des;
         public string rank;
     }
+
+    //Item Stage预填信息;
+    public class ItemStageDisplay
+    {
+        public string state;
+        public StageDisplay[] stages;
+    }
+
+    //Stage预填信息;
+    [Serializable]
+    public class StageDisplay {
+        public string id;
+        public string item_id;
+        public string item_stage_id;
+    }
 }

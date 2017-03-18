@@ -58,5 +58,7 @@ public enum MsgCode
     //得到供货商ItemCategory消息;
     S2C_GetItemCategory = 1019,
     //得到Item Stages 消息
-    S2C_GetItemStages = 1020
+    S2C_GetItemStages = 1020,
+    //得到 Item 预填信息;
+    S2C_GetItemDisplayStage = 1021
 }

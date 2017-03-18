@@ -23,6 +23,8 @@ public class AddItemSecondPanel : MonoBehaviour {
         m_StageToggle = Resources.Load<GameObject>("StageToggle");
 
         m_Description = transform.FindChild("Panel/Title").GetComponent<Text>();
+
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemDisplayStage, OnGetItemDisplayStage);
     }
 
 	// Use this for initialization
@@ -37,6 +39,27 @@ public class AddItemSecondPanel : MonoBehaviour {
     public void Init(MsgJson.Item item) {
         m_Item = item;
         m_Description.text = item.description;
+        //获得ItemCategory信息
+        WWWForm form = new WWWForm();
+        form.AddField("token", PlayerPrefs.GetString("token"));
+        form.AddField("id", m_Item.id);
+        Debug.Log(m_Item.id);
+        HttpManager.Instance.SendPostForm(ProjectConst.GetItemDisplayStage, form);
+    }
+
+    public void OnGetItemDisplayStage(string data) {
+        MsgJson.ItemStageDisplay itemStageDisplay = JsonUtility.FromJson<MsgJson.ItemStageDisplay>(data);
+
+        foreach (var v in itemStageDisplay.stages) {
+            foreach (Transform child in m_StagesGrounp)
+            {
+                if (child.GetComponent<ItemStageLogic>().m_Id == v.item_stage_id) {
+                    child.GetComponent<Toggle>().isOn = true;
+                }
+             }
+        }
+
+        
     }
 
     //------------------------------------------------------ON BUTTON ----------------------------------------------
@@ -80,9 +103,6 @@ public class AddItemSecondPanel : MonoBehaviour {
         else {
             m_CategoryDropdown.captionText.text = "Please Select";
         }
-
-        
-  
     }
 
     //设置DorpDown字段名字;
@@ -93,7 +113,7 @@ public class AddItemSecondPanel : MonoBehaviour {
             m_CategoryList.Add(temp);
             m_CategoryMap[temp] = v.id;
             m_CategoryIdKeyMap[v.id] = temp;
-            Debug.Log("@ "+v.id);
+      
         }
     }
 

@@ -20,7 +20,7 @@ public class ItemStageLogic : MonoBehaviour {
 
     private Text m_Text;
 
-    private string m_Id;
+    public string m_Id;
     private string m_Des;
     private string m_Rank;
 }
