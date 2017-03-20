@@ -59,8 +59,17 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         }
     }
 
-    public void AddPartItem(MsgJson.Item item, string qty) {
-        
+    public void AddPartItem(MsgJson.Item item, string qty, List<string> stagesList) {
+        foreach (var i in stagesList) {
+            foreach (var v in ControlPlayer.Instance.m_ItemStages.stages)
+            {
+                if (i == v.id) {
+                    m_StagesMap[i] = v.des;
+                }
+            }
+        }
+        //在这里决定是否插入新的stage title;
+      
         FrameUtil.AddChild(m_PartList.gameObject, m_LeftItemItem).GetComponent<LeftItemItemLogic>().Init(item, qty);
     }
 
@@ -110,4 +119,7 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     private Button m_NextButton;
 
     private Text m_TotalMoneyText;
+
+    //保存已经Add到左边的Item的Stage, key 为stageId, val 描述;
+    private Dictionary<string, string> m_StagesMap;
 }

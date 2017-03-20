@@ -61,8 +61,6 @@ public class AddItemSecondPanel : MonoBehaviour {
                 }
              }
         }
-
-        
     }
 
     //------------------------------------------------------ON BUTTON ----------------------------------------------
@@ -90,13 +88,18 @@ public class AddItemSecondPanel : MonoBehaviour {
     }
 
     void OnConfirmClick() {
+        //判断categroy 是否选择;
+        if (m_CategoryDropdown.captionText.text == "Please Select"){
+            FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("categroy must be selected");
+            return;
+        }
         //发送 ItemCategoryStageUpdate
         WWWForm form = new WWWForm();
         form.AddField("token", PlayerPrefs.GetString("token"));
         form.AddField("item_id", m_Item.id);
         form.AddField("category_id", m_CategoryMap[m_CategoryDropdown.captionText.text]);
 
-        Debug.Log(m_CategoryMap[m_CategoryDropdown.captionText.text]);
+        //Debug.Log(m_CategoryMap[m_CategoryDropdown.captionText.text]);
    
         List<MsgJson.UpdateItemStageId> stageId = new List<MsgJson.UpdateItemStageId>();
 
@@ -105,6 +108,9 @@ public class AddItemSecondPanel : MonoBehaviour {
                 MsgJson.UpdateItemStageId id = new MsgJson.UpdateItemStageId();
                 id.id = child.GetComponent<ItemStageLogic>().m_Id;
                 stageId.Add(id);
+
+                //保存这个item 的stage信息传给CommonPartsSelectPanel;
+                m_ItemStagesList.Add(id.id);
             }
         }
 
@@ -114,6 +120,8 @@ public class AddItemSecondPanel : MonoBehaviour {
         form.AddField("msg", JsonUtility.ToJson(updateItemStage));
       
         HttpManager.Instance.SendPostForm(ProjectConst.ItemCategoryStageUpdate, form);
+
+        
 
         //刷新这个供货商下的所有item;
         WWWForm form1 = new WWWForm();
@@ -125,7 +133,7 @@ public class AddItemSecondPanel : MonoBehaviour {
         //再保留数据;
 
         //添加到左测面板.调用 CommonPartsSelectionPanel的函数;
-        GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem(m_Item, m_QtyEndEdit);
+        GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem(m_Item, m_QtyEndEdit, m_ItemStagesList);
 
         //最后删除面板;
         Destroy(gameObject);
@@ -193,4 +201,7 @@ public class AddItemSecondPanel : MonoBehaviour {
     private InputField m_QtyInputField;
     //数量默认1
     private string m_QtyEndEdit = "1";
+
+    //confirm之后 保存所选择的stage 传给 CommonPartsSelectPanel
+    private List<string> m_ItemStagesList = new List<string>();
 }
