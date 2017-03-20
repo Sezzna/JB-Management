@@ -26,7 +26,6 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemStages, OnGetItemStages);
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemDisplayStage, OnGetItemDisplayStage);
         MsgRegister.Instance.Register((short)MsgCode.S2C_ItemCategoryStageUpdate, OnItemCategoryStageUpdate);
-
 }
 
 
@@ -47,8 +46,7 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     }
 
     void OnGetItem(string data) {
-        foreach (Transform child in m_ItemList)
-        {
+        foreach (Transform child in m_ItemList){
             Destroy(child.gameObject);
         }
 
@@ -59,6 +57,7 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         }
     }
 
+    //添加左边的Item;
     public void AddPartItem(MsgJson.Item item, string qty, List<string> stagesList) {
         foreach (var i in stagesList) {
             foreach (var v in ControlPlayer.Instance.m_ItemStages.stages)
@@ -69,7 +68,6 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
             }
         }
         //在这里决定是否插入新的stage title;
-      
         FrameUtil.AddChild(m_PartList.gameObject, m_LeftItemItem).GetComponent<LeftItemItemLogic>().Init(item, qty);
     }
 
@@ -88,8 +86,7 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
 
     }
 
-    void OnItemCategoryStageUpdate(string data)
-    {
+    void OnItemCategoryStageUpdate(string data){
 
     }
     
@@ -121,5 +118,5 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     private Text m_TotalMoneyText;
 
     //保存已经Add到左边的Item的Stage, key 为stageId, val 描述;
-    private Dictionary<string, string> m_StagesMap;
+    private Dictionary<string, string> m_StagesMap = new Dictionary<string, string>();
 }

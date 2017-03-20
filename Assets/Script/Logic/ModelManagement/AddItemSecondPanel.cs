@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class AddItemSecondPanel : MonoBehaviour {
-    void Awake()
-    {
+    void Awake(){
         m_ViewToggle = transform.FindChild("Panel/View").GetComponent<Toggle>();
         m_ViewToggle.onValueChanged.AddListener(OnValueChanged);
         m_DisplayToggle = transform.FindChild("Panel/Display").GetComponent<Toggle>();
@@ -31,7 +30,7 @@ public class AddItemSecondPanel : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
+	void Start (){
         UpdateTypeDropdownView();
 
         foreach (var v in ControlPlayer.Instance.m_ItemStages.stages){
@@ -39,7 +38,7 @@ public class AddItemSecondPanel : MonoBehaviour {
         }
     }
 
-    public void Init(MsgJson.Item item) {
+    public void Init(MsgJson.Item item){
         m_Item = item;
         m_Description.text = item.description;
         //获得ItemCategory信息
@@ -50,16 +49,16 @@ public class AddItemSecondPanel : MonoBehaviour {
         HttpManager.Instance.SendPostForm(ProjectConst.GetItemDisplayStage, form);
     }
 
-    public void OnGetItemDisplayStage(string data) {
+    public void OnGetItemDisplayStage(string data){
         MsgJson.ItemStageDisplay itemStageDisplay = JsonUtility.FromJson<MsgJson.ItemStageDisplay>(data);
 
-        foreach (var v in itemStageDisplay.stages) {
+        foreach (var v in itemStageDisplay.stages){
             foreach (Transform child in m_StagesGrounp)
             {
-                if (child.GetComponent<ItemStageLogic>().m_Id == v.item_stage_id) {
+                if (child.GetComponent<ItemStageLogic>().m_Id == v.item_stage_id){
                     child.GetComponent<Toggle>().isOn = true;
                 }
-             }
+            }
         }
     }
 
@@ -73,7 +72,6 @@ public class AddItemSecondPanel : MonoBehaviour {
             m_DisplayToggle.gameObject.SetActive(false);
         }
     }
-
 
     void OnQtyEndEdit(string s) {
         m_QtyEndEdit = s;
@@ -93,11 +91,16 @@ public class AddItemSecondPanel : MonoBehaviour {
             FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("categroy must be selected");
             return;
         }
-        //发送 ItemCategoryStageUpdate
+        //发送 ItemCategroyStageUpdate 更新这个Item的Categroy 和 stage信息;
         WWWForm form = new WWWForm();
         form.AddField("token", PlayerPrefs.GetString("token"));
         form.AddField("item_id", m_Item.id);
-        form.AddField("category_id", m_CategoryMap[m_CategoryDropdown.captionText.text]);
+        form.AddField("category_id", m_CategroyMap[m_CategoryDropdown.captionText.text]);
+
+        //如果Categroy改变过,那么新的m_item里面 就要加入新的Categroy
+        if (m_CategroyMap[m_CategoryDropdown.captionText.text] != m_Item.category_id) {
+            m_Item.category_id = m_CategroyMap[m_CategoryDropdown.captionText.text];
+        }
 
         //Debug.Log(m_CategoryMap[m_CategoryDropdown.captionText.text]);
    
@@ -121,8 +124,6 @@ public class AddItemSecondPanel : MonoBehaviour {
       
         HttpManager.Instance.SendPostForm(ProjectConst.ItemCategoryStageUpdate, form);
 
-        
-
         //刷新这个供货商下的所有item;
         WWWForm form1 = new WWWForm();
         form1.AddField("token", PlayerPrefs.GetString("token"));
@@ -139,24 +140,19 @@ public class AddItemSecondPanel : MonoBehaviour {
         Destroy(gameObject);
     }
 
-
-    private void UpdateTypeDropdownView()
-    {
+    private void UpdateTypeDropdownView(){
         AddDropdownItemName();
         m_CategoryDropdown.options.Clear();
         Dropdown.OptionData tempData;
-        for (int i = 0; i < m_CategoryList.Count; i++)
-        {
+        for (int i = 0; i < m_CategoryList.Count; i++){
             tempData = new Dropdown.OptionData();
             tempData.text = m_CategoryList[i];
             m_CategoryDropdown.options.Add(tempData);
         }
 
-        if (m_Item.category_id != "0")
-        {
+        if (m_Item.category_id != "0"){
             //Debug.Log("------------------- " + m_Item.category_id);
             m_CategoryDropdown.captionText.text = m_CategoryIdKeyMap[m_Item.category_id];
-           
         }
         else {
             m_CategoryDropdown.captionText.text = "Please Select";
@@ -164,14 +160,12 @@ public class AddItemSecondPanel : MonoBehaviour {
     }
 
     //设置DorpDown字段名字;
-    private void AddDropdownItemName()
-    {
+    private void AddDropdownItemName(){
         foreach (var v in ControlPlayer.Instance.m_ItemCategory.category) {
             string temp = v.rank + " " + v.des;
             m_CategoryList.Add(temp);
-            m_CategoryMap[temp] = v.id;
+            m_CategroyMap[temp] = v.id;
             m_CategoryIdKeyMap[v.id] = temp;
-      
         }
     }
 
@@ -191,7 +185,7 @@ public class AddItemSecondPanel : MonoBehaviour {
     private GameObject m_StageToggle;
 
     //Rank + 描述作为key, id 作为value 这样下拉框选择后才知道选的什么categroy id;
-    private Dictionary<string, string> m_CategoryMap = new Dictionary<string, string>();
+    private Dictionary<string, string> m_CategroyMap = new Dictionary<string, string>();
 
     //id 作为key , Rank + 描述作为value,  这样才能通过id 选取默认值;
     private Dictionary<string, string> m_CategoryIdKeyMap = new Dictionary<string, string>();
