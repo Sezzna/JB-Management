@@ -91,6 +91,22 @@ public class AddItemSecondPanel : MonoBehaviour {
             FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("categroy must be selected");
             return;
         }
+        //判断是否选择了stage;
+        bool flag = false;
+        foreach (Transform child in m_StagesGrounp)
+        {
+            if (child.GetComponent<Toggle>().isOn)
+            {
+                flag = true;
+                break;
+            }
+        }
+
+        if (flag == false) {
+            FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("Stage must be selected");
+            return;
+        }
+
         //发送 ItemCategroyStageUpdate 更新这个Item的Categroy 和 stage信息;
         WWWForm form = new WWWForm();
         form.AddField("token", PlayerPrefs.GetString("token"));

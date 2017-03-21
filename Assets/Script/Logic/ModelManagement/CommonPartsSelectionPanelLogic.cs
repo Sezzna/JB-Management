@@ -67,8 +67,11 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
                 }
             }
         }
+
+
         //在这里决定是否插入新的stage title;
         FrameUtil.AddChild(m_PartList.gameObject, m_LeftItemItem).GetComponent<LeftItemItemLogic>().Init(item, qty);
+
     }
 
     //-------------------------------------------- MessageHandle  ----------------------------------------------
