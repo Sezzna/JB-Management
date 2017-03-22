@@ -110,9 +110,30 @@ public class ControlPlayer {
     //1010 供货商信息;
     public MsgJson.GetSupplier m_GetSupplier;
     //1019 ItemCategory
-    public MsgJson.ItemCategory m_ItemCategory;
+    public MsgJson.ItemCategory m_ItemCategorys;
     //1020 ItemStages
     public MsgJson.ItemStages m_ItemStages;
+
+    //选择加载到common parts selected panel 左边的item数据;
+    public List<CommonItem> m_CommonItemList = new List<CommonItem>();
+
+    //这个是 common parts selected panel 左边的Stage 数据;
+    public List<StageDisplay> m_StageDisplayList = new List<StageDisplay>();
+    
+
+    public class StageDisplay {
+        public string stegeId;
+        public string itemId;
+        public string rank;
+    }
+
+
+    public class CommonItem {
+        public MsgJson.Item item;
+        public string qty;
+        public string categoryRank;
+        public bool displayToCustomer;
+    }
 
     //-------------------------------------------------------- Control Player 使用数据结构 --------------------------------------------------------
     public class UserInfo {
@@ -123,8 +144,6 @@ public class ControlPlayer {
         public string email;
         public string phone;    
     }
-
-
 }
 
 

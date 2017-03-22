@@ -9,6 +9,11 @@ public class AddItemSecondPanel : MonoBehaviour {
         m_ViewToggle.onValueChanged.AddListener(OnValueChanged);
         m_DisplayToggle = transform.FindChild("Panel/Display").GetComponent<Toggle>();
 
+        m_ViewByCustomerToggle = transform.FindChild("Panel/View").GetComponent<Toggle>();
+        m_ViewByCustomerToggle.onValueChanged.AddListener(onViewByCustomerToggle);
+        m_DisplayTheQtyToCustomerToggle = transform.FindChild("Panel/Display").GetComponent<Toggle>();
+        m_DisplayTheQtyToCustomerToggle.onValueChanged.AddListener(OnDisplayTheQtyToCustomerToggle);
+
         m_Cancel = transform.FindChild("Panel/Cancel").GetComponent<Button>();
         m_Cancel.onClick.AddListener(OnCancelClick);
         m_Confirm = transform.FindChild("Panel/Confirm").GetComponent<Button>();
@@ -63,6 +68,15 @@ public class AddItemSecondPanel : MonoBehaviour {
     }
 
     //------------------------------------------------------ON BUTTON ----------------------------------------------
+
+    void onViewByCustomerToggle(bool val) {
+        m_bViewByCustomer = val;
+    }
+
+    void OnDisplayTheQtyToCustomerToggle(bool val) {
+        m_bDisplayTheQtyToCustomer = val;
+    }
+
     void OnValueChanged(bool val) {
         if (val == true)
         {
@@ -91,7 +105,7 @@ public class AddItemSecondPanel : MonoBehaviour {
             FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("categroy must be selected");
             return;
         }
-        //判断是否选择了stage;
+        //查看是否选择了stage;
         bool flag = false;
         foreach (Transform child in m_StagesGrounp)
         {
@@ -101,7 +115,7 @@ public class AddItemSecondPanel : MonoBehaviour {
                 break;
             }
         }
-
+        //判断是否选择了stage
         if (flag == false) {
             FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("Stage must be selected");
             return;
@@ -113,7 +127,7 @@ public class AddItemSecondPanel : MonoBehaviour {
         form.AddField("item_id", m_Item.id);
         form.AddField("category_id", m_CategroyMap[m_CategoryDropdown.captionText.text]);
 
-        //如果Categroy改变过,那么新的m_item里面 就要加入新的Categroy
+        //如果Categroy改变过,那么新的m_item里面 就要更新Categroy
         if (m_CategroyMap[m_CategoryDropdown.captionText.text] != m_Item.category_id) {
             m_Item.category_id = m_CategroyMap[m_CategoryDropdown.captionText.text];
         }
@@ -148,9 +162,39 @@ public class AddItemSecondPanel : MonoBehaviour {
         HttpManager.Instance.SendPostForm(ProjectConst.GetItem, form1);
 
         //再保留数据;
+        //保留stage
+        foreach (var v in m_ItemStagesList) {
+            ControlPlayer.StageDisplay stageDisplay = new ControlPlayer.StageDisplay();
+            stageDisplay.itemId = m_Item.id;
+            stageDisplay.stegeId = v;
+            //实在搞不清楚 stage rank是什么所以没有写;
+            ControlPlayer.Instance.m_StageDisplayList.Add(stageDisplay);
+        }
+        
+        //保留item
+        ControlPlayer.CommonItem commonItem = new ControlPlayer.CommonItem();
+
+        commonItem.item = m_Item;
+        commonItem.qty = m_QtyEndEdit;
+        commonItem.categoryRank = m_CategoryRankMap[m_CategoryDropdown.captionText.text];
+        commonItem.displayToCustomer = m_bViewByCustomer;
+
+        //判断左边list里面有没有 这个item选项;
+        foreach (var i in ControlPlayer.Instance.m_CommonItemList) {
+            //如果有就Remove掉;
+            if (i.item.id == commonItem.item.id) {
+                ControlPlayer.Instance.m_CommonItemList.Remove(i);
+                break;
+            }
+        }
+    
+        //添加这个item;     
+        ControlPlayer.Instance.m_CommonItemList.Add(commonItem);
+
+
 
         //添加到左测面板.调用 CommonPartsSelectionPanel的函数;
-        GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem(m_Item, m_QtyEndEdit, m_ItemStagesList);
+        GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem();//(m_Item, m_QtyEndEdit, m_ItemStagesList);
 
         //最后删除面板;
         Destroy(gameObject);
@@ -177,10 +221,11 @@ public class AddItemSecondPanel : MonoBehaviour {
 
     //设置DorpDown字段名字;
     private void AddDropdownItemName(){
-        foreach (var v in ControlPlayer.Instance.m_ItemCategory.category) {
+        foreach (var v in ControlPlayer.Instance.m_ItemCategorys.category) {
             string temp = v.rank + " " + v.des;
             m_CategoryList.Add(temp);
             m_CategroyMap[temp] = v.id;
+            m_CategoryRankMap[temp] = v.rank;
             m_CategoryIdKeyMap[v.id] = temp;
         }
     }
@@ -190,6 +235,9 @@ public class AddItemSecondPanel : MonoBehaviour {
 
     private Toggle m_ViewToggle;
     private Toggle m_DisplayToggle;
+
+    private Toggle m_ViewByCustomerToggle;
+    private Toggle m_DisplayTheQtyToCustomerToggle;
 
     private Dropdown m_CategoryDropdown;
     private List<string> m_CategoryList = new List<string>();
@@ -205,6 +253,9 @@ public class AddItemSecondPanel : MonoBehaviour {
 
     //id 作为key , Rank + 描述作为value,  这样才能通过id 选取默认值;
     private Dictionary<string, string> m_CategoryIdKeyMap = new Dictionary<string, string>();
+    //Rank + 描述作为key, Rank 作为value 这样下拉框选择后才知道categroy 的rank;
+    private Dictionary<string, string> m_CategoryRankMap = new Dictionary<string, string>();
+
 
     private MsgJson.Item m_Item;
 
@@ -214,4 +265,9 @@ public class AddItemSecondPanel : MonoBehaviour {
 
     //confirm之后 保存所选择的stage 传给 CommonPartsSelectPanel
     private List<string> m_ItemStagesList = new List<string>();
+
+    //界面上两个打勾的选项;
+    private bool m_bViewByCustomer = false;
+    private bool m_bDisplayTheQtyToCustomer = false;
+
 }

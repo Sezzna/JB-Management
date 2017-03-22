@@ -26,6 +26,11 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemStages, OnGetItemStages);
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemDisplayStage, OnGetItemDisplayStage);
         MsgRegister.Instance.Register((short)MsgCode.S2C_ItemCategoryStageUpdate, OnItemCategoryStageUpdate);
+
+        //清空左边边栏的项目;
+        ControlPlayer.Instance.m_CommonItemList.Clear();
+        //清空左边边栏的StageTitle;
+        ControlPlayer.Instance.m_StageDisplayList.Clear(); 
 }
 
 
@@ -58,26 +63,41 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     }
 
     //添加左边的Item;
-    public void AddPartItem(MsgJson.Item item, string qty, List<string> stagesList) {
-        foreach (var i in stagesList) {
-            foreach (var v in ControlPlayer.Instance.m_ItemStages.stages)
-            {
-                if (i == v.id) {
-                    m_StagesMap[i] = v.des;
-                }
-            }
+    public void AddPartItem() {
+        //清空所有的stage和item
+        foreach (Transform child in m_PartList) {
+            Destroy(child.gameObject);
         }
 
+        //首先循环所有的stage;
+        foreach (var v in ControlPlayer.Instance.m_ItemStages.stages) {
+            bool check = false;
+            //看看stageDisplayList里面有没有当前循环到的stage;
+            foreach (var i in ControlPlayer.Instance.m_StageDisplayList) {
 
-        //在这里决定是否插入新的stage title;
-        FrameUtil.AddChild(m_PartList.gameObject, m_LeftItemItem).GetComponent<LeftItemItemLogic>().Init(item, qty);
+                if (i.stegeId == v.id ) {
+                    if (check == false) {
+                        FrameUtil.AddChild(m_PartList.gameObject, m_StageTatil).GetComponent<StageTitleLogic>().Init(v.des);
+                        check = true;
+                    }
 
+                    foreach (var x in ControlPlayer.Instance.m_CommonItemList)
+                    {
+                        if (x.item.id == i.itemId)
+                        {
+                            FrameUtil.AddChild(m_PartList.gameObject, m_LeftItemItem).GetComponent<LeftItemItemLogic>().Init(x.item, x.qty);
+                        }
+                    }
+                }
+            }
+
+        }
     }
 
     //-------------------------------------------- MessageHandle  ----------------------------------------------
     void OnGetItemCategory(string data) {
         MsgJson.ItemCategory itemCategory = JsonUtility.FromJson<MsgJson.ItemCategory>(data);
-        ControlPlayer.Instance.m_ItemCategory = itemCategory;
+        ControlPlayer.Instance.m_ItemCategorys = itemCategory;
     }
 
     void OnGetItemStages(string data) {
@@ -122,4 +142,6 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
 
     //保存已经Add到左边的Item的Stage, key 为stageId, val 描述;
     private Dictionary<string, string> m_StagesMap = new Dictionary<string, string>();
+    //保存已经加入左边的Item id
+    private List<GameObject> m_LeftItemList = new List<GameObject>();
 }

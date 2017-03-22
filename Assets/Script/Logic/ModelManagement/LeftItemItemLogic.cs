@@ -29,8 +29,9 @@ public class LeftItemItemLogic : MonoBehaviour {
 	}
 
     public void Init(MsgJson.Item item, string qty) {
+        m_Item = item;
         m_QtyText.text = qty;
-        foreach (var v in ControlPlayer.Instance.m_ItemCategory.category) {
+        foreach (var v in ControlPlayer.Instance.m_ItemCategorys.category) {
             if (v.id == item.category_id){
                 m_CategroyText.text = v.des;
                 break;
@@ -48,6 +49,8 @@ public class LeftItemItemLogic : MonoBehaviour {
     void OnDeleteClick() {
         Destroy(gameObject);
     }
+
+    public MsgJson.Item m_Item;
 
     private Text m_CategroyText;
     private Text m_DesText;
