@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     void Awake(){
+        //给标题名字;
+        m_ModelName = transform.FindChild("CommonParts/JB").GetComponent<Text>();
+        m_ModelName.text = ControlPlayer.Instance.m_ModelName;
+
         m_SupplierList = transform.FindChild("SupplierList/Viewport/Content");
         m_ItemList = transform.FindChild("ItemList/Viewport/Content");
         m_PartList = transform.FindChild("PartList/Viewport/Content");
@@ -126,6 +130,8 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
 
 
     //-------------------------------------------- MEMBER ----------------------------------------------
+    private Text m_ModelName;
+
     private GameObject m_StageTatil;
     private GameObject m_LeftItemItem;
 

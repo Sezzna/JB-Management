@@ -95,6 +95,8 @@ public class AddModelPanelLogic : MonoBehaviour {
         ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelCode = m_ModelCodeInputField.text;
         ControlPlayer.Instance.m_AddModelPanelSaveData.m_ChassisType = m_ChassisDropdown.captionText.text;
 
+        ControlPlayer.Instance.m_ModelName = ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelCode + "MY" + ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear + "V1";
+
         List<MsgJson.Size> m_SizeList = new List<MsgJson.Size>();
 
         bool isHaveData = false;

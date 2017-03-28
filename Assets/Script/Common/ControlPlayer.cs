@@ -147,7 +147,8 @@ public class ControlPlayer {
 
     public AddModelPanelSaveData m_AddModelPanelSaveData = new AddModelPanelSaveData();
 
-
+    //根据AddModelPanel面板数据生成的名字,用于后续的界面;
+    public string m_ModelName;
 
     //-------------------------------------------------------- Control Player 使用数据结构 --------------------------------------------------------
     public class UserInfo {
