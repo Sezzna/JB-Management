@@ -111,7 +111,7 @@ public class AddModelPanelLogic : MonoBehaviour {
 
     //----------------------------------------------- MEG Handle --------------------------------------------------------------------
     //处理添加尺寸消息;
-    void OnAddSize(string data)
+    public void OnAddSize(string data)
     {
         MsgJson.AddSize addSize = JsonUtility.FromJson<MsgJson.AddSize>(data);
         if (addSize.state == "success")

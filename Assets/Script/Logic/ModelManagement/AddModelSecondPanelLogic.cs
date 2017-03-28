@@ -28,7 +28,10 @@ public class AddModelSecondPanelLogic : MonoBehaviour {
 
     void OnConfirmButtonClick() {
         //检查尺寸字符
-       
+        if (m_SizeInputField.text == "") {
+            FrameUtil.PopNoticePanel("Size  Cannot Be Empty !");
+            return;
+        }
 
         //现有的尺寸通过getSize.php获得，
         WWWForm form = new WWWForm();
