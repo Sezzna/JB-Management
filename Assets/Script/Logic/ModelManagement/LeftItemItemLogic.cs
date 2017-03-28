@@ -43,7 +43,7 @@ public class LeftItemItemLogic : MonoBehaviour {
     }
 
     void OnQtyClick() {
-
+        FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("ChangeItemQtyPanel")).GetComponent<ChangeItemQtyPanelLogic>().Init(m_Item,m_QtyText.text);
     }
 
     void OnDeleteClick() {

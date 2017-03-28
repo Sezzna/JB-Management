@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     void Awake(){
@@ -96,6 +97,19 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
                 }
             }
         }
+
+        CalculateTotalAmount();
+    }
+
+    private void CalculateTotalAmount() {
+        double money = 0;
+        foreach (var v in ControlPlayer.Instance.m_CommonItemList) {
+            double temp = double.Parse(v.item.unit_price);
+            temp *= int.Parse(v.qty);
+            money += temp;
+        }
+
+        m_TotalMoneyText.text ="$" + Math.Round(money, 2).ToString();
     }
 
     //-------------------------------------------- MessageHandle  ----------------------------------------------
