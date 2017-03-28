@@ -165,13 +165,19 @@ public class AddItemSecondPanel : MonoBehaviour {
 
         //再保留数据;
         //删除之前的ItemStages
-        for (int i = ControlPlayer.Instance.m_StageDisplayList.Count ; i >= 0 ; --i) {
-            if (ControlPlayer.Instance.m_StageDisplayList[i].itemId == m_Item.id)
+        int check = 1;
+        while (check == 1) {
+            check = 0;
+            foreach (var i in ControlPlayer.Instance.m_StageDisplayList)
             {
-                ControlPlayer.Instance.m_StageDisplayList.Remove(ControlPlayer.Instance.m_StageDisplayList[i]);
+                if (i.itemId == m_Item.id)
+                {
+                    ControlPlayer.Instance.m_StageDisplayList.Remove(i);
+                    check = 1;
+                    break;
+                }
             }
         }
-       
 
             //保留stage
             foreach (var v in m_ItemStagesList) {
