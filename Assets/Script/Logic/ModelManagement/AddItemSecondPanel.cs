@@ -134,6 +134,7 @@ public class AddItemSecondPanel : MonoBehaviour {
 
         //Debug.Log(m_CategoryMap[m_CategoryDropdown.captionText.text]);
    
+        //更新 新的Item 选择的 stage,这个是为了转json 数据存在的;
         List<MsgJson.UpdateItemStageId> stageId = new List<MsgJson.UpdateItemStageId>();
 
         foreach (Transform child in m_StagesGrounp) {
@@ -152,6 +153,7 @@ public class AddItemSecondPanel : MonoBehaviour {
 
         form.AddField("msg", JsonUtility.ToJson(updateItemStage));
       
+        //发送 更新这个item的信息;
         HttpManager.Instance.SendPostForm(ProjectConst.ItemCategoryStageUpdate, form);
 
         //刷新这个供货商下的所有item;
@@ -162,8 +164,17 @@ public class AddItemSecondPanel : MonoBehaviour {
         HttpManager.Instance.SendPostForm(ProjectConst.GetItem, form1);
 
         //再保留数据;
-        //保留stage
-        foreach (var v in m_ItemStagesList) {
+        //删除之前的ItemStages
+        for (int i = ControlPlayer.Instance.m_StageDisplayList.Count ; i >= 0 ; --i) {
+            if (ControlPlayer.Instance.m_StageDisplayList[i].itemId == m_Item.id)
+            {
+                ControlPlayer.Instance.m_StageDisplayList.Remove(ControlPlayer.Instance.m_StageDisplayList[i]);
+            }
+        }
+       
+
+            //保留stage
+            foreach (var v in m_ItemStagesList) {
             ControlPlayer.StageDisplay stageDisplay = new ControlPlayer.StageDisplay();
             stageDisplay.itemId = m_Item.id;
             stageDisplay.stegeId = v;
@@ -171,7 +182,7 @@ public class AddItemSecondPanel : MonoBehaviour {
             ControlPlayer.Instance.m_StageDisplayList.Add(stageDisplay);
         }
         
-        //保留item
+        //保留item 这个才是 正真要显示在左边的内容;
         ControlPlayer.CommonItem commonItem = new ControlPlayer.CommonItem();
 
         commonItem.item = m_Item;

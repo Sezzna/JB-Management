@@ -58,8 +58,11 @@ public class AddModelPanelLogic : MonoBehaviour {
     }
 
 
+    //处理 next 按钮后的事情;
     void OnNextButtonClick()
     {
+        //清空之前的选择数据;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size.Clear();
         //存储信息;
         //判断InputField是否为空;
         if (m_BandInputField.text == "") {
@@ -94,17 +97,27 @@ public class AddModelPanelLogic : MonoBehaviour {
 
         List<MsgJson.Size> m_SizeList = new List<MsgJson.Size>();
 
+        bool isHaveData = false;
+
         //保存size;
-        foreach (Transform v in m_ModelsList) {
-            if (v.GetComponent<SizeItemLogic>().m_SelectedToggle.isOn == true) {
+        foreach (Transform v in m_ModelsList)
+        {
+            if (v.GetComponent<SizeItemLogic>().m_SelectedToggle.isOn == true)
+            {
+                isHaveData = true;
                 m_SizeList.Add(v.GetComponent<SizeItemLogic>().m_Size);
             }
         }
 
-        ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size = m_SizeList.ToArray();
+        if (isHaveData == false) {
+            FrameUtil.PopNoticePanel("Must Select At Least One Size");
+            return;
+        }
 
-     //发送获取供货商消息
-     WWWForm form = new WWWForm();
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size = m_SizeList;
+
+        //发送获取供货商消息
+        WWWForm form = new WWWForm();
         form.AddField("token", PlayerPrefs.GetString("token"));
         HttpManager.Instance.SendPostForm(ProjectConst.GetSupplier, form);
     }

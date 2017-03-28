@@ -259,7 +259,7 @@ public class MsgJson {
         public string Name;
     }
 
-    //供货商Items
+    //供货商的Items
     [Serializable]
     public class Items
     {
@@ -267,7 +267,7 @@ public class MsgJson {
         public Item[] item;
     }
 
-    //供货商Item
+    //供货商的Item
     [Serializable]
     public class Item {
         public string id;
