@@ -6,6 +6,8 @@ using System;
 
 public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     void Awake(){
+        ControlPlayer.Instance.m_CurrentPanelName = "CommonPartsSelectionPanel";
+
         //给标题名字;
         m_ModelName = transform.FindChild("CommonParts/JB").GetComponent<Text>();
         m_ModelName.text = ControlPlayer.Instance.m_ModelName;

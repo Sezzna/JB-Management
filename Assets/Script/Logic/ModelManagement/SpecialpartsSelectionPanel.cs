@@ -7,8 +7,9 @@ using System;
 
 public class SpecialpartsSelectionPanel : MonoBehaviour {
     private void Awake() {
-            //给标题名字;
-            m_ModelName = transform.FindChild("CommonParts/JB").GetComponent<Text>();
+        ControlPlayer.Instance.m_CurrentPanelName = "SpecialpartsSelectionPanel";
+        //给标题名字;
+        m_ModelName = transform.FindChild("CommonParts/JB").GetComponent<Text>();
             m_ModelName.text = ControlPlayer.Instance.m_ModelName;
 
             m_LeftSizeList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/SizeList/Viewport/Content");
@@ -40,9 +41,11 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
         foreach (var v in ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size) {
             FrameUtil.AddChild(m_LeftSizeList.gameObject, m_LeftSizeItem).GetComponent<LeftSizeItemLogic>().Init(v);
         }
+        //默认点选第一个;
+        m_LeftSizeList.transform.GetChild(0).GetComponent<LeftSizeItemLogic>().OnClick();
 
         //重新加入上个界面选择的普通部件;
-        AddPartItem();
+        //AddPartItem();
 
         //加入供货商;
         foreach (var v in ControlPlayer.Instance.m_GetSupplier.supplier)

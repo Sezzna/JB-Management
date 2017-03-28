@@ -38,6 +38,22 @@ public class ItemItemLogic : MonoBehaviour {
 
     void OnAddClick() {
         //加载AddItem面板;
+        foreach (var v in ControlPlayer.Instance.m_CommonItemList) {
+            if (v.item.id == m_Item.id) {
+                FrameUtil.PopNoticePanel("This Item Add To Common Item List Already !");
+                return;
+            }
+        }
+
+        if (ControlPlayer.Instance.m_CurrentPanelName == "SpecialpartsSelectionPanel") {
+            GameObject temp = FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("AddItemSecondPanel"));
+            //删除原有脚本;
+            Destroy(temp.GetComponent<AddItemSecondPanel>());
+            //加入新脚本;
+            temp.AddComponent<AddSpecialItemSecondPanel>().Init(m_Item);
+            return;
+        }
+
         FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("AddItemSecondPanel")).GetComponent<AddItemSecondPanel>().Init(m_Item);
     }
 

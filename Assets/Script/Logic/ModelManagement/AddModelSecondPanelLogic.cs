@@ -19,6 +19,7 @@ public class AddModelSecondPanelLogic : MonoBehaviour {
         m_TypeDropDown = transform.FindChild("Type/Dropdown").GetComponent<Dropdown>();
         m_DoorPositionDropDown = transform.FindChild("DoorPosition/Dropdown_1").GetComponent<Dropdown>();
     }
+
 	// Use this for initialization
 	void Start () {
         //更新DoopDown界面;

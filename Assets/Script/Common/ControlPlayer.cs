@@ -95,7 +95,10 @@ public class ControlPlayer {
     public string m_CurrentSupplierID = "0";
 
 
+
     //-------------------------ModelMangement模块--------------------------
+    //当前正在操作的界面;
+    public string m_CurrentPanelName = "";
 
     //模块信息;
     public MsgJson.ModelRange m_ModelsRange;
@@ -120,6 +123,9 @@ public class ControlPlayer {
     //这个是 common parts selected panel 左边的Stage 数据;
     public List<StageDisplay> m_StageDisplayList = new List<StageDisplay>();
 
+  
+
+    //第二界面使用的全局数据
     public class StageDisplay {
         public string stegeId;
         public string itemId;
@@ -133,6 +139,32 @@ public class ControlPlayer {
         public string categoryRank;
         public bool displayToCustomer;
     }
+
+    //第三界面使用的全局数据;
+    //这个是 special parts selected panel 左边的Stage 数据;
+    public List<SpStageDisplay> m_SpStageDisplayList = new List<SpStageDisplay>();
+    //special parts selected panel 需要的数据;
+    public List<SpItem> m_SpItemList = new List<SpItem>();
+    //当前选择的哪一个尺寸;
+    public string m_CurrentChoiceSizeId;
+
+    public class SpStageDisplay
+    {
+        public string stegeId;
+        public string itemId;
+        public string rank;
+        public string sizeId;
+    }
+
+    //特殊部件结构体;
+    public class SpItem {
+        public MsgJson.Item item;
+        public string qty;
+        public string categoryRank;
+        public bool displayToCustomer;
+        public string sizeId;
+    }
+
 
     //-------------------------ModelMangement模块在每个界面 Next 以后 要保存的数据;--------------------------
     //AddModelPanel模块要保存的数据;
