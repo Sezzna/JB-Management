@@ -184,8 +184,39 @@ public class AddItemSecondPanel : MonoBehaviour {
             ControlPlayer.StageDisplay stageDisplay = new ControlPlayer.StageDisplay();
             stageDisplay.itemId = m_Item.id;
             stageDisplay.stegeId = v;
+            stageDisplay.rank = m_CategoryRankMap[m_CategoryDropdown.captionText.text];
             //实在搞不清楚 stage rank是什么所以没有写;
-            ControlPlayer.Instance.m_StageDisplayList.Add(stageDisplay);
+            int added = 0;
+            if (ControlPlayer.Instance.m_StageDisplayList.Count>0)
+            {
+                for(int x=0; x<ControlPlayer.Instance.m_StageDisplayList.Count;x++)
+                {
+                    if(System.Convert.ToInt32(ControlPlayer.Instance.m_StageDisplayList[x].rank) >= System.Convert.ToInt32(stageDisplay.rank))
+                    {
+                        if(x==0)
+                        {
+                            ControlPlayer.Instance.m_StageDisplayList.Insert(0, stageDisplay);
+                            added = 1;
+                            break;
+                        }
+                        else
+                        {
+                            ControlPlayer.Instance.m_StageDisplayList.Insert(x, stageDisplay);
+                            added = 1;
+                            break;
+                        }
+                    }
+                }
+                if(added==0)
+                {
+                    ControlPlayer.Instance.m_StageDisplayList.Add(stageDisplay);
+                }
+            }
+            else
+            {
+                ControlPlayer.Instance.m_StageDisplayList.Add(stageDisplay);
+            }
+            
         }
         
         //保留item 这个才是 正真要显示在左边的内容;
