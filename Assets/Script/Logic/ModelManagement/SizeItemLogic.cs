@@ -44,6 +44,6 @@ public class SizeItemLogic : MonoBehaviour {
     private Text m_SizeText;
     private Text m_TypeText;
     private Text m_DoorPosition;
-    private Toggle m_SelectedToggle;
+    public Toggle m_SelectedToggle;
     private Text m_NoteText;
 }

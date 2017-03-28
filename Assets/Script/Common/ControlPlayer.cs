@@ -142,8 +142,10 @@ public class ControlPlayer {
         public string m_ModelCode;
         public string m_ModelYear;
         public string m_ChassisType;
-        public MsgJson.Size m_Size;
+        public MsgJson.Size[] m_Size;
     }
+
+    public AddModelPanelSaveData m_AddModelPanelSaveData = new AddModelPanelSaveData();
 
 
 

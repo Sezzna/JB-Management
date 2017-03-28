@@ -85,8 +85,26 @@ public class AddModelPanelLogic : MonoBehaviour {
             return;
         }
 
-        //发送获取供货商消息
-        WWWForm form = new WWWForm();
+        //保存填写的数据到ControlPlayer
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_Band = m_BandInputField.text;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_Model = m_ModeInputField.text;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear = m_ModelYearInputField.text;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelCode = m_ModelCodeInputField.text;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_ChassisType = m_ChassisDropdown.captionText.text;
+
+        List<MsgJson.Size> m_SizeList = new List<MsgJson.Size>();
+
+        //保存size;
+        foreach (Transform v in m_ModelsList) {
+            if (v.GetComponent<SizeItemLogic>().m_SelectedToggle.isOn == true) {
+                m_SizeList.Add(v.GetComponent<SizeItemLogic>().m_Size);
+            }
+        }
+
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size = m_SizeList.ToArray();
+
+     //发送获取供货商消息
+     WWWForm form = new WWWForm();
         form.AddField("token", PlayerPrefs.GetString("token"));
         HttpManager.Instance.SendPostForm(ProjectConst.GetSupplier, form);
     }
