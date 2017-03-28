@@ -47,7 +47,38 @@ public class LeftItemItemLogic : MonoBehaviour {
     }
 
     void OnDeleteClick() {
-        Destroy(gameObject);
+        //删除;
+        //删除之前的ItemStages
+        int check = 1;
+        while (check == 1)
+        {
+            check = 0;
+            foreach (var i in ControlPlayer.Instance.m_StageDisplayList)
+            {
+                if (i.itemId == m_Item.id)
+                {
+                    ControlPlayer.Instance.m_StageDisplayList.Remove(i);
+                    check = 1;
+                    break;
+                }
+            }
+        }
+
+        //判断左边list里面有没有 这个item选项;
+        foreach (var i in ControlPlayer.Instance.m_CommonItemList)
+        {
+            //如果有就Remove掉;
+            if (i.item.id == m_Item.id)
+            {
+                ControlPlayer.Instance.m_CommonItemList.Remove(i);
+                break;
+            }
+        }
+
+
+        //调用CommonPartsSelectionPanel面板的AddPartItem函数刷新左边的Item
+        GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem();
+        //Destroy(gameObject);
     }
 
     public MsgJson.Item m_Item;
