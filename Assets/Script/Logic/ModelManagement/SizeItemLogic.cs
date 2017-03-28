@@ -21,6 +21,7 @@ public class SizeItemLogic : MonoBehaviour {
 	}
 
     public void Init(MsgJson.Size size){
+        m_Size = size;
         m_SizeText.text = size.size;
         m_TypeText.text = size.type;
         m_DoorPosition.text = size.doorPosition;
@@ -34,12 +35,12 @@ public class SizeItemLogic : MonoBehaviour {
         m_NoteText.text = note;
     }
 
+    public MsgJson.Size m_Size;
 
     private InputField m_BandInputField;
     private InputField m_ModelInputField;
     private InputField m_ModelYearField;
    
-
     private Text m_SizeText;
     private Text m_TypeText;
     private Text m_DoorPosition;

@@ -119,7 +119,6 @@ public class ControlPlayer {
 
     //这个是 common parts selected panel 左边的Stage 数据;
     public List<StageDisplay> m_StageDisplayList = new List<StageDisplay>();
-    
 
     public class StageDisplay {
         public string stegeId;
@@ -134,6 +133,19 @@ public class ControlPlayer {
         public string categoryRank;
         public bool displayToCustomer;
     }
+
+    //-------------------------ModelMangement模块在每个界面 Next 以后 要保存的数据;--------------------------
+    //AddModelPanel模块要保存的数据;
+    public class AddModelPanelSaveData {
+        public string m_Band;
+        public string m_Model;
+        public string m_ModelCode;
+        public string m_ModelYear;
+        public string m_ChassisType;
+        public MsgJson.Size m_Size;
+    }
+
+
 
     //-------------------------------------------------------- Control Player 使用数据结构 --------------------------------------------------------
     public class UserInfo {

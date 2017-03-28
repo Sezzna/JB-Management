@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 public class AddModelPanelLogic : MonoBehaviour {
 
-
-
     void Awake()
     {
         m_ModelsList = transform.FindChild("ModelsList/Viewport/Content");
@@ -22,6 +20,13 @@ public class AddModelPanelLogic : MonoBehaviour {
         m_AddSizeButton.onClick.AddListener(OnAddSizeButtonClick);
 
         m_ChassisDropdown = transform.FindChild("ChassisType/Dropdown").GetComponent<Dropdown>();
+
+        m_BandInputField = transform.FindChild("Band/InputField").GetComponent<InputField>();
+        m_ModeInputField = transform.FindChild("Model/InputField").GetComponent<InputField>();
+        m_ModelYearInputField = transform.FindChild("ModelYear/InputField").GetComponent<InputField>();
+        m_ModelCodeInputField = transform.FindChild("ModelCode/InputField").GetComponent<InputField>();
+
+     
         MsgRegister.Instance.Register((short)MsgCode.S2C_AddSize, OnAddSize); 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetSupplier, OnGetSupplier);
     }
@@ -53,10 +58,32 @@ public class AddModelPanelLogic : MonoBehaviour {
     }
 
 
-
     void OnNextButtonClick()
     {
         //存储信息;
+        //判断InputField是否为空;
+        if (m_BandInputField.text == "") {
+            FrameUtil.PopNoticePanel("Band Cannot Be Empty !");
+            return;
+        }
+
+        if (m_ModeInputField.text == "")
+        {
+            FrameUtil.PopNoticePanel("Model Cannot Be Empty !");
+            return;
+        }
+
+        if (m_ModelYearInputField.text == "")
+        {
+            FrameUtil.PopNoticePanel("Model Year Cannot Be Empty !");
+            return;
+        }
+
+        if (m_ModelCodeInputField.text == "")
+        {
+            FrameUtil.PopNoticePanel("Band Cannot Be Empty !");
+            return;
+        }
 
         //发送获取供货商消息
         WWWForm form = new WWWForm();
@@ -134,4 +161,11 @@ public class AddModelPanelLogic : MonoBehaviour {
     private Dropdown m_ChassisDropdown;
 
     private List<string> m_ChassisNameList = new List<string>();
+
+    private InputField m_BandInputField;
+    private InputField m_ModeInputField;
+    private InputField m_ModelYearInputField;
+    private InputField m_ModelCodeInputField;
+    
+
 }

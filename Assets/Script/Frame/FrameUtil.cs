@@ -207,10 +207,18 @@ public class FrameUtil{
 		return dst as T;
 	}
 
-//--------------------------------------------------------------MEMBER------------------------------
+    /// <summary>
+    /// 在Other层弹出提示面板参数为提示面板要显示的字符串;
+    /// </summary>
+    /// <param name="str"></param>
+    public static void PopNoticePanel(string str) {
+        FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init(str);
+    }
 
-	//是否使用AssetBundle;
-	public static bool m_IsUseAssetBundle = false;
+    //--------------------------------------------------------------MEMBER------------------------------
+
+    //是否使用AssetBundle;
+    public static bool m_IsUseAssetBundle = false;
 	//AssetBundle;
 	private static AssetBundle m_Bundle = null;
 	//资源缓存(从bundle中读取出来放里面的);
