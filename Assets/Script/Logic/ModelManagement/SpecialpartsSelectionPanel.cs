@@ -26,7 +26,7 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
 
             m_LeftSizeItem = Resources.Load("LeftSizeItem") as GameObject;
             m_ItemItem = Resources.Load("ItemItem") as GameObject;
-            m_LeftItemItem = Resources.Load("LeftItemItem") as GameObject;
+            m_LeftSpecialItemItem = Resources.Load("LeftSpecialItemItem") as GameObject;
             m_StageTatil = Resources.Load("StageTitle") as GameObject;
 
 
@@ -89,7 +89,7 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
                     {
                         if (x.item.id == i.itemId)
                         {
-                            FrameUtil.AddChild(m_PartList.gameObject, m_LeftItemItem).GetComponent<LeftItemItemLogic>().Init(x.item, x.qty);
+                            FrameUtil.AddChild(m_PartList.gameObject, m_LeftSpecialItemItem).GetComponent<LeftSpecialItemItemLogic>().Init(x.item, x.qty);
                         }
                     }
                 }
@@ -150,7 +150,7 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
 
     private GameObject m_LeftSizeItem;
     private GameObject m_StageTatil;
-    private GameObject m_LeftItemItem;
+    private GameObject m_LeftSpecialItemItem;
 
     private Transform m_LeftSizeList;
     private Transform m_PartList;
