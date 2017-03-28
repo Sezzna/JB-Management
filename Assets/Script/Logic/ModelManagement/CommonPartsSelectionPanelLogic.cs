@@ -139,7 +139,8 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     }
 
     void OnNextClick() {
-
+        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("SpecialPartsSelectionPanel"));
+        Destroy(gameObject);
     }
 
 
