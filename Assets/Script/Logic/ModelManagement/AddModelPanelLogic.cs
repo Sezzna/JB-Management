@@ -81,7 +81,7 @@ public class AddModelPanelLogic : MonoBehaviour {
 
         if (m_ModelCodeInputField.text == "")
         {
-            FrameUtil.PopNoticePanel("Band Cannot Be Empty !");
+            FrameUtil.PopNoticePanel("Model Code Cannot Be Empty !");
             return;
         }
 
