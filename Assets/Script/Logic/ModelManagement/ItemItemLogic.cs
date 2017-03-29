@@ -45,12 +45,25 @@ public class ItemItemLogic : MonoBehaviour {
             }
         }
 
+        foreach (var v in ControlPlayer.Instance.m_SpItemList) {
+            if (v.item.id == m_Item.id)
+            {
+                FrameUtil.PopNoticePanel("This Item Add To Common Item List Already !");
+                return;
+            }
+        }
+
         if (ControlPlayer.Instance.m_CurrentPanelName == "SpecialPartsSelectionPanel") {
             GameObject temp = FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("AddItemSecondPanel"));
             //删除原有脚本;
             Destroy(temp.GetComponent<AddItemSecondPanel>());
             //加入新脚本;
             temp.AddComponent<AddSpecialItemSecondPanel>().Init(m_Item);
+            return;
+        }
+        //这里如果是最后一个面板 要加入 最后一个面板特殊的 AddPanel;
+        else if (ControlPlayer.Instance.m_CurrentPanelName == "LastPartsSelectionPanel") {
+            FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("AddItemGroupSecondPanel")).GetComponent<AddItemGroupSecondPanel>().Init(m_Item);
             return;
         }
 

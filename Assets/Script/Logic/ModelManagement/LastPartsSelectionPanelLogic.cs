@@ -164,8 +164,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
 
     void OnNextClick()
     {
-        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("LastPartsSelectionPanel"));
-        Destroy(gameObject);
+            //最后一步发送消息;
     }
 
 

@@ -37,8 +37,10 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         //清空左边边栏的项目;
         ControlPlayer.Instance.m_CommonItemList.Clear();
         //清空左边边栏的StageTitle;
-        ControlPlayer.Instance.m_StageDisplayList.Clear(); 
+        ControlPlayer.Instance.m_StageDisplayList.Clear();
 
+        ControlPlayer.Instance.m_SpItemList.Clear();
+        ControlPlayer.Instance.m_SpStageDisplayList.Clear();
 }
 
 

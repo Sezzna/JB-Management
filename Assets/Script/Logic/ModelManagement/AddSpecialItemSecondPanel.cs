@@ -209,7 +209,7 @@ public class AddSpecialItemSecondPanel : MonoBehaviour {
             spStageDisplay.stegeId = v;
             spStageDisplay.rank = m_CategoryRankMap[m_CategoryDropdown.captionText.text];
             spStageDisplay.sizeId = ControlPlayer.Instance.m_CurrentChoiceSizeId;
-            //实在搞不清楚 stage rank是什么所以没有写;
+   
             int added = 0;
             if (ControlPlayer.Instance.m_SpStageDisplayList.Count > 0)
             {
