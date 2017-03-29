@@ -97,6 +97,26 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
                     }
                 }
             }
+            foreach (var i in ControlPlayer.Instance.m_SpStageDisplayList)
+            {
+
+                if (i.stegeId == v.id && i.sizeId == m_CurrentChoiceSizeId)
+                {
+                    if (check == false)
+                    {
+                        FrameUtil.AddChild(m_PartList.gameObject, m_StageTatil).GetComponent<StageTitleLogic>().Init(v.des);
+                        check = true;
+                    }
+
+                    foreach (var x in ControlPlayer.Instance.m_SpItemList)
+                    {
+                        if (x.item.id == i.itemId)
+                        {
+                            FrameUtil.AddChild(m_PartList.gameObject, m_LeftSpecialItemItem).GetComponent<LeftSpecialItemItemLogic>().Init(x.item, x.qty);
+                        }
+                    }
+                }
+            }
         }
 
         CalculateTotalAmount();
@@ -166,4 +186,5 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
     private Button m_NextButton;
 
     private Text m_TotalMoneyText;
+    private string m_CurrentChoiceSizeId;
 }
