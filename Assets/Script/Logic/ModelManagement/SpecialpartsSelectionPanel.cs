@@ -134,6 +134,14 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
             money += temp;
         }
 
+        foreach (var i in ControlPlayer.Instance.m_SpItemList) {
+            if (ControlPlayer.Instance.m_CurrentChoiceSizeId == i.sizeId) {
+                double temp = double.Parse(i.item.unit_price);
+                temp *= int.Parse(i.qty);
+                money += temp;
+            }
+        }
+
         m_TotalMoneyText.text = "$" + Math.Round(money, 2).ToString();
     }
 
