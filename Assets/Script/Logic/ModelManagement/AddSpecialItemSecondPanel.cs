@@ -190,11 +190,11 @@ public class AddSpecialItemSecondPanel : MonoBehaviour {
         while (check == 1)
         {
             check = 0;
-            foreach (var i in ControlPlayer.Instance.m_StageDisplayList)
+            foreach (var i in ControlPlayer.Instance.m_SpStageDisplayList)
             {
                 if (i.itemId == m_Item.id)
                 {
-                    ControlPlayer.Instance.m_StageDisplayList.Remove(i);
+                    ControlPlayer.Instance.m_SpStageDisplayList.Remove(i);
                     check = 1;
                     break;
                 }

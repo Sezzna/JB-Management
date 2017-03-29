@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JB-Management", "JB-Management.csproj", "{0829BD9B-BC14-EEF2-546A-8EA1416160E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JB-Management.Editor", "JB-Management.Editor.csproj", "{75F52EF7-8EB3-A83F-6FA9-6B70A397A649}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0829BD9B-BC14-EEF2-546A-8EA1416160E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0829BD9B-BC14-EEF2-546A-8EA1416160E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0829BD9B-BC14-EEF2-546A-8EA1416160E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0829BD9B-BC14-EEF2-546A-8EA1416160E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75F52EF7-8EB3-A83F-6FA9-6B70A397A649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75F52EF7-8EB3-A83F-6FA9-6B70A397A649}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75F52EF7-8EB3-A83F-6FA9-6B70A397A649}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75F52EF7-8EB3-A83F-6FA9-6B70A397A649}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
