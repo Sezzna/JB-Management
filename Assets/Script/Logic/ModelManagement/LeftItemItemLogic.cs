@@ -47,38 +47,65 @@ public class LeftItemItemLogic : MonoBehaviour {
     }
 
     void OnDeleteClick() {
-        //删除;
-        //删除之前的ItemStages
-        int check = 1;
-        while (check == 1)
+        if (ControlPlayer.Instance.m_CurrentPanelName == "SpecialPartsSelectionPanel")
         {
-            check = 0;
-            foreach (var i in ControlPlayer.Instance.m_StageDisplayList)
+            int check = 1;
+            while (check == 1)
             {
-                if (i.itemId == m_Item.id)
+                check = 0;
+                foreach (var i in ControlPlayer.Instance.m_SpStageDisplayList)
                 {
-                    ControlPlayer.Instance.m_StageDisplayList.Remove(i);
-                    check = 1;
+                    if (i.itemId == m_Item.id && ControlPlayer.Instance.m_CurrentChoiceSizeId == i.sizeId)
+                    {
+                        ControlPlayer.Instance.m_SpStageDisplayList.Remove(i);
+                        check = 1;
+                        break;
+                    }
+                }
+            }
+
+            //判断左边list里面有没有 这个item选项;
+            foreach (var i in ControlPlayer.Instance.m_SpItemList)
+            {
+                //如果有就Remove掉;
+                if (i.item.id == m_Item.id)
+                {
+                    ControlPlayer.Instance.m_SpItemList.Remove(i);
                     break;
                 }
             }
-        }
 
-        //判断左边list里面有没有 这个item选项;
-        foreach (var i in ControlPlayer.Instance.m_CommonItemList)
-        {
-            //如果有就Remove掉;
-            if (i.item.id == m_Item.id)
+            GameObject.Find("SpecialPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();
+        }
+        else {
+            int check = 1;
+            while (check == 1)
             {
-                ControlPlayer.Instance.m_CommonItemList.Remove(i);
-                break;
+                check = 0;
+                foreach (var i in ControlPlayer.Instance.m_StageDisplayList)
+                {
+                    if (i.itemId == m_Item.id)
+                    {
+                        ControlPlayer.Instance.m_StageDisplayList.Remove(i);
+                        check = 1;
+                        break;
+                    }
+                }
             }
+
+            //判断左边list里面有没有 这个item选项;
+            foreach (var i in ControlPlayer.Instance.m_CommonItemList)
+            {
+                //如果有就Remove掉;
+                if (i.item.id == m_Item.id)
+                {
+                    ControlPlayer.Instance.m_CommonItemList.Remove(i);
+                    break;
+                }
+            }
+            //调用CommonPartsSelectionPanel面板的AddPartItem函数刷新左边的Item
+            GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem();
         }
-
-
-        //调用CommonPartsSelectionPanel面板的AddPartItem函数刷新左边的Item
-        GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem();
-        //Destroy(gameObject);
     }
 
     public MsgJson.Item m_Item;

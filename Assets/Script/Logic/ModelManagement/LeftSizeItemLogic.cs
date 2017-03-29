@@ -48,7 +48,7 @@ public class LeftSizeItemLogic : MonoBehaviour {
 
         ControlPlayer.Instance.m_CurrentChoiceSizeId = m_id;
 
-        //添加到左测面板.调用 CommonPartsSelectionPanel的函数;
+        //添加到左测面板.调用 SpecialPartsSelectionPanel;
         GameObject.Find("SpecialPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();
 
         //WWWForm form = new WWWForm();

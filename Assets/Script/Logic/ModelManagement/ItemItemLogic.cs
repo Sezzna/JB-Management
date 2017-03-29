@@ -45,7 +45,7 @@ public class ItemItemLogic : MonoBehaviour {
             }
         }
 
-        if (ControlPlayer.Instance.m_CurrentPanelName == "SpecialpartsSelectionPanel") {
+        if (ControlPlayer.Instance.m_CurrentPanelName == "SpecialPartsSelectionPanel") {
             GameObject temp = FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("AddItemSecondPanel"));
             //删除原有脚本;
             Destroy(temp.GetComponent<AddItemSecondPanel>());

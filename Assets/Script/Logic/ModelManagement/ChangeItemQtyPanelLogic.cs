@@ -28,16 +28,34 @@ public class ChangeItemQtyPanelLogic : MonoBehaviour {
     }
 
     void OnConfirmClick() {
-        foreach (var v in ControlPlayer.Instance.m_CommonItemList) {
-            if (v.item.id == m_Item.id) {
-                if (m_QtyInputField.text != ""){
-                    v.qty = m_QtyInputField.text;
+   
+        if (ControlPlayer.Instance.m_CurrentPanelName == "SpecialPartsSelectionPanel")
+        {
+            foreach (var v in ControlPlayer.Instance.m_SpItemList)
+            {
+                if (v.item.id == m_Item.id)
+                {
+                    if (m_QtyInputField.text != "")
+                    {
+                        v.qty = m_QtyInputField.text;
+                    }
                 }
             }
+            GameObject.Find("SpecialPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();
         }
-
-        //调用CommonPartsSelectionPanel面板的AddPartItem函数刷新左边的Item
-        GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem();
+        else {
+            foreach (var v in ControlPlayer.Instance.m_CommonItemList)
+            {
+                if (v.item.id == m_Item.id)
+                {
+                    if (m_QtyInputField.text != "")
+                    {
+                        v.qty = m_QtyInputField.text;
+                    }
+                }
+            }
+            GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem();
+        }
         Destroy(gameObject);
     }
 

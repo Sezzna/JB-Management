@@ -7,7 +7,7 @@ using System;
 
 public class SpecialpartsSelectionPanel : MonoBehaviour {
     private void Awake() {
-        ControlPlayer.Instance.m_CurrentPanelName = "SpecialpartsSelectionPanel";
+        ControlPlayer.Instance.m_CurrentPanelName = "SpecialPartsSelectionPanel";
         //给标题名字;
         m_ModelName = transform.FindChild("CommonParts/JB").GetComponent<Text>();
             m_ModelName.text = ControlPlayer.Instance.m_ModelName;
@@ -28,6 +28,7 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
             m_LeftSizeItem = Resources.Load("LeftSizeItem") as GameObject;
             m_ItemItem = Resources.Load("ItemItem") as GameObject;
             m_LeftSpecialItemItem = Resources.Load("LeftSpecialItemItem") as GameObject;
+            m_LeftColorItemItem = Resources.Load("LeftColorItemItem") as GameObject;
             m_StageTatil = Resources.Load("StageTitle") as GameObject;
 
 
@@ -98,6 +99,7 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
                 }
             }
 
+            //添加特殊部件;
             foreach (var i in ControlPlayer.Instance.m_SpStageDisplayList)
             {
                 if (i.stegeId == v.id && i.sizeId == ControlPlayer.Instance.m_CurrentChoiceSizeId)
@@ -112,7 +114,7 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
                     {
                         if (x.item.id == i.itemId)
                         {
-                            FrameUtil.AddChild(m_PartList.gameObject, m_LeftSpecialItemItem).GetComponent<LeftSpecialItemItemLogic>().Init(x.item, x.qty);
+                            FrameUtil.AddChild(m_PartList.gameObject, m_LeftColorItemItem).GetComponent<LeftItemItemLogic>().Init(x.item, x.qty);
                         }
                     }
                 }
@@ -170,7 +172,7 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
 
     //-------------------------------------------- MEMBER ----------------------------------------------
     private Text m_ModelName;
-
+    private GameObject m_LeftColorItemItem;
     private GameObject m_LeftSizeItem;
     private GameObject m_StageTatil;
     private GameObject m_LeftSpecialItemItem;
