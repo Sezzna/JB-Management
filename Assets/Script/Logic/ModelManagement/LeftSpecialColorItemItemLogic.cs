@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LeftSpecialItemItemLogic : MonoBehaviour {
+public class LeftSpecialColorItemItemLogic : MonoBehaviour {
     private void Awake()
     {
         m_CategroyText = transform.FindChild("Categroy/Text").GetComponent<Text>();
@@ -27,7 +27,7 @@ public class LeftSpecialItemItemLogic : MonoBehaviour {
         }
 
         m_DesText.text = item.description;
-        m_TotalText.text ="$" + item.unit_price;
+        m_TotalText.text = "$" + item.unit_price;
     }
 
     public MsgJson.Item m_Item;

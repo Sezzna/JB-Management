@@ -48,8 +48,17 @@ public class LeftSizeItemLogic : MonoBehaviour {
 
         ControlPlayer.Instance.m_CurrentChoiceSizeId = m_id;
 
-        //添加到左测面板.调用 SpecialPartsSelectionPanel;
-        GameObject.Find("SpecialPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();
+        if (ControlPlayer.Instance.m_CurrentPanelName == "SpecialPartsSelectionPanel")
+        {
+            //添加到左测面板.调用 SpecialPartsSelectionPanel;
+            GameObject.Find("SpecialPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();
+        }
+        else {
+            //添加到左测面板.调用 SpecialPartsSelectionPanel;
+            GameObject.Find("LastPartsSelectionPanel(Clone)").GetComponent<LastPartsSelectionPanelLogic>().AddPartItem();
+        }
+
+       
 
         //WWWForm form = new WWWForm();
         //form.AddField("token", PlayerPrefs.GetString("token"));

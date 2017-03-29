@@ -2,44 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using System;
 
-public class SpecialpartsSelectionPanel : MonoBehaviour {
-    private void Awake() {
-        ControlPlayer.Instance.m_CurrentPanelName = "SpecialPartsSelectionPanel";
+public class LastPartsSelectionPanelLogic : MonoBehaviour {
+    private void Awake()
+    {
+        //暂定名字;
+        ControlPlayer.Instance.m_CurrentPanelName = "LastPartsSelectionPanel";
         //给标题名字;
         m_ModelName = transform.FindChild("CommonParts/JB").GetComponent<Text>();
-            m_ModelName.text = ControlPlayer.Instance.m_ModelName;
+        m_ModelName.text = ControlPlayer.Instance.m_ModelName;
 
-            m_LeftSizeList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/SizeList/Viewport/Content");
-            m_SupplierList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/SupplierList/Viewport/Content");
-            m_ItemList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/ItemList/Viewport/Content");
-            m_PartList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/PartList/Viewport/Content");
+        m_LeftSizeList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/SizeList/Viewport/Content");
+        m_SupplierList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/SupplierList/Viewport/Content");
+        m_ItemList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/ItemList/Viewport/Content");
+        m_PartList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/PartList/Viewport/Content");
 
-            m_CancelButton = transform.FindChild("Cancel").GetComponent<Button>();
-            m_CancelButton.onClick.AddListener(OnCancelClick);
+        m_CancelButton = transform.FindChild("Cancel").GetComponent<Button>();
+        m_CancelButton.onClick.AddListener(OnCancelClick);
 
-            m_NextButton = transform.FindChild("Next").GetComponent<Button>();
-            m_NextButton.onClick.AddListener(OnNextClick);
+        m_NextButton = transform.FindChild("Next").GetComponent<Button>();
+        m_NextButton.onClick.AddListener(OnNextClick);
 
-            m_TotalMoneyText = transform.FindChild("Money").GetComponent<Text>();
+        m_TotalMoneyText = transform.FindChild("Money").GetComponent<Text>();
 
-            m_LeftSizeItem = Resources.Load("LeftSizeItem") as GameObject;
-            m_ItemItem = Resources.Load("ItemItem") as GameObject;
-            m_LeftSpecialItemItem = Resources.Load("LeftSpecialItemItem") as GameObject;
-            m_LeftColorItemItem = Resources.Load("LeftColorItemItem") as GameObject;
-            m_StageTatil = Resources.Load("StageTitle") as GameObject;
+        m_LeftSizeItem = Resources.Load("LeftSizeItem") as GameObject;
+        m_ItemItem = Resources.Load("ItemItem") as GameObject;
+        m_LeftSpecialItemItem = Resources.Load("LeftSpecialItemItem") as GameObject;
+        m_LeftSpecialColorItemItem = Resources.Load("LeftSpecialColorItemItem") as GameObject;
+        m_StageTatil = Resources.Load("StageTitle") as GameObject;
 
 
-            MsgRegister.Instance.Register((short)MsgCode.S2C_GetItem, OnGetItem);
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetItem, OnGetItem);
     }
 
-    // Use this for initialization
     void Start()
     {
         //加入第一界面选择的Size;
-        foreach (var v in ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size) {
+        foreach (var v in ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size)
+        {
             FrameUtil.AddChild(m_LeftSizeList.gameObject, m_LeftSizeItem).GetComponent<LeftSizeItemLogic>().Init(v);
         }
         //默认点选第一个;
@@ -53,15 +54,6 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
         {
             FrameUtil.AddChild(m_SupplierList.gameObject, Resources.Load<GameObject>("SupplierItem")).GetComponent<SupplierItemLogic>().Init(v);
         }
-
-        ////获得ItemCategory信息
-        //WWWForm form = new WWWForm();
-        //form.AddField("token", PlayerPrefs.GetString("token"));
-        //HttpManager.Instance.SendPostForm(ProjectConst.GetItemCategory, form);
-        ////获得Stages信息;
-        //WWWForm form1 = new WWWForm();
-        //form1.AddField("token", PlayerPrefs.GetString("token"));
-        //HttpManager.Instance.SendPostForm(ProjectConst.GetItemStages, form1);
     }
 
     //添加左边的Item;
@@ -80,7 +72,6 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
             //看看stageDisplayList里面有没有当前循环到的stage;
             foreach (var i in ControlPlayer.Instance.m_StageDisplayList)
             {
-
                 if (i.stegeId == v.id)
                 {
                     if (check == false)
@@ -114,7 +105,7 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
                     {
                         if (x.item.id == i.itemId)
                         {
-                            FrameUtil.AddChild(m_PartList.gameObject, m_LeftColorItemItem).GetComponent<LeftItemItemLogic>().Init(x.item, x.qty);
+                            FrameUtil.AddChild(m_PartList.gameObject, m_LeftSpecialColorItemItem).GetComponent<LeftSpecialColorItemItemLogic>().Init(x.item, x.qty);
                         }
                     }
                 }
@@ -134,8 +125,10 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
             money += temp;
         }
 
-        foreach (var i in ControlPlayer.Instance.m_SpItemList) {
-            if (ControlPlayer.Instance.m_CurrentChoiceSizeId == i.sizeId) {
+        foreach (var i in ControlPlayer.Instance.m_SpItemList)
+        {
+            if (ControlPlayer.Instance.m_CurrentChoiceSizeId == i.sizeId)
+            {
                 double temp = double.Parse(i.item.unit_price);
                 temp *= int.Parse(i.qty);
                 money += temp;
@@ -176,12 +169,9 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
     }
 
 
-
-
-
     //-------------------------------------------- MEMBER ----------------------------------------------
     private Text m_ModelName;
-    private GameObject m_LeftColorItemItem;
+    private GameObject m_LeftSpecialColorItemItem;
     private GameObject m_LeftSizeItem;
     private GameObject m_StageTatil;
     private GameObject m_LeftSpecialItemItem;

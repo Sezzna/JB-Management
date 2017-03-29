@@ -39,7 +39,7 @@ public class LeftItemItemLogic : MonoBehaviour {
         }
         
         m_DesText.text = item.description;
-        m_TotalText.text = item.unit_price;
+        m_TotalText.text ="$" + item.unit_price;
     }
 
     void OnQtyClick() {
