@@ -269,7 +269,7 @@ public class AddSpecialItemSecondPanel : MonoBehaviour {
 
 
         //添加到左测面板.调用 CommonPartsSelectionPanel的函数;
-        //GameObject.Find("CommonPartsSelectionPanel(Clone)").GetComponent<CommonPartsSelectionPanelLogic>().AddPartItem();//(m_Item, m_QtyEndEdit, m_ItemStagesList);
+        GameObject.Find("SpecialPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();//(m_Item, m_QtyEndEdit, m_ItemStagesList);
 
         //最后删除面板;
         Destroy(gameObject);

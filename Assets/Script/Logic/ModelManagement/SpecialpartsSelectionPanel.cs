@@ -97,9 +97,9 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
                     }
                 }
             }
+
             foreach (var i in ControlPlayer.Instance.m_SpStageDisplayList)
             {
-
                 if (i.stegeId == v.id && i.sizeId == ControlPlayer.Instance.m_CurrentChoiceSizeId)
                 {
                     if (check == false)
