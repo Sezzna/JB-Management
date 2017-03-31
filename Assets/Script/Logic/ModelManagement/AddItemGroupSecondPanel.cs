@@ -10,9 +10,12 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
         m_Cancel.onClick.AddListener(OnCancelClick);
         m_Confirm = transform.FindChild("Panel/Confirm").GetComponent<Button>();
         m_Confirm.onClick.AddListener(OnConfirmClick);
+        m_AddNameButton = transform.FindChild("Panel/AddName").GetComponent<Button>();
+        m_AddNameButton.onClick.AddListener(OnAddNameClick);
 
 
         m_CategoryDropdown = transform.FindChild("Panel/Category/Dropdown").GetComponent<Dropdown>();
+        m_NameDropdown = transform.FindChild("Panel/Name/Dropdown").GetComponent<Dropdown>();
 
         m_StagesGrounp = transform.FindChild("Panel/StageGroup");
 
@@ -29,7 +32,10 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        //跟新 CategoryDropdown 显示;
         UpdateCategoryDropdownView();
+        //跟新 NameDropdown显示;
+        UpdateNameDropdownView(); 
 
         foreach (var v in ControlPlayer.Instance.m_ItemStages.stages)
         {
@@ -71,6 +77,12 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
     void OnQtyEndEdit(string s)
     {
         m_QtyEndEdit = s;
+    }
+
+    //添加名字加号按钮
+    void OnAddNameClick() {
+        //弹出面板;
+        FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("AddItemGroupNamePanel"));
     }
 
     void OnCancelClick()
@@ -242,7 +254,7 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
 
     private void UpdateCategoryDropdownView()
     {
-        AddDropdownItemName();
+        AddCategoryDropdownItemName();
         m_CategoryDropdown.options.Clear();
         Dropdown.OptionData tempData;
         for (int i = 0; i < m_CategoryList.Count; i++)
@@ -263,8 +275,30 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
         }
     }
 
-    //设置DorpDown字段名字;
-    private void AddDropdownItemName()
+    public  void UpdateNameDropdownView() {
+        //清空;
+        m_NameDropdown.options.Clear();
+        Dropdown.OptionData tempData;
+    
+        for (int i = 0; i < ControlPlayer.Instance.m_NameList.Count; ++i)
+        {
+            tempData = new Dropdown.OptionData();
+            tempData.text = ControlPlayer.Instance.m_NameList[i];
+            m_NameDropdown.options.Add(tempData);
+        }
+
+        //如果没有值,那么显示一个请添加名字;
+        if (ControlPlayer.Instance.m_NameList.Count == 0)
+        {
+            m_NameDropdown.captionText.text = "Please Add Name";
+        }
+        else {
+            m_NameDropdown.value = 0;
+        }
+    }
+
+    //设置CategoryDorpDown字段名字;
+    private void AddCategoryDropdownItemName()
     {
         foreach (var v in ControlPlayer.Instance.m_ItemCategorys.category)
         {
@@ -276,12 +310,16 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
         }
     }
 
+
     //---------------------------------- MEMBER ---------------------------------
     private Text m_Description;
 
     private Dropdown m_CategoryDropdown;
+    private Dropdown m_NameDropdown;
+
     private List<string> m_CategoryList = new List<string>();
 
+    private Button m_AddNameButton;
     private Button m_Cancel;
     private Button m_Confirm;
 
@@ -303,7 +341,6 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
     //数量默认1
     private string m_QtyEndEdit = "1";
 
-    //confirm之后 保存所选择的stage 传给 CommonPartsSelectPanel
     private List<string> m_ItemStagesList = new List<string>();
 
 }

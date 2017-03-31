@@ -165,6 +165,30 @@ public class ControlPlayer {
         public string sizeId;
     }
 
+    //最后一个面板的全局数据;
+    public List<OpItem> m_OpItemList = new List<OpItem>();
+    public List<OpStageDisplay> m_OpDisplayList = new List<OpStageDisplay>();
+
+    public List<string> m_NameList = new List<string>();
+
+    public class OpStageDisplay
+    {
+        public string stegeId;
+        public string itemId;
+        public string rank;
+        public string sizeId;
+    }
+
+    public class OpItem {
+        public MsgJson.Item item;
+        public string qty;
+        public string categoryRank;
+        public bool displayToCustomer;
+        public string sizeId;
+        public string name;
+        public string standard;
+        public string Extra;
+    }
 
     //-------------------------ModelMangement模块在每个界面 Next 以后 要保存的数据;--------------------------
     //AddModelPanel模块要保存的数据;

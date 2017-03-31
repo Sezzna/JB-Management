@@ -258,8 +258,14 @@ public class AddItemSecondPanel : MonoBehaviour {
         }
 
         if (m_Item.category_id != "0"){
-            //Debug.Log("------------------- " + m_Item.category_id);
-            m_CategoryDropdown.captionText.text = m_CategoryIdKeyMap[m_Item.category_id];
+            for (int i = 0 ;  i< m_CategoryDropdown.options.Count ; ++i) {
+                if (m_CategoryDropdown.options[i].text == m_CategoryIdKeyMap[m_Item.category_id])
+                {
+                    m_CategoryDropdown.value = i;
+                    m_CategoryDropdown.captionText.text = m_CategoryIdKeyMap[m_Item.category_id];
+                    break;
+                }
+            }
         }
         else {
             m_CategoryDropdown.captionText.text = "Please Select";
