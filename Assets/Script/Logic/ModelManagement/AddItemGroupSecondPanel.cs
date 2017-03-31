@@ -254,20 +254,28 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
 
     private void UpdateCategoryDropdownView()
     {
-        AddCategoryDropdownItemName();
         m_CategoryDropdown.options.Clear();
+        AddCategoryDropdownItemName();
         Dropdown.OptionData tempData;
         for (int i = 0; i < m_CategoryList.Count; i++)
         {
             tempData = new Dropdown.OptionData();
             tempData.text = m_CategoryList[i];
+            Debug.Log(m_CategoryList[i]);
             m_CategoryDropdown.options.Add(tempData);
         }
 
         if (m_Item.category_id != "0")
         {
-            //Debug.Log("------------------- " + m_Item.category_id);
-            m_CategoryDropdown.captionText.text = m_CategoryIdKeyMap[m_Item.category_id];
+            for (int i = 0; i < m_CategoryDropdown.options.Count; ++i)
+            {
+                if (m_CategoryDropdown.options[i].text == m_CategoryIdKeyMap[m_Item.category_id])
+                {
+                    m_CategoryDropdown.value = i;
+                    m_CategoryDropdown.captionText.text = m_CategoryIdKeyMap[m_Item.category_id];
+                    break;
+                }
+            }
         }
         else
         {
@@ -294,6 +302,7 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
         }
         else {
             m_NameDropdown.value = 0;
+            m_NameDropdown.captionText.text = ControlPlayer.Instance.m_NameList[0];
         }
     }
 
