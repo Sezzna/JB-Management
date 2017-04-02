@@ -261,7 +261,6 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
         {
             tempData = new Dropdown.OptionData();
             tempData.text = m_CategoryList[i];
-            Debug.Log(m_CategoryList[i]);
             m_CategoryDropdown.options.Add(tempData);
         }
 
