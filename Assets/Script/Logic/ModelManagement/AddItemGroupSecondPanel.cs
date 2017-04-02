@@ -16,6 +16,7 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
 
         m_CategoryDropdown = transform.FindChild("Panel/Category/Dropdown").GetComponent<Dropdown>();
         m_NameDropdown = transform.FindChild("Panel/Name/Dropdown").GetComponent<Dropdown>();
+        m_StdDropdown = transform.FindChild("Panel/StandOrOptional/Dropdown").GetComponent<Dropdown>() ;
 
         m_StagesGrounp = transform.FindChild("Panel/StageGroup");
 
@@ -26,6 +27,9 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
         m_QtyInputField = transform.FindChild("Panel/QTY/InputField").GetComponent<InputField>();
         m_QtyInputField.onEndEdit.AddListener(OnQtyEndEdit);
 
+        m_ExtraInputfield = transform.FindChild("Panel/Extra/InputField").GetComponent<InputField>();
+        m_ExtraInputfield.onEndEdit.AddListener(OnExtraEndEdit);
+
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItemDisplayStage, OnGetItemDisplayStage);
     }
 
@@ -35,7 +39,9 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
         //跟新 CategoryDropdown 显示;
         UpdateCategoryDropdownView();
         //跟新 NameDropdown显示;
-        UpdateNameDropdownView(); 
+        UpdateNameDropdownView();
+        //更新 StdDropdown显示；
+        UpdateStdDropdownView();
 
         foreach (var v in ControlPlayer.Instance.m_ItemStages.stages)
         {
@@ -78,6 +84,12 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
     {
         m_QtyEndEdit = s;
     }
+
+    void OnExtraEndEdit(string s)
+    {
+        m_ExtraEndEdit = s;
+    }
+
 
     //添加名字加号按钮
     void OnAddNameClick() {
@@ -305,6 +317,27 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
         }
     }
 
+    public void UpdateStdDropdownView()
+    {
+        //清空;
+        m_StdDropdown.options.Clear();
+        Dropdown.OptionData tempData;
+        Dropdown.OptionData tempData_1;
+
+        //std 下拉框只有两个选项；
+        tempData = new Dropdown.OptionData();
+        tempData.text = "Standard";
+        m_StdDropdown.options.Add(tempData);
+
+        tempData_1 = new Dropdown.OptionData();
+        tempData_1.text = "Optional";
+        m_StdDropdown.options.Add(tempData_1);
+
+        //默认是标准；
+        m_StdDropdown.value = 0;
+        m_StdDropdown.captionText.text = "Standard";
+    }
+
     //设置CategoryDorpDown字段名字;
     private void AddCategoryDropdownItemName()
     {
@@ -324,6 +357,7 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
 
     private Dropdown m_CategoryDropdown;
     private Dropdown m_NameDropdown;
+    private Dropdown m_StdDropdown;
 
     private List<string> m_CategoryList = new List<string>();
 
@@ -346,8 +380,11 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
     private MsgJson.Item m_Item;
 
     private InputField m_QtyInputField;
+    private InputField m_ExtraInputfield;
+
     //数量默认1
     private string m_QtyEndEdit = "1";
+    private string m_ExtraEndEdit = "1";
 
     private List<string> m_ItemStagesList = new List<string>();
 
