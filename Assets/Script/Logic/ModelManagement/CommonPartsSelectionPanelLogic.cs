@@ -59,7 +59,7 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         form1.AddField("token", PlayerPrefs.GetString("token"));
         HttpManager.Instance.SendPostForm(ProjectConst.GetItemStages, form1);
 
-        AddPartItem();
+        
     }
 
     void OnGetItem(string data) {
@@ -122,6 +122,8 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     void OnGetItemCategory(string data) {
         MsgJson.ItemCategory itemCategory = JsonUtility.FromJson<MsgJson.ItemCategory>(data);
         ControlPlayer.Instance.m_ItemCategorys = itemCategory;
+
+        AddPartItem();
     }
 
     void OnGetItemStages(string data) {
