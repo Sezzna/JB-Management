@@ -58,20 +58,19 @@ public class ModeCodeItemLogic : MonoBehaviour {
     }
 
     //---------------------------MEMBER------------------------------------
-
     private Button m_ModelCodeButton;
     private Button m_YearButton;
     private Button m_StatusButton;
 
     private Text m_ModelCodeText;
     private Text m_YearText;
-    private Text m_StatusText;
+    public Text m_StatusText;
 
 
     private Transform m_Arrow;
 
     //ModelsRange数据;
-    private MsgJson.CarModel m_CarModel;
+    public MsgJson.CarModel m_CarModel;
 
 }
 

@@ -32,6 +32,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
         m_MakeItInactiveButton = transform.FindChild("MakeItInactive").GetComponent<Button>();
         m_MakeItInactiveButton.onClick.AddListener(OnMakeItInactiveClick);
+        m_m_MakeItInactiveButtonText = transform.FindChild("MakeItInactive/Text").GetComponent<Text>();
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetRange, OnGetRange);
 
@@ -40,6 +41,8 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelDetail, OnGetModelDetail);
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelPartDetail, OnGetModelPartDetail);
+
+        MsgRegister.Instance.Register((short)MsgCode.S2C_ChangeModelStatus, OnChangeModelStatus);
 
         //清空全局数据;
         ControlPlayer.Instance.m_ModelsDetail = null;
@@ -117,6 +120,14 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         m_ModelYearText.text = ControlPlayer.Instance.m_ModelsDetail.models[0].model_year;
         m_VersionText.text = ControlPlayer.Instance.m_ModelsDetail.models[0].version;
         m_StatusText.text = ControlPlayer.Instance.m_ModelsDetail.models[0].status;
+
+        if (m_StatusText.text == "Active")
+        {
+            m_m_MakeItInactiveButtonText.text = "Make it InActive";
+        }
+        else {
+            m_m_MakeItInactiveButtonText.text = "Make it Active";
+        }
 
         //添加新Size之前删除老的;
         foreach (Transform child in m_SizeList)
@@ -312,10 +323,39 @@ public class ModelManagementPanelLogic : MonoBehaviour {
     }
 
     void OnMakeItInactiveClick() {
+        WWWForm form = new WWWForm();
+        form.AddField("id", ControlPlayer.Instance.m_ModelsDetail.models[0].id);
+        form.AddField("token", PlayerPrefs.GetString("token"));
+        if (ControlPlayer.Instance.m_ModelsDetail.models[0].status == "Active")
+        {
+            form.AddField("status", "InActive");
+        }
+        else {
+            form.AddField("status", "Active");
+        }
+        HttpManager.Instance.SendPostForm(ProjectConst.ChangeModelStatus, form);
         
     }
 
+    void OnChangeModelStatus(string data) {
+        if (m_StatusText.text == "Active")
+        {
+            m_m_MakeItInactiveButtonText.text = "Make it Active";
+            m_StatusText.text = "InActive";
+        }
+        else {
+            m_m_MakeItInactiveButtonText.text = "Make it InActive";
+            m_StatusText.text = "Active";
+        }
 
+        foreach (Transform child in m_ModelCodeList)
+        {
+            if (child.GetComponent<ModeCodeItemLogic>().m_CarModel.id == ControlPlayer.Instance.m_ModelsDetail.models[0].id)
+            {
+                child.GetComponent<ModeCodeItemLogic>().m_StatusText.text = m_StatusText.text;
+            }
+        }
+    }
 
 
     //------------------------------------------------MEMBER----------------------------------------
@@ -342,6 +382,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
     private Button m_MakeItInactiveButton;
     private Button m_MakeChangesButton;
     private Button m_UpdateToNewModelYearButton;
+    private Text m_m_MakeItInactiveButtonText;
 
     private string m_ButtonText = "";
 }

@@ -69,5 +69,8 @@ public enum MsgCode
     S2C_GetModelPartDetail = 1022,
 
     //更新Item category和stage 消息;
-    S2C_ItemCategoryStageUpdate = 1023
+    S2C_ItemCategoryStageUpdate = 1023,
+
+    //改变model status
+    S2C_ChangeModelStatus = 1024
 }
