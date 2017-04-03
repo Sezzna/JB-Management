@@ -43,6 +43,8 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelPartDetail, OnGetModelPartDetail);
 
+        //清空全局数据;
+        ControlPlayer.Instance.m_ModelsDetail = null;
     }
 
 	void Start () {
@@ -144,15 +146,122 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         Destroy(gameObject);
     }
 
+    //得到 之前添加的所有车型数据,在转换到 那3个全局数据中 com sp op;
     void OnGetModelPartDetail(string data) {
-        ControlPlayer.Instance.m_ModelPartDetail = JsonUtility.FromJson<MsgJson.AddModelMsg>(data);
+        ControlPlayer.Instance.m_SaveAddModelMsg = JsonUtility.FromJson<MsgJson.SaveAddModelMsg>(data);
+
+        //转换数据;
+        ControlPlayer.Instance.m_AddModelPanelSaveData = new ControlPlayer.AddModelPanelSaveData();
+        //转model;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_Brand = ControlPlayer.Instance.m_SaveAddModelMsg.models[0].brand;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_Model = ControlPlayer.Instance.m_SaveAddModelMsg.models[0].name;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelCode = ControlPlayer.Instance.m_SaveAddModelMsg.models[0].code;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear = ControlPlayer.Instance.m_SaveAddModelMsg.models[0].model_year;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_ChassisType = ControlPlayer.Instance.m_SaveAddModelMsg.models[0].chassis_type;
+        ControlPlayer.Instance.m_Version = int.Parse(ControlPlayer.Instance.m_SaveAddModelMsg.models[0].version);
+
+        //转size;
+        foreach (var v in ControlPlayer.Instance.m_SaveAddModelMsg.size) {
+            MsgJson.Size tempSize = new MsgJson.Size();
+            tempSize.id = v.size_id;
+            tempSize.size = v.size;
+            tempSize.doorPosition = v.doorPosition;
+            tempSize.type = v.type;
+            tempSize.note = v.note;
+            ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size.Add(tempSize);
+        }
+
+        //转 part_com
+
+        foreach (var v in ControlPlayer.Instance.m_SaveAddModelMsg.part_com) {
+            ControlPlayer.CommonItem comItem = new ControlPlayer.CommonItem();
+            comItem.item.id = v.item_id;
+            comItem.item.product_code = v.product_code;
+            comItem.item.description = v.description;
+            //comItem.item.units
+            comItem.item.unit_price = v.unit_price;
+            comItem.item.discount = v.discount;
+            //comItem.item.category_id 
+            comItem.qty = v.qty;
+            if (v.show == "Yes")
+            {
+                comItem.displayToCustomer = true;
+            }
+            else {
+                comItem.displayToCustomer = false;
+            }
+            comItem.categoryRank = v.rank;
+
+            ControlPlayer.Instance.m_CommonItemList.Add(comItem);
+        }
+
+        //转 part_sp
+        foreach (var v in ControlPlayer.Instance.m_SaveAddModelMsg.part_sp)
+        {
+            ControlPlayer.SpItem spItem = new ControlPlayer.SpItem();
+            spItem.item.id = v.item_id;
+            spItem.item.product_code = v.product_code;
+            spItem.item.description = v.description;
+            //comItem.item.units
+            spItem.item.unit_price = v.unit_price;
+            spItem.item.discount = v.discount;
+            //comItem.item.category_id \
+
+            spItem.qty = v.qty;
+            spItem.categoryRank = v.rank;
+            if (v.show == "Yes")
+            {
+                spItem.displayToCustomer = true;
+            }
+            else
+            {
+                spItem.displayToCustomer = false;
+            }
+            spItem.sizeId = v.size_id;
+
+            ControlPlayer.Instance.m_SpItemList.Add(spItem);
+        }
 
 
+        //转 part_Op
+        foreach (var v in ControlPlayer.Instance.m_SaveAddModelMsg.part_op)
+        {
+            ControlPlayer.OpItem opItem = new ControlPlayer.OpItem();
+            opItem.item.id = v.item_id;
+            opItem.item.product_code = v.product_code;
+            opItem.item.description = v.description;
+            //comItem.item.units
+            opItem.item.unit_price = v.unit_price;
+            opItem.item.discount = v.discount;
+            //comItem.item.category_id \
+
+            opItem.qty = v.qty;
+            opItem.categoryRank = v.rank;
+            if (v.show == "Yes")
+            {
+                opItem.displayToCustomer = true;
+            }
+            else
+            {
+                opItem.displayToCustomer = false;
+            }
+            opItem.sizeId = v.size_id;
+            opItem.name = v.option_name;
+            opItem.standardOrOptional = v.stand;
+            opItem.Extra = v.extra;
+
+            ControlPlayer.Instance.m_OpItemList.Add(opItem);
+        }
     }
 
     //---------------------------------------------Button -------------------------------------------
     void OnMakeChangesClick()
     {
+        if (ControlPlayer.Instance.m_ModelsDetail == null) {
+            FrameUtil.PopNoticePanel("Please select a model !");
+            return;
+        }
+
         WWWForm form = new WWWForm();
         form.AddField("id", ControlPlayer.Instance.m_ModelsDetail.models[0].id);
         form.AddField("token", PlayerPrefs.GetString("token"));

@@ -200,6 +200,8 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
 
             ControlPlayer.Instance.m_OpItemList.Clear();
             ControlPlayer.Instance.m_OpStageDisplayList.Clear();
+
+            ControlPlayer.Instance.m_AddModelPanelSaveData = null;
         }
         else {
 
@@ -218,7 +220,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
     void OnNextClick()
     {
         WWWForm form = new WWWForm();
-        form.AddField("band", ControlPlayer.Instance.m_AddModelPanelSaveData.m_Band);
+        form.AddField("band", ControlPlayer.Instance.m_AddModelPanelSaveData.m_Brand);
         form.AddField("model", ControlPlayer.Instance.m_AddModelPanelSaveData.m_Model);
         form.AddField("code", ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelCode);
         form.AddField("model_year", ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear);

@@ -48,7 +48,7 @@ public class AddModelPanelLogic : MonoBehaviour {
                 }
             }
         }
-        m_BandInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_Band;
+        m_BandInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_Brand;
         m_ModeInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_Model;
         m_ModelYearInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear;
         m_ModelCodeInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelCode;
@@ -101,7 +101,7 @@ public class AddModelPanelLogic : MonoBehaviour {
         }
 
         //保存填写的数据到ControlPlayer
-        ControlPlayer.Instance.m_AddModelPanelSaveData.m_Band = m_BandInputField.text;
+        ControlPlayer.Instance.m_AddModelPanelSaveData.m_Brand = m_BandInputField.text;
         ControlPlayer.Instance.m_AddModelPanelSaveData.m_Model = m_ModeInputField.text;
         ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear = m_ModelYearInputField.text;
         ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelCode = m_ModelCodeInputField.text;

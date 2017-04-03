@@ -379,12 +379,94 @@ public class MsgJson {
     }
 
     [Serializable]
-    public struct AddModelMsg
-    {
+    public struct AddModelMsg {
         public SizeId[] size;
         public Part_Com[] part_com;
         public Part_Sp[] part_sp;
         public Part_Op[] part_op;
+    }
+
+    //用来保存1022消息;
+    [Serializable]
+    public struct Models {
+        public string id;
+        public string name;
+        public string brand;
+        public string model_year;
+        public string status;
+        public string version;
+        public string code;
+        public string chassis_type;      
+    }
+
+    [Serializable]
+    public struct SaveSize {
+        public string size_id;
+        public string size;
+        public string doorPosition;
+        public string type;
+        public string note;
+    }
+
+    [Serializable]
+    public struct SavePartCom
+    {
+        public string product_code;
+        public string item_id;
+        public string unit_price;
+        public string discount;
+        public string description;
+        public string note;
+        public string qty;
+        public string show;
+        public string category_name;
+        public string rank;
+    }
+
+    [Serializable]
+    public struct SavePartSp
+    {
+        public string product_code;
+        public string item_id;
+        public string unit_price;
+        public string discount;
+        public string description;
+        public string note;
+        public string qty;
+        public string show; 
+        public string size_id;
+        public string category_name;
+        public string rank;
+    }
+
+    [Serializable]
+    public struct SavePartOp
+    {
+        public string product_code;
+        public string item_id;
+        public string unit_price;
+        public string discount;
+        public string description;
+        public string note;
+        public string qty;
+        public string show;
+        public string size_id;
+        public string option_name;
+        public string stand;
+        public string category_name;
+        public string rank;
+        public string extra;
+    }
+
+    [Serializable]
+    public struct SaveAddModelMsg
+    {
+        public string state;
+        public Models[] models;
+        public SaveSize[] size;
+        public SavePartCom[] part_com;
+        public SavePartSp[] part_sp;
+        public SavePartOp[] part_op;
     }
 
 }
