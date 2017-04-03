@@ -117,7 +117,8 @@ public class ControlPlayer {
     //1020 ItemStages
     public MsgJson.ItemStages m_ItemStages;
 
-    public int version = 1;
+    //车辆版本号?
+    public int m_Version = 1;
 
     //--------------------------------------------------------------------------------------------
     //选择加载到common parts selected panel 左边的item数据;
