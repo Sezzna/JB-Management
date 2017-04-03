@@ -122,6 +122,8 @@
     <Compile Include="Assets\Script\Logic\Main\NoticePanelLogic.cs" />
     <Compile Include="Assets\Script\Logic\Main\StartSceneLogic.cs" />
     <Compile Include="Assets\Script\Logic\Main\TitlePanelLogic.cs" />
+    <Compile Include="Assets\Script\Logic\ModelManagement\AddItemGroupNamePanelLogic.cs" />
+    <Compile Include="Assets\Script\Logic\ModelManagement\AddItemGroupSecondPanel.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\AddItemSecondPanel.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\AddModelPanelLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\AddModelSecondPanelLogic.cs" />
@@ -131,13 +133,17 @@
     <Compile Include="Assets\Script\Logic\ModelManagement\ItemItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ItemSelectPanelLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ItemStageLogic.cs" />
+    <Compile Include="Assets\Script\Logic\ModelManagement\LastPartsSelectionPanelLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\LeftItemItemLogic.cs" />
+    <Compile Include="Assets\Script\Logic\ModelManagement\LeftOpItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\LeftSizeItemLogic.cs" />
+    <Compile Include="Assets\Script\Logic\ModelManagement\LeftSpecialColorItemItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\LeftSpecialItemItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ModeCodeItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ModelDetailItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ModelItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\ModelManagementPanelLogic.cs" />
+    <Compile Include="Assets\Script\Logic\ModelManagement\OpNameTitleLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\SizeItemLogic.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\SpecialpartsSelectionPanel.cs" />
     <Compile Include="Assets\Script\Logic\ModelManagement\StageTitleLogic.cs" />

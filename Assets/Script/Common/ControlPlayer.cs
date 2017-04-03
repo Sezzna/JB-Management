@@ -176,6 +176,7 @@ public class ControlPlayer {
         public string stegeId;
         public string itemId;
         public string rank;
+        public string name;
         public string sizeId;
     }
 

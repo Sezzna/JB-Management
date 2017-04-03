@@ -110,6 +110,35 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
                     }
                 }
             }
+            //添加选择部件;
+            
+            foreach (var y in ControlPlayer.Instance.m_NameList)
+            {
+                bool title = false;
+                foreach (var i in ControlPlayer.Instance.m_OpStageDisplayList)
+                {
+                    if (i.stegeId == v.id && i.sizeId == ControlPlayer.Instance.m_CurrentChoiceSizeId && i.name==y)
+                    {
+                        if (check == false)
+                        {
+                            FrameUtil.AddChild(m_PartList.gameObject, m_StageTatil).GetComponent<StageTitleLogic>().Init(v.des);
+                            check = true;
+                        }
+                        if(title==false)
+                        {
+                            //输出 name的名字
+                            title = true;
+                        }
+                        foreach (var x in ControlPlayer.Instance.m_OpItemList)
+                        {
+                            if (x.item.id == i.itemId)
+                            {
+                                FrameUtil.AddChild(m_PartList.gameObject, m_LeftSpecialColorItemItem).GetComponent<LeftSpecialColorItemItemLogic>().Init(x.item, x.qty);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         CalculateTotalAmount();
