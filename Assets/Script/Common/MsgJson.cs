@@ -202,6 +202,7 @@ public class MsgJson {
         public string code;
         public string model_year;
         public string status;
+        public string version;
     }
 
     //车型详细数据
