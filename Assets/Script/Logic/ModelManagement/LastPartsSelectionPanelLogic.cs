@@ -309,6 +309,8 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
             {
                 partOp.stand = "No";
             }
+            partOp.extra = v.Extra;
+        
             partOpList.Add(partOp);
         }
         msg.part_op = partOpList.ToArray();

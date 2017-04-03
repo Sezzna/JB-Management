@@ -376,6 +376,7 @@ public class MsgJson {
         public string show; //yse or no
         public string size_id;
         public string stand; //yse or no
+        public string extra;
     }
 
     [Serializable]
