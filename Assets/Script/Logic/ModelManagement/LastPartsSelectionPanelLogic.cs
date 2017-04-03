@@ -286,9 +286,8 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
             {
                 partOp.stand = "No";
             }
-
+            partOpList.Add(partOp);
         }
-
         msg.part_op = partOpList.ToArray();
 
         Debug.Log(JsonUtility.ToJson(msg));
