@@ -38,11 +38,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         form.AddField("token", PlayerPrefs.GetString("token"));
 
         HttpManager.Instance.SendPostForm(ProjectConst.GetRange, form);
-        //加入所有的Models Item
-        foreach (var v in ControlPlayer.Instance.m_ModelsRange.range)
-         {
-            FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem).GetComponent<ModelItemLogic>().Init(v);
-        }
+   
     }
 
     //------------------------------------------------ On Button Click ------------------------------------------
@@ -68,6 +64,12 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
         //将收到的数据转存到ControlPlayer
         ControlPlayer.Instance.m_ModelsRange = jsonData;
+
+        //加入所有的Models Item
+        foreach (var v in ControlPlayer.Instance.m_ModelsRange.range)
+        {
+            FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem).GetComponent<ModelItemLogic>().Init(v);
+        }
     }
 
     //处理1013 获得车型消息;
