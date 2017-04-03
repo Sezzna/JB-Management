@@ -105,163 +105,184 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
 
     void OnConfirmClick()
     {
-        ////判断categroy 是否选择;
-        //if (m_CategoryDropdown.captionText.text == "Please Select")
-        //{
-        //    FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("categroy must be selected");
-        //    return;
-        //}
-        ////查看是否选择了stage;
-        //bool flag = false;
-        //foreach (Transform child in m_StagesGrounp)
-        //{
-        //    if (child.GetComponent<Toggle>().isOn)
-        //    {
-        //        flag = true;
-        //        break;
-        //    }
-        //}
-        ////判断是否选择了stage
-        //if (flag == false)
-        //{
-        //    FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("Stage must be selected");
-        //    return;
-        //}
+        //判断name是否选择;
+        if (m_NameDropdown.captionText.text == "Please Add Name") {
+            FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("Please add a name !");
+            return;
+        }
 
-        ////发送 ItemCategroyStageUpdate 更新这个Item的Categroy 和 stage信息;
-        //WWWForm form = new WWWForm();
-        //form.AddField("token", PlayerPrefs.GetString("token"));
-        //form.AddField("item_id", m_Item.id);
-        //form.AddField("category_id", m_CategroyMap[m_CategoryDropdown.captionText.text]);
+        //判断这个Item 是否已经存在Std的选项;
+        if (m_StdDropdown.captionText.text == "Standard") {
+            foreach (var v in ControlPlayer.Instance.m_OpItemList)
+            {
+                if (v.sizeId == ControlPlayer.Instance.m_CurrentChoiceSizeId && v.name == m_NameDropdown.captionText.text && v.standardOrOptional == m_StdDropdown.captionText.text) {
+                    FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("There is already a standard option !");
+                    return;
+                }
+            }
+        }
+        
 
-        ////如果Categroy改变过,那么新的m_item里面 就要更新Categroy
-        //if (m_CategroyMap[m_CategoryDropdown.captionText.text] != m_Item.category_id)
-        //{
-        //    m_Item.category_id = m_CategroyMap[m_CategoryDropdown.captionText.text];
-        //}
+        //判断categroy 是否选择;
+        if (m_CategoryDropdown.captionText.text == "Please Select")
+        {
+            FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("categroy must be selected");
+            return;
+        }
+        //查看是否选择了stage;
+        bool flag = false;
+        foreach (Transform child in m_StagesGrounp)
+        {
+            if (child.GetComponent<Toggle>().isOn)
+            {
+                flag = true;
+                break;
+            }
+        }
+        //判断是否选择了stage
+        if (flag == false)
+        {
+            FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel")).GetComponent<NoticePanelLogic>().Init("Stage must be selected");
+            return;
+        }
 
-        ////Debug.Log(m_CategoryMap[m_CategoryDropdown.captionText.text]);
+        //发送 ItemCategroyStageUpdate 更新这个Item的Categroy 和 stage信息;
+        WWWForm form = new WWWForm();
+        form.AddField("token", PlayerPrefs.GetString("token"));
+        form.AddField("item_id", m_Item.id);
+        form.AddField("category_id", m_CategroyMap[m_CategoryDropdown.captionText.text]);
 
-        ////更新 新的Item 选择的 stage,这个是为了转json 数据存在的;
-        //List<MsgJson.UpdateItemStageId> stageId = new List<MsgJson.UpdateItemStageId>();
+        //如果Categroy改变过,那么新的m_item里面 就要更新Categroy
+        if (m_CategroyMap[m_CategoryDropdown.captionText.text] != m_Item.category_id)
+        {
+            m_Item.category_id = m_CategroyMap[m_CategoryDropdown.captionText.text];
+        }
 
-        //foreach (Transform child in m_StagesGrounp)
-        //{
-        //    if (child.GetComponent<Toggle>().isOn)
-        //    {
-        //        MsgJson.UpdateItemStageId id = new MsgJson.UpdateItemStageId();
-        //        id.id = child.GetComponent<ItemStageLogic>().m_Id;
-        //        stageId.Add(id);
+        //Debug.Log(m_CategoryMap[m_CategoryDropdown.captionText.text]);
 
-        //        //保存这个item 的stage信息传给CommonPartsSelectPanel;
-        //        m_ItemStagesList.Add(id.id);
-        //    }
-        //}
+        //更新 新的Item 选择的 stage,这个是为了转json 数据存在的;
+        List<MsgJson.UpdateItemStageId> stageId = new List<MsgJson.UpdateItemStageId>();
 
-        //MsgJson.UpdateItemStage updateItemStage = new MsgJson.UpdateItemStage();
-        //updateItemStage.stages = stageId.ToArray();
+        foreach (Transform child in m_StagesGrounp)
+        {
+            if (child.GetComponent<Toggle>().isOn)
+            {
+                MsgJson.UpdateItemStageId id = new MsgJson.UpdateItemStageId();
+                id.id = child.GetComponent<ItemStageLogic>().m_Id;
+                stageId.Add(id);
 
-        //form.AddField("msg", JsonUtility.ToJson(updateItemStage));
+                //保存这个item 的stage信息传给CommonPartsSelectPanel;
+                m_ItemStagesList.Add(id.id);
+            }
+        }
 
-        ////发送 更新这个item的信息;
-        //HttpManager.Instance.SendPostForm(ProjectConst.ItemCategoryStageUpdate, form);
+        MsgJson.UpdateItemStage updateItemStage = new MsgJson.UpdateItemStage();
+        updateItemStage.stages = stageId.ToArray();
 
-        ////刷新这个供货商下的所有item;
-        //WWWForm form1 = new WWWForm();
-        //form1.AddField("token", PlayerPrefs.GetString("token"));
-        //form1.AddField("id", ControlPlayer.Instance.m_CurrentSupplierID);
+        form.AddField("msg", JsonUtility.ToJson(updateItemStage));
 
-        //HttpManager.Instance.SendPostForm(ProjectConst.GetItem, form1);
+        //发送 更新这个item的信息;
+        HttpManager.Instance.SendPostForm(ProjectConst.ItemCategoryStageUpdate, form);
 
-        ////再保留数据;
-        ////删除之前的ItemStages
-        //int check = 1;
-        //while (check == 1)
-        //{
-        //    check = 0;
-        //    foreach (var i in ControlPlayer.Instance.m_SpStageDisplayList)
-        //    {
-        //        if (i.itemId == m_Item.id)
-        //        {
-        //            ControlPlayer.Instance.m_SpStageDisplayList.Remove(i);
-        //            check = 1;
-        //            break;
-        //        }
-        //    }
-        //}
+        //刷新这个供货商下的所有item;
+        WWWForm form1 = new WWWForm();
+        form1.AddField("token", PlayerPrefs.GetString("token"));
+        form1.AddField("id", ControlPlayer.Instance.m_CurrentSupplierID);
 
-        ////保留stage
-        //foreach (var v in m_ItemStagesList)
-        //{
-        //    ControlPlayer.SpStageDisplay spStageDisplay = new ControlPlayer.SpStageDisplay();
-        //    spStageDisplay.itemId = m_Item.id;
-        //    spStageDisplay.stegeId = v;
-        //    spStageDisplay.rank = m_CategoryRankMap[m_CategoryDropdown.captionText.text];
-        //    spStageDisplay.sizeId = ControlPlayer.Instance.m_CurrentChoiceSizeId;
+        HttpManager.Instance.SendPostForm(ProjectConst.GetItem, form1);
 
-        //    int added = 0;
-        //    if (ControlPlayer.Instance.m_SpStageDisplayList.Count > 0)
-        //    {
-        //        for (int x = 0; x < ControlPlayer.Instance.m_SpStageDisplayList.Count; x++)
-        //        {
-        //            if (System.Convert.ToInt32(ControlPlayer.Instance.m_SpStageDisplayList[x].rank) >= System.Convert.ToInt32(spStageDisplay.rank))
-        //            {
-        //                if (x == 0)
-        //                {
-        //                    ControlPlayer.Instance.m_SpStageDisplayList.Insert(0, spStageDisplay);
-        //                    added = 1;
-        //                    break;
-        //                }
-        //                else
-        //                {
-        //                    ControlPlayer.Instance.m_SpStageDisplayList.Insert(x, spStageDisplay);
-        //                    added = 1;
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //        if (added == 0)
-        //        {
-        //            ControlPlayer.Instance.m_SpStageDisplayList.Add(spStageDisplay);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        ControlPlayer.Instance.m_SpStageDisplayList.Add(spStageDisplay);
-        //    }
+        //再保留数据;
+        //删除之前的ItemStages
+        int check = 1;
+        while (check == 1)
+        {
+            check = 0;
+            foreach (var i in ControlPlayer.Instance.m_OpStageDisplayList)
+            {
+                if (i.itemId == m_Item.id)
+                {
+                    ControlPlayer.Instance.m_OpStageDisplayList.Remove(i);
+                    check = 1;
+                    break;
+                }
+            }
+        }
 
-        //}
+        //保留stage
+        foreach (var v in m_ItemStagesList)
+        {
+            ControlPlayer.OpStageDisplay opStageDisplay = new ControlPlayer.OpStageDisplay();
+            opStageDisplay.itemId = m_Item.id;
+            opStageDisplay.stegeId = v;
+            opStageDisplay.rank = m_CategoryRankMap[m_CategoryDropdown.captionText.text];
+            opStageDisplay.sizeId = ControlPlayer.Instance.m_CurrentChoiceSizeId;
 
-        ////保留item 这个才是 正真要显示在左边的内容;
-        //ControlPlayer.SpItem spItem = new ControlPlayer.SpItem();
+            int added = 0;
+            if (ControlPlayer.Instance.m_OpStageDisplayList.Count > 0)
+            {
+                for (int x = 0; x < ControlPlayer.Instance.m_OpStageDisplayList.Count; x++)
+                {
+                    if (System.Convert.ToInt32(ControlPlayer.Instance.m_OpStageDisplayList[x].rank) >= System.Convert.ToInt32(opStageDisplay.rank))
+                    {
+                        if (x == 0)
+                        {
+                            ControlPlayer.Instance.m_OpStageDisplayList.Insert(0, opStageDisplay);
+                            added = 1;
+                            break;
+                        }
+                        else
+                        {
+                            ControlPlayer.Instance.m_OpStageDisplayList.Insert(x, opStageDisplay);
+                            added = 1;
+                            break;
+                        }
+                    }
+                }
+                if (added == 0)
+                {
+                    ControlPlayer.Instance.m_OpStageDisplayList.Add(opStageDisplay);
+                }
+            }
+            else
+            {
+                ControlPlayer.Instance.m_OpStageDisplayList.Add(opStageDisplay);
+            }
+        }
 
-        //spItem.item = m_Item;
-        //spItem.qty = m_QtyEndEdit;
-        //spItem.categoryRank = m_CategoryRankMap[m_CategoryDropdown.captionText.text];
-        //spItem.displayToCustomer = m_bViewByCustomer;
-        //spItem.sizeId = ControlPlayer.Instance.m_CurrentChoiceSizeId;
+        //保留item 这个才是 正真要显示在左边的内容;
+        ControlPlayer.OpItem opItem = new ControlPlayer.OpItem();
 
-        ////判断左边list里面有没有 这个item选项;
-        //foreach (var i in ControlPlayer.Instance.m_SpItemList)
-        //{
-        //    //如果有就Remove掉;
-        //    if (i.item.id == spItem.item.id)
-        //    {
-        //        ControlPlayer.Instance.m_SpItemList.Remove(i);
-        //        break;
-        //    }
-        //}
-
-        ////添加这个item;     
-        //ControlPlayer.Instance.m_SpItemList.Add(spItem);
+        opItem.item = m_Item;
+        opItem.qty = m_QtyEndEdit;
+        opItem.categoryRank = m_CategoryRankMap[m_CategoryDropdown.captionText.text];
+        opItem.displayToCustomer = true;
+        opItem.sizeId = ControlPlayer.Instance.m_CurrentChoiceSizeId;
+        opItem.name = m_NameDropdown.captionText.text;
+        opItem.standardOrOptional = m_StdDropdown.captionText.text;
+        opItem.Extra = m_ExtraEndEdit;
 
 
+        //判断左边list里面有没有 这个item选项;
+        foreach (var i in ControlPlayer.Instance.m_OpItemList)
+        {
+            //如果有就Remove掉;
+            if (i.item.id == opItem.item.id)
+            {
+                ControlPlayer.Instance.m_OpItemList.Remove(i);
+                break;
+            }
+        }
 
-        ////添加到左测面板.调用 CommonPartsSelectionPanel的函数;
-        //GameObject.Find("SpecialPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();//(m_Item, m_QtyEndEdit, m_ItemStagesList);
+        //添加这个item;     
+        ControlPlayer.Instance.m_OpItemList.Add(opItem);
 
-        ////最后删除面板;
-        //Destroy(gameObject);
+
+
+        //添加到左测面板.
+        //GameObject.Find("SpecialPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();
+
+        //最后删除面板;
+        Destroy(gameObject);
     }
 
     private void UpdateCategoryDropdownView()
@@ -384,7 +405,7 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
 
     //数量默认1
     private string m_QtyEndEdit = "1";
-    private string m_ExtraEndEdit = "1";
+    private string m_ExtraEndEdit = "0";
 
     private List<string> m_ItemStagesList = new List<string>();
 

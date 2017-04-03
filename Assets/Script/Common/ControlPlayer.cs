@@ -167,7 +167,7 @@ public class ControlPlayer {
 
     //最后一个面板的全局数据;
     public List<OpItem> m_OpItemList = new List<OpItem>();
-    public List<OpStageDisplay> m_OpDisplayList = new List<OpStageDisplay>();
+    public List<OpStageDisplay> m_OpStageDisplayList = new List<OpStageDisplay>();
 
     public List<string> m_NameList = new List<string>();
 
@@ -186,7 +186,7 @@ public class ControlPlayer {
         public bool displayToCustomer;
         public string sizeId;
         public string name;
-        public string standard;
+        public string standardOrOptional;
         public string Extra;
     }
 
