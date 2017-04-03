@@ -44,7 +44,7 @@ public class AddModelPanelLogic : MonoBehaviour {
             foreach (var i in ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size) {
                 if (v.id == i.id)
                 {
-                    tempSize.GetComponent<Toggle>().isOn = true;
+                    tempSize.transform.FindChild("Selected/Toggle").GetComponent<Toggle>().isOn = true;
                 }
             }
         }
