@@ -123,12 +123,13 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
                     {
                         if (check == false)
                         {
-                            FrameUtil.AddChild(m_PartList.gameObject, m_OpNameTitle).GetComponent<OpNameTitleLogic>().Init(y);
+                           
                             check = true;
                         }
                         if(title==false)
                         {
                             //输出 name的名字
+                            FrameUtil.AddChild(m_PartList.gameObject, m_OpNameTitle).GetComponent<OpNameTitleLogic>().Init(y);
                             title = true;
                         }
                         foreach (var x in ControlPlayer.Instance.m_OpItemList)
