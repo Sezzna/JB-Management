@@ -28,8 +28,20 @@ public class ChangeItemQtyPanelLogic : MonoBehaviour {
     }
 
     void OnConfirmClick() {
-   
-        if (ControlPlayer.Instance.m_CurrentPanelName == "SpecialPartsSelectionPanel")
+        if (ControlPlayer.Instance.m_CurrentPanelName == "LastPartsSelectionPanel") {
+            foreach (var v in ControlPlayer.Instance.m_OpItemList)
+            {
+                if (v.item.id == m_Item.id)
+                {
+                    if (m_QtyInputField.text != "")
+                    {
+                        v.qty = m_QtyInputField.text;
+                    }
+                }
+            }
+            GameObject.Find("LastPartsSelectionPanel(Clone)").GetComponent<LastPartsSelectionPanelLogic>().AddPartItem();
+        }
+        else if (ControlPlayer.Instance.m_CurrentPanelName == "SpecialPartsSelectionPanel")
         {
             foreach (var v in ControlPlayer.Instance.m_SpItemList)
             {

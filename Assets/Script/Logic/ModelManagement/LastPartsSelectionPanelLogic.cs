@@ -13,10 +13,10 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         m_ModelName = transform.FindChild("CommonParts/JB").GetComponent<Text>();
         m_ModelName.text = ControlPlayer.Instance.m_ModelName;
 
-        m_LeftSizeList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/SizeList/Viewport/Content");
-        m_SupplierList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/SupplierList/Viewport/Content");
-        m_ItemList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/ItemList/Viewport/Content");
-        m_PartList = transform.FindChild("FrameScrollView/Viewport/Content/GameObject/PartList/Viewport/Content");
+        m_LeftSizeList = transform.FindChild("GameObject/SizeList/Viewport/Content");
+        m_SupplierList = transform.FindChild("GameObject/SupplierList/Viewport/Content");
+        m_ItemList = transform.FindChild("GameObject/ItemList/Viewport/Content");
+        m_PartList = transform.FindChild("GameObject/PartList/Viewport/Content");
 
         m_CancelButton = transform.FindChild("Cancel").GetComponent<Button>();
         m_CancelButton.onClick.AddListener(OnCancelClick);

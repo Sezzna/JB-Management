@@ -20,6 +20,7 @@ public class LeftOpItemLogic : MonoBehaviour{
     }
 
     public void Init(MsgJson.Item item, string option, string qty, string cost, string extra) {
+        m_Item = item;
         m_CodeText.text = item.product_code;
         m_DescriptionText.text = item.description;
         m_OptionText.text = option;
@@ -29,7 +30,7 @@ public class LeftOpItemLogic : MonoBehaviour{
     }
 
     void OnQtyClick() {
-
+        FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("ChangeItemQtyPanel")).GetComponent<ChangeItemQtyPanelLogic>().Init(m_Item, m_QtyText.text);
     }
 
     void OnDeleteClick() {
