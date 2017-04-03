@@ -165,7 +165,7 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
     void OnCancelClick()
     {
         //加载模块管理面板;
-        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("ModelManagementPanel"));
+        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("CommonPartsSelectionPanel"));
         Destroy(gameObject);
     }
 
