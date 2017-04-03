@@ -35,6 +35,35 @@ public class LeftOpItemLogic : MonoBehaviour{
 
     void OnDeleteClick() {
 
+        
+            int check = 1;
+            while (check == 1)
+            {
+                check = 0;
+                foreach (var i in ControlPlayer.Instance.m_OpStageDisplayList)
+                {
+                    if (i.itemId == m_Item.id && ControlPlayer.Instance.m_CurrentChoiceSizeId == i.sizeId)
+                    {
+                        ControlPlayer.Instance.m_OpStageDisplayList.Remove(i);
+                        check = 1;
+                        break;
+                    }
+                }
+            }
+
+            //判断左边list里面有没有 这个item选项;
+            foreach (var i in ControlPlayer.Instance.m_OpItemList)
+            {
+                //如果有就Remove掉;
+                if (i.item.id == m_Item.id)
+                {
+                    ControlPlayer.Instance.m_OpItemList.Remove(i);
+                    break;
+                }
+            }
+
+            GameObject.Find("LastPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();
+        
     }
 
     private Button m_QtyButton;
