@@ -24,24 +24,25 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         m_VersionText = transform.FindChild("Version/Text").GetComponent<Text>();
         m_StatusText = transform.FindChild("DetailStatus/Text").GetComponent<Text>();
 
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetRange, OnGetRange);
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModel, OnGetCarModel);
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelDetail, OnGetModelDetail);
 
-        MsgRegister.Instance.Register((short)MsgCode.S2C_GetSize, OnGetSize);
-
-        
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetSize, OnGetSize);       
     }
 
 	void Start () {
+        WWWForm form = new WWWForm();
+        form.AddField("token", PlayerPrefs.GetString("token"));
+
+        HttpManager.Instance.SendPostForm(ProjectConst.GetRange, form);
         //加入所有的Models Item
         foreach (var v in ControlPlayer.Instance.m_ModelsRange.range)
          {
             FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem).GetComponent<ModelItemLogic>().Init(v);
         }
-
-       
     }
 
     //------------------------------------------------ On Button Click ------------------------------------------
@@ -60,6 +61,15 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         HttpManager.Instance.SendPostForm(ProjectConst.GetSize, form);
     }
     //------------------------------------------------MESSAGE RESPONSE------------------------------------------
+    //得到模块类别消息处理 1012;
+    void OnGetRange(string data)
+    {
+        MsgJson.ModelRange jsonData = JsonUtility.FromJson<MsgJson.ModelRange>(data);
+
+        //将收到的数据转存到ControlPlayer
+        ControlPlayer.Instance.m_ModelsRange = jsonData;
+    }
+
     //处理1013 获得车型消息;
     void OnGetCarModel(string data)
     {

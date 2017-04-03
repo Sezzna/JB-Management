@@ -43,10 +43,14 @@ public class MainPanelLogic : MonoBehaviour {
     //模块管理(Model Management);
     void OnModelManagementClick(GameObject go, PointerEventData eventData)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("token", PlayerPrefs.GetString("token"));
+        
+        //TitlePanel改名;
+        GameObject.Find("TitlePanel(Clone)").GetComponent<TitlePanelLogic>().ChangeModuleName("Model Management");
+        //加载模块管理面板;
+        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("ModelManagementPanel"));
 
-        HttpManager.Instance.SendPostForm(ProjectConst.GetRange, form);
+        //销毁主面板;
+        Destroy(gameObject);
 
         //m_CurrentChoseFunctionID = 1;
     }
@@ -114,13 +118,7 @@ public class MainPanelLogic : MonoBehaviour {
         //    FrameUtil.AddChild(m_UserItemList.gameObject, m_UserAccessUserItem).GetComponent<UserAccessUserItemLogic>().Init(v.id);
         //}
 
-        //TitlePanel改名;
-        GameObject.Find("TitlePanel(Clone)").GetComponent<TitlePanelLogic>().ChangeModuleName("Model Management");
-        //加载模块管理面板;
-        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("ModelManagementPanel"));
-
-        //销毁主面板;
-        Destroy(gameObject);
+      
         //加载面板;
         //FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel"));
 

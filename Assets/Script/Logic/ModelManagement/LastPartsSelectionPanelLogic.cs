@@ -191,6 +191,15 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
 
         if (state.state == "success") {
             FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("ModelManagementPanel"));
+            //清空数据;
+            ControlPlayer.Instance.m_CommonItemList.Clear();
+            ControlPlayer.Instance.m_StageDisplayList.Clear();
+
+            ControlPlayer.Instance.m_SpItemList.Clear();
+            ControlPlayer.Instance.m_SpStageDisplayList.Clear();
+
+            ControlPlayer.Instance.m_OpItemList.Clear();
+            ControlPlayer.Instance.m_OpStageDisplayList.Clear();
         }
         else {
 
