@@ -117,6 +117,8 @@ public class ControlPlayer {
     //1020 ItemStages
     public MsgJson.ItemStages m_ItemStages;
 
+
+    //--------------------------------------------------------------------------------------------
     //选择加载到common parts selected panel 左边的item数据;
     public List<CommonItem> m_CommonItemList = new List<CommonItem>();
 

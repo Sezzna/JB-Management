@@ -138,7 +138,7 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
     //-------------------------------------------- Button Click ----------------------------------------------
     void OnCancelClick() {
         //加载模块管理面板;
-        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("ModelManagementPanel"));
+        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("AddModelPanel"));
         Destroy(gameObject);
     }
 

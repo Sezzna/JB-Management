@@ -38,9 +38,21 @@ public class AddModelPanelLogic : MonoBehaviour {
         //加入所有的SizeItem
         foreach (var v in ControlPlayer.Instance.m_AddModelSize.size)
         {
-            FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem).GetComponent<SizeItemLogic>().Init(v);
-        }
+            GameObject tempSize = FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem);
+            tempSize.GetComponent<SizeItemLogic>().Init(v);
 
+            foreach (var i in ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size) {
+                if (v.id == i.id)
+                {
+                    tempSize.GetComponent<Toggle>().isOn = true;
+                }
+            }
+        }
+        m_BandInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_Band;
+        m_ModeInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_Model;
+        m_ModelYearInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear;
+        m_ModelCodeInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelCode;
+        m_ChassisDropdown.captionText.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_ChassisType;
     }
 
 
