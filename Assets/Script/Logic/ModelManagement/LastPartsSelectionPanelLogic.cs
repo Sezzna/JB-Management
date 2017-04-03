@@ -123,7 +123,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
                     {
                         if (check == false)
                         {
-                            FrameUtil.AddChild(m_PartList.gameObject, m_OpNameTitle);//.GetComponent<StageTitleLogic>().Init(v.des);
+                            FrameUtil.AddChild(m_PartList.gameObject, m_OpNameTitle).GetComponent<OpNameTitleLogic>().Init(y);
                             check = true;
                         }
                         if(title==false)
@@ -135,7 +135,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
                         {
                             if (x.item.id == i.itemId)
                             {
-                                FrameUtil.AddChild(m_PartList.gameObject, m_LeftOpItem);//.GetComponent<LeftSpecialColorItemItemLogic>().Init(x.item, x.qty);
+                                FrameUtil.AddChild(m_PartList.gameObject, m_LeftOpItem).GetComponent<LeftOpItemLogic>().Init(x.item, x.qty, x.item.unit_price, x.Extra);
                             }
                         }
                     }

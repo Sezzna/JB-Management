@@ -18,8 +18,12 @@ public class LeftOpItemLogic : MonoBehaviour{
         m_DeleteButton.onClick.AddListener(OnDeleteClick);
     }
 
-    void Init(string s) {
-        
+    public void Init(MsgJson.Item item, string qty, string cost, string extra) {
+        m_CodeText.text = item.product_code;
+        m_DescriptionText.text = item.description;
+        m_QtyText.text = qty;
+        m_CostText.text = cost;
+        m_ExtraText.text = extra;
     }
 
     void OnQtyClick() {

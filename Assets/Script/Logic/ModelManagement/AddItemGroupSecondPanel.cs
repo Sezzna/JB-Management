@@ -280,7 +280,7 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
 
 
         //添加到左测面板.
-        //GameObject.Find("SpecialPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();
+        GameObject.Find("LastPartsSelectionPanel(Clone)").GetComponent<LastPartsSelectionPanelLogic>().AddPartItem();
 
         //最后删除面板;
         Destroy(gameObject);

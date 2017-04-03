@@ -10,7 +10,7 @@ public class OpNameTitleLogic : MonoBehaviour {
         m_Name = transform.FindChild("Name").GetComponent<Text>();
     }
 
-    void Init(string s)
+    public void Init(string s)
     {
         m_Name.text = s;
     }
