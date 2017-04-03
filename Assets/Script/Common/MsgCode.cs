@@ -65,6 +65,9 @@ public enum MsgCode
     //得到 Item 预填信息;
     S2C_GetItemDisplayStage = 1021,
 
+    //得到 车型细节数据;
+    S2C_GetModelPartDetail = 1022,
+
     //更新Item category和stage 消息;
     S2C_ItemCategoryStageUpdate = 1023
 }

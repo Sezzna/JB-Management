@@ -346,4 +346,45 @@ public class MsgJson {
         public string id;
     }
 
+    //最后一条消息用结构体 ModelMagenementSaveDate;
+    [Serializable]
+    public struct SizeId
+    {
+        public string id;
+    }
+    [Serializable]
+    public struct Part_Com
+    {
+        public string id;
+        public string qty;
+        public string show; //yse or no
+    }
+    [Serializable]
+    public struct Part_Sp
+    {
+        public string id;
+        public string qty;
+        public string show; //yse or no
+        public string size_id;
+    }
+    [Serializable]
+    public struct Part_Op
+    {
+        public string id;
+        public string name;
+        public string qty;
+        public string show; //yse or no
+        public string size_id;
+        public string stand; //yse or no
+    }
+
+    [Serializable]
+    public struct AddModelMsg
+    {
+        public SizeId[] size;
+        public Part_Com[] part_com;
+        public Part_Sp[] part_sp;
+        public Part_Op[] part_op;
+    }
+
 }

@@ -24,13 +24,25 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         m_VersionText = transform.FindChild("Version/Text").GetComponent<Text>();
         m_StatusText = transform.FindChild("DetailStatus/Text").GetComponent<Text>();
 
+        m_MakeChangesButton = transform.FindChild("MakeChanges").GetComponent<Button>();
+        m_MakeChangesButton.onClick.AddListener(OnMakeChangesClick);
+       
+
+        m_MakeItInactiveButton = transform.FindChild("MakeItInactive").GetComponent<Button>();
+        m_MakeItInactiveButton.onClick.AddListener(OnMakeItInactiveClick);
+
+       
+
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetRange, OnGetRange);
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModel, OnGetCarModel);
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelDetail, OnGetModelDetail);
 
-        MsgRegister.Instance.Register((short)MsgCode.S2C_GetSize, OnGetSize);       
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetSize, OnGetSize);
+
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelPartDetail, OnGetModelPartDetail);
+
     }
 
 	void Start () {
@@ -132,6 +144,28 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         Destroy(gameObject);
     }
 
+    void OnGetModelPartDetail(string data) {
+        ControlPlayer.Instance.m_ModelPartDetail = JsonUtility.FromJson<MsgJson.AddModelMsg>(data);
+
+
+    }
+
+    //---------------------------------------------Button -------------------------------------------
+    void OnMakeChangesClick()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("id", ControlPlayer.Instance.m_ModelsDetail.models[0].id);
+        form.AddField("token", PlayerPrefs.GetString("token"));
+
+        HttpManager.Instance.SendPostForm(ProjectConst.GetModelPartDetail, form);
+    }
+
+    void OnMakeItInactiveClick() {
+        
+    }
+
+
+
     //------------------------------------------------MEMBER----------------------------------------
     private Transform m_ModelsList;
     private Transform m_ModelCodeList;
@@ -153,5 +187,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
     private Text m_VersionText;
     private Text m_StatusText;
 
+    private Button m_MakeItInactiveButton;
+    private Button m_MakeChangesButton;
     
 }

@@ -195,6 +195,9 @@ public class ControlPlayer {
         public string Extra;
     }
 
+    //保存 1022 消息数据;
+    public MsgJson.AddModelMsg m_ModelPartDetail;
+
     //-------------------------ModelMangement模块在每个界面 Next 以后 要保存的数据;--------------------------
     //AddModelPanel模块要保存的数据;
     public class AddModelPanelSaveData {

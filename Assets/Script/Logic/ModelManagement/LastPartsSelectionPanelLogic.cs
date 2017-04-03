@@ -224,12 +224,12 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         form.AddField("model_year", ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear);
         form.AddField("version", ControlPlayer.Instance.m_Version);
 
-        Msg msg = new Msg();
+        MsgJson.AddModelMsg msg = new MsgJson.AddModelMsg();
 
         //组size数据;
-        List<Size> sizeList = new List<Size>();     
+        List<MsgJson.SizeId> sizeList = new List<MsgJson.SizeId>();     
         foreach (var i in ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size) {
-            Size size = new Size();
+            MsgJson.SizeId size = new MsgJson.SizeId();
             size.id = i.id;
             sizeList.Add(size);
         }
@@ -237,10 +237,10 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         msg.size = sizeList.ToArray();
 
         //组part_com数据;
-        List<Part_Com> partComList = new List<Part_Com>();
+        List<MsgJson.Part_Com> partComList = new List<MsgJson.Part_Com>();
         foreach (var v in ControlPlayer.Instance.m_CommonItemList)
         {
-            Part_Com partCom = new Part_Com();
+            MsgJson.Part_Com partCom = new MsgJson.Part_Com();
             partCom.id = v.item.id;
             partCom.qty = v.qty;
             if (v.displayToCustomer == true)
@@ -258,10 +258,10 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         msg.part_com = partComList.ToArray();
 
         //组 part_sp数据;
-        List<Part_Sp> partSpList = new List<Part_Sp>();
+        List<MsgJson.Part_Sp> partSpList = new List<MsgJson.Part_Sp>();
         foreach (var v in ControlPlayer.Instance.m_SpItemList)
         {
-            Part_Sp partSp = new Part_Sp();
+            MsgJson.Part_Sp partSp = new MsgJson.Part_Sp();
             partSp.id = v.item.id;
             partSp.qty = v.qty;
             if (v.displayToCustomer == true)
@@ -281,10 +281,10 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         msg.part_sp = partSpList.ToArray();
 
         //组 part_op数据;
-        List<Part_Op> partOpList = new List<Part_Op>();
+        List<MsgJson.Part_Op> partOpList = new List<MsgJson.Part_Op>();
         foreach (var v in ControlPlayer.Instance.m_OpItemList)
         {
-            Part_Op partOp = new Part_Op();
+            MsgJson.Part_Op partOp = new MsgJson.Part_Op();
             partOp.id = v.item.id;
             partOp.name = v.name;
             partOp.qty = v.qty;
@@ -320,43 +320,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         HttpManager.Instance.SendPostForm(ProjectConst.ModelMagenementSaveDate, form);
      }
 
-    //最后一条消息用结构体 ModelMagenementSaveDate;
-    [Serializable]
-    public struct Size {
-        public string id;
-    }
-    [Serializable]
-    public struct Part_Com {
-        public string id;
-        public string qty;
-        public string show; //yse or no
-    }
-    [Serializable]
-    public struct Part_Sp
-    {
-        public string id;
-        public string qty;
-        public string show; //yse or no
-        public string size_id;
-    }
-    [Serializable]
-    public struct Part_Op {
-        public string id;
-        public string name;
-        public string qty;
-        public string show; //yse or no
-        public string size_id;
-        public string stand; //yse or no
-    }
 
-    [Serializable]
-    public struct Msg
-    {
-        public Size[] size;
-        public Part_Com[] part_com;
-        public Part_Sp[] part_sp;
-        public Part_Op[] part_op;
-    }
 
 //-------------------------------------------- MEMBER ----------------------------------------------
 private Text m_ModelName;

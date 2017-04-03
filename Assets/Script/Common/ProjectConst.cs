@@ -56,5 +56,7 @@ public class ProjectConst {
     public static string ItemCategoryStageUpdate = "http://www.jbmanagement.com.au/app/itemCategoryStageUpdate.php";
     //model management 面板最后一条消息 添加所有保存信息到服务器;
     public static string ModelMagenementSaveDate = "http://www.jbmanagement.com.au/app/addModel.php";
+    //model management 面板最后一条消息 添加所有保存信息到服务器;
+    public static string GetModelPartDetail = "http://www.jbmanagement.com.au/app/getModelPartDetail.php";
 }
 

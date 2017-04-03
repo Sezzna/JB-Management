@@ -12,7 +12,7 @@ public class MainPanelLogic : MonoBehaviour {
         m_MainMenuItem = Resources.Load("MainMenuItem") as GameObject;
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_CheckUserFunction, OnCheckUserFunction);
-        MsgRegister.Instance.Register((short)MsgCode.S2C_GetRange, OnGetRange);
+       
     }
 
     void Start() {
@@ -96,53 +96,7 @@ public class MainPanelLogic : MonoBehaviour {
         }
     }
 
-    //得到模块类别消息处理;
-    void OnGetRange(string data)
-    {
-        MsgJson.ModelRange jsonData = JsonUtility.FromJson<MsgJson.ModelRange>(data);
 
-        //将收到的数据转存到ControlPlayer
-        ControlPlayer.Instance.m_ModelsRange = jsonData;
-
-        //foreach (var v in jsonData.range) {
-        //    Debug.Log(v.id);
-        //    Debug.Log(v.description);
-        //    Debug.Log(v.brand);
-        //}
-
-        //在这里存储消息,然后在ModelManagement 面板;
-
-        ////加入所有用户;
-        //foreach (var v in ControlPlayer.Instance.m_UserAccessData.users)
-        //{
-        //    FrameUtil.AddChild(m_UserItemList.gameObject, m_UserAccessUserItem).GetComponent<UserAccessUserItemLogic>().Init(v.id);
-        //}
-
-      
-        //加载面板;
-        //FrameUtil.AddChild(GameObject.Find("Canvas/Other"), Resources.Load<GameObject>("NoticePanel"));
-
-
-        ////数据转存到controlplayer;
-        //controlplayer.instance.m_useraccessdata = jsonutility.fromjson<msgjson.useraccess>(data);
-        ////转存数据,将数据转换为客户端好使用的格式;
-        //controlplayer.instance.dataformatconversion(controlplayer.instance.m_useraccessdata);
-
-        //if (m_currentchosefunctionid == 1)
-        //{
-        //    //加载useraccesspanel;
-        //    frameutil.addchild(gameobject.find("canvas/stack"), resources.load<gameobject>("useraccesspanel"));
-        //    //销毁login面板;
-        //    destroy(gameobject);
-        //}
-        //else if (m_currentchosefunctionid == 2)
-        //{
-        //    //加载useraccesspanel;
-        //    frameutil.addchild(gameobject.find("canvas/stack"), resources.load<gameobject>("groupspanel"));
-        //    //销毁login面板;
-        //    destroy(gameobject);
-        //}
-    }
 
 
     //-------------------------------------------------------------各个主菜单功按钮响应--------------------------------------------------
