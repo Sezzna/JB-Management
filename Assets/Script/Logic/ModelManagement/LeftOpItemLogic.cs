@@ -7,6 +7,7 @@ public class LeftOpItemLogic : MonoBehaviour{
     private void Awake(){
         m_CodeText = transform.FindChild("Code/Text").GetComponent<Text>();
         m_DescriptionText = transform.FindChild("Description/Text").GetComponent<Text>();
+        m_OptionText = transform.FindChild("Option/Text").GetComponent<Text>();
         m_QtyText = transform.FindChild("Qty/Text").GetComponent<Text>();
         m_CostText = transform.FindChild("Cost/Text").GetComponent<Text>();
         m_ExtraText = transform.FindChild("Extra/Text").GetComponent<Text>();
@@ -18,11 +19,12 @@ public class LeftOpItemLogic : MonoBehaviour{
         m_DeleteButton.onClick.AddListener(OnDeleteClick);
     }
 
-    public void Init(MsgJson.Item item, string qty, string cost, string extra) {
+    public void Init(MsgJson.Item item, string option, string qty, string cost, string extra) {
         m_CodeText.text = item.product_code;
         m_DescriptionText.text = item.description;
+        m_OptionText.text = option;
         m_QtyText.text = qty;
-        m_CostText.text = cost;
+        m_CostText.text = "$"+cost;
         m_ExtraText.text = extra;
     }
 
@@ -41,6 +43,7 @@ public class LeftOpItemLogic : MonoBehaviour{
 
     private Text m_CodeText;
     private Text m_DescriptionText;
+    private Text m_OptionText;
     private Text m_QtyText;
     private Text m_CostText;
     private Text m_ExtraText;

@@ -135,7 +135,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
                         {
                             if (x.item.id == i.itemId)
                             {
-                                FrameUtil.AddChild(m_PartList.gameObject, m_LeftOpItem).GetComponent<LeftOpItemLogic>().Init(x.item, x.qty, x.item.unit_price, x.Extra);
+                                FrameUtil.AddChild(m_PartList.gameObject, m_LeftOpItem).GetComponent<LeftOpItemLogic>().Init(x.item,x.standardOrOptional, x.qty, x.item.unit_price, x.Extra);
                             }
                         }
                     }
