@@ -215,78 +215,81 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
 
         msg.size = sizeList.ToArray();
 
-        ////组part_com数据;
-        //List<Part_Com> partComList = new List<Part_Com>();
-        //foreach (var v in ControlPlayer.Instance.m_CommonItemList) {
-        //    Part_Com partCom = new Part_Com();
-        //    partCom.id = v.item.id;
-        //    partCom.qty = v.qty;
-        //    if (v.displayToCustomer == true) {
-        //        partCom.show = "Yes";
-        //    }
-        //    else {
-        //        partCom.show = "No";
-        //    }
+        //组part_com数据;
+        List<Part_Com> partComList = new List<Part_Com>();
+        foreach (var v in ControlPlayer.Instance.m_CommonItemList)
+        {
+            Part_Com partCom = new Part_Com();
+            partCom.id = v.item.id;
+            partCom.qty = v.qty;
+            if (v.displayToCustomer == true)
+            {
+                partCom.show = "Yes";
+            }
+            else
+            {
+                partCom.show = "No";
+            }
 
-        //    partComList.Add(partCom);
-        //}
+            partComList.Add(partCom);
+        }
 
-        //msg.part_com = partComList.ToArray();
+        msg.part_com = partComList.ToArray();
 
-        ////组 part_sp数据;
-        //List<Part_Sp> partSpList = new List<Part_Sp>();
-        //foreach (var v in ControlPlayer.Instance.m_SpItemList)
-        //{
-        //    Part_Sp partSp = new Part_Sp();
-        //    partSp.id = v.item.id;
-        //    partSp.qty = v.qty;
-        //    if (v.displayToCustomer == true)
-        //    {
-        //        partSp.show = "Yes";
-        //    }
-        //    else
-        //    {
-        //        partSp.show = "No";
-        //    }
+        //组 part_sp数据;
+        List<Part_Sp> partSpList = new List<Part_Sp>();
+        foreach (var v in ControlPlayer.Instance.m_SpItemList)
+        {
+            Part_Sp partSp = new Part_Sp();
+            partSp.id = v.item.id;
+            partSp.qty = v.qty;
+            if (v.displayToCustomer == true)
+            {
+                partSp.show = "Yes";
+            }
+            else
+            {
+                partSp.show = "No";
+            }
 
-        //    partSp.size_id = v.sizeId;
+            partSp.size_id = v.sizeId;
 
-        //    partSpList.Add(partSp);
-        //}
+            partSpList.Add(partSp);
+        }
 
-        //msg.part_sp = partSpList.ToArray();
+        msg.part_sp = partSpList.ToArray();
 
-        ////组 part_op数据;
-        //List<Part_Op> partOpList = new List<Part_Op>();
-        //foreach (var v in ControlPlayer.Instance.m_OpItemList)
-        //{
-        //    Part_Op partOp = new Part_Op();
-        //    partOp.id = v.item.id;
-        //    partOp.name = v.name;
-        //    partOp.qty = v.qty;
-        //    if (v.displayToCustomer == true)
-        //    {
-        //        partOp.show = "Yes";
-        //    }
-        //    else
-        //    {
-        //        partOp.show = "No";
-        //    }
+        //组 part_op数据;
+        List<Part_Op> partOpList = new List<Part_Op>();
+        foreach (var v in ControlPlayer.Instance.m_OpItemList)
+        {
+            Part_Op partOp = new Part_Op();
+            partOp.id = v.item.id;
+            partOp.name = v.name;
+            partOp.qty = v.qty;
+            if (v.displayToCustomer == true)
+            {
+                partOp.show = "Yes";
+            }
+            else
+            {
+                partOp.show = "No";
+            }
 
-        //    partOp.size_id = v.sizeId;
+            partOp.size_id = v.sizeId;
 
-        //    if (v.standardOrOptional == "Standard")
-        //    {
-        //        partOp.stand = "Yes";
-        //    }
-        //    else
-        //    {
-        //        partOp.stand = "No";
-        //    }
+            if (v.standardOrOptional == "Standard")
+            {
+                partOp.stand = "Yes";
+            }
+            else
+            {
+                partOp.stand = "No";
+            }
 
-        //}
+        }
 
-        //msg.part_op = partOpList.ToArray();
+        msg.part_op = partOpList.ToArray();
 
         Debug.Log(JsonUtility.ToJson(msg));
 
@@ -298,25 +301,26 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
      }
 
     //最后一条消息用结构体 ModelMagenementSaveDate;
-    struct Size {
+    [Serializable]
+    public struct Size {
         public string id;
     }
-
-    struct Part_Com {
+    [Serializable]
+    public struct Part_Com {
         public string id;
         public string qty;
         public string show; //yse or no
     }
-
-    struct Part_Sp
+    [Serializable]
+    public struct Part_Sp
     {
         public string id;
         public string qty;
         public string show; //yse or no
         public string size_id;
     }
-
-    struct Part_Op {
+    [Serializable]
+    public struct Part_Op {
         public string id;
         public string name;
         public string qty;
@@ -325,12 +329,13 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         public string stand; //yse or no
     }
 
-    struct Msg
+    [Serializable]
+    public struct Msg
     {
         public Size[] size;
-        //public Part_Com[] part_com;
-        //public Part_Sp[] part_sp;
-        //public Part_Op[] part_op;
+        public Part_Com[] part_com;
+        public Part_Sp[] part_sp;
+        public Part_Op[] part_op;
     }
 
 //-------------------------------------------- MEMBER ----------------------------------------------
