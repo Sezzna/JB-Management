@@ -190,7 +190,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
     void OnCancelClick()
     {
         //加载模块管理面板;
-        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("SpecialPartsSelectionPanel"));
+        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("SpecialPartsSelectionPanel")).GetComponent<SpecialpartsSelectionPanel>().AddPartItem();
         Destroy(gameObject);
     }
 
