@@ -216,6 +216,7 @@ public class AddItemGroupSecondPanel : MonoBehaviour {
             opStageDisplay.stegeId = v;
             opStageDisplay.rank = m_CategoryRankMap[m_CategoryDropdown.captionText.text];
             opStageDisplay.sizeId = ControlPlayer.Instance.m_CurrentChoiceSizeId;
+            opStageDisplay.name = m_NameDropdown.captionText.text;
 
             int added = 0;
             if (ControlPlayer.Instance.m_OpStageDisplayList.Count > 0)
