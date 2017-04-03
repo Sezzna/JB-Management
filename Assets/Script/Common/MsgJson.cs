@@ -5,6 +5,12 @@ using System;
 
 [Serializable]
 public class MsgJson {
+    //成功失败公用消息;
+    [Serializable]
+    public class State {
+        public string state;
+    }
+
     //登录;
     public class Login {
         public string state;

@@ -47,7 +47,10 @@ public enum MsgCode
     S2C_GetSize = 1015,
 
     //添加Size 消息返回
-    S2C_AddSize = 1017,
+    S2C_AddSize = 1016,
+
+    //model management 最后一条 添加车型消息;
+    S2C_AddMode = 1017,
 
     //获取供货商消息返回;
     S2C_GetSupplier = 1010,

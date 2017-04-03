@@ -34,8 +34,9 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         m_OpNameTitle = Resources.Load("OpNameTitle") as GameObject;
         m_LeftOpItem = Resources.Load("LeftOpItem") as GameObject;
 
-
+        
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItem, OnGetItem);
+        MsgRegister.Instance.Register((short)MsgCode.S2C_AddMode, OnAddModel);
     }
 
     void Start()
@@ -182,6 +183,17 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         foreach (var v in items.item)
         {
             FrameUtil.AddChild(m_ItemList.gameObject, m_ItemItem).GetComponent<ItemItemLogic>().Init(v);
+        }
+    }
+
+    void OnAddModel(string data) {
+        MsgJson.State state = JsonUtility.FromJson<MsgJson.State>(data);
+
+        if (state.state == "success") {
+            FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("ModelManagementPanel"));
+        }
+        else {
+
         }
     }
 
