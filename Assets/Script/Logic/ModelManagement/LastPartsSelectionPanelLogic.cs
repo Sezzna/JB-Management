@@ -196,12 +196,146 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
 
     void OnNextClick()
     {
-            //最后一步发送消息;
+        //发送获取供货商消息
+        WWWForm form = new WWWForm();
+        form.AddField("band", ControlPlayer.Instance.m_AddModelPanelSaveData.m_Band);
+        form.AddField("model", ControlPlayer.Instance.m_AddModelPanelSaveData.m_Model);
+        form.AddField("code", ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelCode);
+        form.AddField("model_year", ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear);
+        form.AddField("model_year", ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear);
+
+        Msg msg = new Msg();
+
+        //组size数据;
+        List<Size> sizeList = new List<Size>();     
+        foreach (var i in ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size) {
+            Size size = new Size();
+            size.id = i.id;
+            sizeList.Add(size);
+        }
+
+        msg.size = sizeList.ToArray();
+
+        //组part_com数据;
+        List<Part_Com> partComList = new List<Part_Com>();
+        foreach (var v in ControlPlayer.Instance.m_CommonItemList) {
+            Part_Com partCom = new Part_Com();
+            partCom.id = v.item.id;
+            partCom.qty = v.qty;
+            if (v.displayToCustomer == true) {
+                partCom.show = "Yes";
+            }
+            else {
+                partCom.show = "No";
+            }
+
+            partComList.Add(partCom);
+        }
+
+        msg.part_com = partComList.ToArray();
+
+        //组 part_sp数据;
+        List<Part_Sp> partSpList = new List<Part_Sp>();
+        foreach (var v in ControlPlayer.Instance.m_SpItemList)
+        {
+            Part_Sp partSp = new Part_Sp();
+            partSp.id = v.item.id;
+            partSp.qty = v.qty;
+            if (v.displayToCustomer == true)
+            {
+                partSp.show = "Yes";
+            }
+            else
+            {
+                partSp.show = "No";
+            }
+
+            partSp.size_id = v.sizeId;
+
+            partSpList.Add(partSp);
+        }
+
+        msg.part_sp = partSpList.ToArray();
+
+        //组 part_op数据;
+        List<Part_Op> partOpList = new List<Part_Op>();
+        foreach (var v in ControlPlayer.Instance.m_OpItemList)
+        {
+            Part_Op partOp = new Part_Op();
+            partOp.id = v.item.id;
+            partOp.name = v.name;
+            partOp.qty = v.qty;
+            if (v.displayToCustomer == true)
+            {
+                partOp.show = "Yes";
+            }
+            else
+            {
+                partOp.show = "No";
+            }
+
+            partOp.size_id = v.sizeId;
+
+            if (v.standardOrOptional == "Standard")
+            {
+                partOp.stand = "Yes";
+            }
+            else
+            {
+                partOp.stand = "No";
+            }
+
+        }
+
+        msg.part_op = partOpList.ToArray();
+
+
+
+        form.AddField("msg", JsonUtility.ToJson(msg));
+        form.AddField("chassis_type", ControlPlayer.Instance.m_AddModelPanelSaveData.m_ChassisType);
+        form.AddField("token", PlayerPrefs.GetString("token"));
+
+        HttpManager.Instance.SendPostForm(ProjectConst.ModelMagenementSaveDate, form);
+     }
+
+    //最后一条消息用结构体 ModelMagenementSaveDate;
+    struct Size {
+        public string id;
     }
 
+    struct Part_Com {
+        public string id;
+        public string qty;
+        public string show; //yse or no
+    }
 
-    //-------------------------------------------- MEMBER ----------------------------------------------
-    private Text m_ModelName;
+    struct Part_Sp
+    {
+        public string id;
+        public string qty;
+        public string show; //yse or no
+        public string size_id;
+    }
+
+    struct Part_Op {
+        public string id;
+        public string name;
+        public string qty;
+        public string show; //yse or no
+        public string size_id;
+        public string stand; //yse or no
+    }
+
+    struct Msg
+    {
+        public Size[] size;
+        public Part_Com[] part_com;
+        public Part_Sp[] part_sp;
+        public Part_Op[] part_op;
+    }
+
+//-------------------------------------------- MEMBER ----------------------------------------------
+private Text m_ModelName;
     private GameObject m_LeftSpecialColorItemItem;
     private GameObject m_LeftSizeItem;
     private GameObject m_StageTatil;
