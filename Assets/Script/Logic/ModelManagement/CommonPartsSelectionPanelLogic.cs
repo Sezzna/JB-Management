@@ -58,6 +58,8 @@ public class CommonPartsSelectionPanelLogic : MonoBehaviour {
         WWWForm form1 = new WWWForm();
         form1.AddField("token", PlayerPrefs.GetString("token"));
         HttpManager.Instance.SendPostForm(ProjectConst.GetItemStages, form1);
+
+        AddPartItem();
     }
 
     void OnGetItem(string data) {

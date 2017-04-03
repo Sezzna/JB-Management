@@ -57,6 +57,8 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         {
             FrameUtil.AddChild(m_SupplierList.gameObject, Resources.Load<GameObject>("SupplierItem")).GetComponent<SupplierItemLogic>().Init(v);
         }
+
+        AddPartItem();
     }
 
     //添加左边的Item;

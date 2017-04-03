@@ -168,7 +168,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
             //comItem.item.units
             comItem.item.unit_price = v.unit_price;
             comItem.item.discount = v.discount;
-            //comItem.item.category_id 
+            comItem.item.category_id = v.category_id;
             comItem.qty = v.qty;
             if (v.show == "Yes")
             {
@@ -192,7 +192,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
             //comItem.item.units
             spItem.item.unit_price = v.unit_price;
             spItem.item.discount = v.discount;
-            //comItem.item.category_id \
+            spItem.item.category_id = v.category_id;
 
             spItem.qty = v.qty;
             spItem.categoryRank = v.rank;
@@ -220,7 +220,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
             //comItem.item.units
             opItem.item.unit_price = v.unit_price;
             opItem.item.discount = v.discount;
-            //comItem.item.category_id \
+            opItem.item.category_id = v.category_id;
 
             opItem.qty = v.qty;
             opItem.categoryRank = v.rank;

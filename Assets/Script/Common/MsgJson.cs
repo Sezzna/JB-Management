@@ -412,6 +412,7 @@ public class MsgJson {
     [Serializable]
     public struct SavePartCom
     {
+        public string category_id;
         public string product_code;
         public string item_id;
         public string unit_price;
@@ -427,6 +428,7 @@ public class MsgJson {
     [Serializable]
     public struct SavePartSp
     {
+        public string category_id;
         public string product_code;
         public string item_id;
         public string unit_price;
@@ -443,6 +445,7 @@ public class MsgJson {
     [Serializable]
     public struct SavePartOp
     {
+        public string category_id;
         public string product_code;
         public string item_id;
         public string unit_price;

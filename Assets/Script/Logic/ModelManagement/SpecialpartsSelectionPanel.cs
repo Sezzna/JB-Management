@@ -62,6 +62,7 @@ public class SpecialpartsSelectionPanel : MonoBehaviour {
         //WWWForm form1 = new WWWForm();
         //form1.AddField("token", PlayerPrefs.GetString("token"));
         //HttpManager.Instance.SendPostForm(ProjectConst.GetItemStages, form1);
+        AddPartItem();
     }
 
     //添加左边的Item;
