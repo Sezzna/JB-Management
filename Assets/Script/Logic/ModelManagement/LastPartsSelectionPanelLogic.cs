@@ -31,6 +31,8 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         m_LeftSpecialItemItem = Resources.Load("LeftSpecialItemItem") as GameObject;
         m_LeftSpecialColorItemItem = Resources.Load("LeftSpecialColorItemItem") as GameObject;
         m_StageTatil = Resources.Load("StageTitle") as GameObject;
+        m_OpNameTitle = Resources.Load("OpNameTitle") as GameObject;
+        m_LeftOpItem = Resources.Load("LeftOpItem") as GameObject;
 
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetItem, OnGetItem);
@@ -121,7 +123,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
                     {
                         if (check == false)
                         {
-                            FrameUtil.AddChild(m_PartList.gameObject, m_StageTatil).GetComponent<StageTitleLogic>().Init(v.des);
+                            FrameUtil.AddChild(m_PartList.gameObject, m_OpNameTitle);//.GetComponent<StageTitleLogic>().Init(v.des);
                             check = true;
                         }
                         if(title==false)
@@ -133,7 +135,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
                         {
                             if (x.item.id == i.itemId)
                             {
-                                FrameUtil.AddChild(m_PartList.gameObject, m_LeftSpecialColorItemItem).GetComponent<LeftSpecialColorItemItemLogic>().Init(x.item, x.qty);
+                                FrameUtil.AddChild(m_PartList.gameObject, m_LeftOpItem);//.GetComponent<LeftSpecialColorItemItemLogic>().Init(x.item, x.qty);
                             }
                         }
                     }
@@ -203,6 +205,8 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
     private GameObject m_LeftSizeItem;
     private GameObject m_StageTatil;
     private GameObject m_LeftSpecialItemItem;
+    private GameObject m_OpNameTitle;
+    private GameObject m_LeftOpItem;
 
     private Transform m_LeftSizeList;
     private Transform m_PartList;

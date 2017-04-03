@@ -30,10 +30,10 @@ public class LeftOpItemLogic : MonoBehaviour{
 
     }
 
-
-
     private Button m_QtyButton;
     private Button m_DeleteButton;
+
+    private MsgJson.Item m_Item;
 
     private Text m_CodeText;
     private Text m_DescriptionText;
