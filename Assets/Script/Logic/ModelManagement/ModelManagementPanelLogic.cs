@@ -26,7 +26,9 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
         m_MakeChangesButton = transform.FindChild("MakeChanges").GetComponent<Button>();
         m_MakeChangesButton.onClick.AddListener(OnMakeChangesClick);
-       
+
+        m_UpdateToNewModelYearButton = transform.FindChild("UpdateToNewModelYear").GetComponent<Button>();
+        m_UpdateToNewModelYearButton.onClick.AddListener(OnUpdateToNewModelYearClick);
 
         m_MakeItInactiveButton = transform.FindChild("MakeItInactive").GetComponent<Button>();
         m_MakeItInactiveButton.onClick.AddListener(OnMakeItInactiveClick);
@@ -36,8 +38,6 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModel, OnGetCarModel);
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelDetail, OnGetModelDetail);
-
-        
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelPartDetail, OnGetModelPartDetail);
 
@@ -274,7 +274,13 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         ControlPlayer.Instance.m_ItemStages = new MsgJson.ItemStages();
         ControlPlayer.Instance.m_ItemStages.stages = ControlPlayer.Instance.m_SaveAddModelMsg.ItemStagesList;
 
-        ControlPlayer.Instance.m_Version += 1;
+        if (m_ButtonText == "MakeChanges") {
+            ControlPlayer.Instance.m_Version += 1;
+        }
+        else if (m_ButtonText == "UpdateToNewModelYear") {
+            ControlPlayer.Instance.m_Version = 1;
+            ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear += 1;
+        }
 
         //加载AddModel Panel;
         FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("AddModelPanel"));
@@ -294,12 +300,21 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
         HttpManager.Instance.SendPostForm(ProjectConst.GetModelPartDetail, form);
 
+        m_ButtonText = "MakeChanges";
         Destroy(gameObject);
+    }
+
+
+    void OnUpdateToNewModelYearClick()
+    {
+        OnMakeChangesClick();
+        m_ButtonText = "UpdateToNewModelYear";
     }
 
     void OnMakeItInactiveClick() {
         
     }
+
 
 
 
@@ -326,5 +341,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
     private Button m_MakeItInactiveButton;
     private Button m_MakeChangesButton;
-    
+    private Button m_UpdateToNewModelYearButton;
+
+    private string m_ButtonText = "";
 }

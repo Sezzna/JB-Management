@@ -33,7 +33,7 @@ public class ModeCodeItemLogic : MonoBehaviour {
     {
         m_CarModel = model;
 
-        m_ModelCodeText.text = model.code;
+        m_ModelCodeText.text = model.code + "V" + ControlPlayer.Instance.m_Version;
         m_YearText.text = model.model_year;
         m_StatusText.text = model.status;
     }
