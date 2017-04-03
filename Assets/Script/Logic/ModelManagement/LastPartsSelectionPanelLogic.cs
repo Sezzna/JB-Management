@@ -201,7 +201,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
         form.AddField("model", ControlPlayer.Instance.m_AddModelPanelSaveData.m_Model);
         form.AddField("code", ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelCode);
         form.AddField("model_year", ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear);
-        form.AddField("model_year", ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear);
+        form.AddField("version", ControlPlayer.Instance.m_Version);
 
         Msg msg = new Msg();
 
