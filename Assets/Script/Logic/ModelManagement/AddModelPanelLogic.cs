@@ -26,28 +26,21 @@ public class AddModelPanelLogic : MonoBehaviour {
         m_ModelYearInputField = transform.FindChild("ModelYear/InputField").GetComponent<InputField>();
         m_ModelCodeInputField = transform.FindChild("ModelCode/InputField").GetComponent<InputField>();
 
-     
+        MsgRegister.Instance.Register((short)MsgCode.S2C_GetSize, OnGetSize);
         MsgRegister.Instance.Register((short)MsgCode.S2C_AddSize, OnAddSize); 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetSupplier, OnGetSupplier);
     }
 
     void Start()
     {
+        //现有的尺寸通过getSize.php获得，
+        WWWForm form = new WWWForm();
+        form.AddField("token", PlayerPrefs.GetString("token"));
+
+        HttpManager.Instance.SendPostForm(ProjectConst.GetSize, form);
         //刷新多选框元素;
         UpdateChassisDropdownView();
-        //加入所有的SizeItem
-        foreach (var v in ControlPlayer.Instance.m_AddModelSize.size)
-        {
-            GameObject tempSize = FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem);
-            tempSize.GetComponent<SizeItemLogic>().Init(v);
-
-            foreach (var i in ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size) {
-                if (v.id == i.id)
-                {
-                    tempSize.transform.FindChild("Selected/Toggle").GetComponent<Toggle>().isOn = true;
-                }
-            }
-        }
+       
         m_BandInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_Brand;
         m_ModeInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_Model;
         m_ModelYearInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_ModelYear;
@@ -137,6 +130,28 @@ public class AddModelPanelLogic : MonoBehaviour {
     }
 
     //----------------------------------------------- MEG Handle --------------------------------------------------------------------
+    //得到AddModel面板的1015 Size消息;
+    void OnGetSize(string data)
+    {
+        MsgJson.AddModelSize addModelSize = JsonUtility.FromJson<MsgJson.AddModelSize>(data);
+        ControlPlayer.Instance.m_AddModelSize = addModelSize;
+
+        //加入所有的SizeItem
+        foreach (var v in ControlPlayer.Instance.m_AddModelSize.size)
+        {
+            GameObject tempSize = FrameUtil.AddChild(m_ModelsList.gameObject, m_ModelItem);
+            tempSize.GetComponent<SizeItemLogic>().Init(v);
+
+            foreach (var i in ControlPlayer.Instance.m_AddModelPanelSaveData.m_Size)
+            {
+                if (v.id == i.id)
+                {
+                    tempSize.transform.FindChild("Selected/Toggle").GetComponent<Toggle>().isOn = true;
+                }
+            }
+        }
+    }
+
     //处理添加尺寸消息;
     public void OnAddSize(string data)
     {

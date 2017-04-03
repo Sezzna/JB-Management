@@ -31,15 +31,13 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         m_MakeItInactiveButton = transform.FindChild("MakeItInactive").GetComponent<Button>();
         m_MakeItInactiveButton.onClick.AddListener(OnMakeItInactiveClick);
 
-       
-
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetRange, OnGetRange);
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModel, OnGetCarModel);
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelDetail, OnGetModelDetail);
 
-        MsgRegister.Instance.Register((short)MsgCode.S2C_GetSize, OnGetSize);
+        
 
         MsgRegister.Instance.Register((short)MsgCode.S2C_GetModelPartDetail, OnGetModelPartDetail);
 
@@ -52,7 +50,6 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         form.AddField("token", PlayerPrefs.GetString("token"));
 
         HttpManager.Instance.SendPostForm(ProjectConst.GetRange, form);
-   
     }
 
     //------------------------------------------------ On Button Click ------------------------------------------
@@ -64,11 +61,9 @@ public class ModelManagementPanelLogic : MonoBehaviour {
     }
 
     void OnAddModelClick() {
-        //现有的尺寸通过getSize.php获得，
-        WWWForm form = new WWWForm();
-        form.AddField("token", PlayerPrefs.GetString("token"));
-
-        HttpManager.Instance.SendPostForm(ProjectConst.GetSize, form);
+        //加载AddModel Panel;
+        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("AddModelPanel"));
+        Destroy(gameObject);
     }
     //------------------------------------------------MESSAGE RESPONSE------------------------------------------
     //得到模块类别消息处理 1012;
@@ -135,16 +130,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         }
     }
 
-    //得到AddModel面板的1015 Size消息;
-    void OnGetSize(string data)
-    {
-        MsgJson.AddModelSize addModelSize = JsonUtility.FromJson<MsgJson.AddModelSize>(data);
-        ControlPlayer.Instance.m_AddModelSize = addModelSize;
-        //加载AddModel Panel;
-        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("AddModelPanel"));
-        //销毁Login面板;
-        Destroy(gameObject);
-    }
+
 
     //得到 之前添加的所有车型数据,在转换到 那3个全局数据中 com sp op;
     void OnGetModelPartDetail(string data) {
@@ -175,6 +161,7 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
         foreach (var v in ControlPlayer.Instance.m_SaveAddModelMsg.part_com) {
             ControlPlayer.CommonItem comItem = new ControlPlayer.CommonItem();
+            
             comItem.item.id = v.item_id;
             comItem.item.product_code = v.product_code;
             comItem.item.description = v.description;
@@ -252,6 +239,46 @@ public class ModelManagementPanelLogic : MonoBehaviour {
 
             ControlPlayer.Instance.m_OpItemList.Add(opItem);
         }
+
+        //转stagedisplay;
+        ControlPlayer.Instance.m_StageDisplayList.Clear();
+        ControlPlayer.Instance.m_SpStageDisplayList.Clear();
+        ControlPlayer.Instance.m_OpStageDisplayList.Clear();
+
+        foreach (var v in ControlPlayer.Instance.m_SaveAddModelMsg.StageDisplay) {
+            ControlPlayer.StageDisplay stageDisplay = new ControlPlayer.StageDisplay();
+            stageDisplay.itemId = v.itemId;
+            stageDisplay.rank = v.rank;
+            stageDisplay.stegeId = v.stegeId;
+            ControlPlayer.Instance.m_StageDisplayList.Add(stageDisplay);
+        }
+        foreach (var v in ControlPlayer.Instance.m_SaveAddModelMsg.SpStageDisplay)
+        {
+            ControlPlayer.SpStageDisplay stageDisplay = new ControlPlayer.SpStageDisplay();
+            stageDisplay.itemId = v.itemId;
+            stageDisplay.rank = v.rank;
+            stageDisplay.stegeId = v.stegeId;
+            stageDisplay.sizeId = v.sizeId;
+            ControlPlayer.Instance.m_SpStageDisplayList.Add(stageDisplay);
+        }
+        foreach (var v in ControlPlayer.Instance.m_SaveAddModelMsg.OpStageDisplay)
+        {
+            ControlPlayer.OpStageDisplay stageDisplay = new ControlPlayer.OpStageDisplay();
+            stageDisplay.itemId = v.itemId;
+            stageDisplay.rank = v.rank;
+            stageDisplay.stegeId = v.stegeId;
+            stageDisplay.sizeId = v.sizeId;
+            stageDisplay.name = v.name;
+            ControlPlayer.Instance.m_OpStageDisplayList.Add(stageDisplay);
+        }
+        //转 itemstage
+        ControlPlayer.Instance.m_ItemStages = new MsgJson.ItemStages();
+        ControlPlayer.Instance.m_ItemStages.stages = ControlPlayer.Instance.m_SaveAddModelMsg.ItemStagesList;
+
+        ControlPlayer.Instance.m_Version += 1;
+
+        //加载AddModel Panel;
+        FrameUtil.AddChild(GameObject.Find("Canvas/Stack"), Resources.Load<GameObject>("AddModelPanel"));
     }
 
     //---------------------------------------------Button -------------------------------------------

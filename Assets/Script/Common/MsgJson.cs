@@ -275,7 +275,7 @@ public class MsgJson {
 
     //供货商的Item
     [Serializable]
-    public class Item {
+    public struct Item {
         public string id;
         public string product_code;
         public string description;
@@ -310,7 +310,7 @@ public class MsgJson {
     }
     //Stages
     [Serializable]
-    public class Stages
+    public struct Stages
     {
         public string id;
         public string des;
@@ -468,6 +468,37 @@ public class MsgJson {
         public SavePartCom[] part_com;
         public SavePartSp[] part_sp;
         public SavePartOp[] part_op;
+        public SaveStageDisplay[] StageDisplay;
+        public SaveSpStageDisplay[] SpStageDisplay;
+        public SaveOpStageDisplay[] OpStageDisplay;
+        public Stages[] ItemStagesList;
+    }
+
+    [Serializable]
+    public struct SaveStageDisplay
+    {
+        public string stegeId;
+        public string itemId;
+        public string rank;
+    }
+
+    [Serializable]
+    public class SaveSpStageDisplay
+    {
+        public string stegeId;
+        public string itemId;
+        public string rank;
+        public string sizeId;
+    }
+    
+    [Serializable]
+    public class SaveOpStageDisplay
+    {
+        public string stegeId;
+        public string itemId;
+        public string rank;
+        public string name;
+        public string sizeId;
     }
 
 }
