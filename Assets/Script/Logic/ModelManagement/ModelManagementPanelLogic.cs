@@ -158,7 +158,6 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         }
 
         //转 part_com
-
         foreach (var v in ControlPlayer.Instance.m_SaveAddModelMsg.part_com) {
             ControlPlayer.CommonItem comItem = new ControlPlayer.CommonItem();
             
@@ -294,6 +293,8 @@ public class ModelManagementPanelLogic : MonoBehaviour {
         form.AddField("token", PlayerPrefs.GetString("token"));
 
         HttpManager.Instance.SendPostForm(ProjectConst.GetModelPartDetail, form);
+
+        Destroy(gameObject);
     }
 
     void OnMakeItInactiveClick() {

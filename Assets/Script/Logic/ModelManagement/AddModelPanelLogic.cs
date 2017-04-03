@@ -38,8 +38,7 @@ public class AddModelPanelLogic : MonoBehaviour {
         form.AddField("token", PlayerPrefs.GetString("token"));
 
         HttpManager.Instance.SendPostForm(ProjectConst.GetSize, form);
-        //刷新多选框元素;
-        UpdateChassisDropdownView();
+        
        
         m_BandInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_Brand;
         m_ModeInputField.text = ControlPlayer.Instance.m_AddModelPanelSaveData.m_Model;
@@ -150,6 +149,9 @@ public class AddModelPanelLogic : MonoBehaviour {
                 }
             }
         }
+
+        //刷新多选框元素;
+        UpdateChassisDropdownView();
     }
 
     //处理添加尺寸消息;
