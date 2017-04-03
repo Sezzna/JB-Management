@@ -62,7 +62,7 @@ public class LeftOpItemLogic : MonoBehaviour{
                 }
             }
 
-            GameObject.Find("LastPartsSelectionPanel(Clone)").GetComponent<SpecialpartsSelectionPanel>().AddPartItem();
+        GameObject.Find("LastPartsSelectionPanel(Clone)").GetComponent <LastPartsSelectionPanelLogic>().AddPartItem();
         
     }
 
