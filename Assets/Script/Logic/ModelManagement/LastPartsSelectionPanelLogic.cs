@@ -123,7 +123,7 @@ public class LastPartsSelectionPanelLogic : MonoBehaviour {
                     {
                         if (check == false)
                         {
-                           
+                            FrameUtil.AddChild(m_PartList.gameObject, m_StageTatil).GetComponent<StageTitleLogic>().Init(v.des);
                             check = true;
                         }
                         if(title==false)
